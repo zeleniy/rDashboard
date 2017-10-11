@@ -1,4 +1,7 @@
-#scatterplot-placeholder {
-  height: 300px;
+#tiles-placeholder {
   background-color: lightgrey;
+}
+
+#tiles-placeholder .tile {
+  float: left;
 }

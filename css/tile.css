@@ -1,0 +1,52 @@
+.tile {
+  width: 450px;
+  height: 100px;
+  border: 1px solid #ba8409;
+}
+
+.tile-left {
+  width: 143px;
+  height: 100px;
+  border-right: 1px solid #bbb980;
+  color: black;
+  text-align: center;
+}
+
+.tile-value {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.tile-left .tile-unit {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tile-left .summary {
+  font-weight: 500;
+}
+
+.tile-right {
+  color: white;
+}
+
+.tile-right .tile-value {
+  float: left;
+  font-size: 35px;
+  padding: 0px 15px 0px 15px;
+}
+
+.tile-right .data-source-text {
+  text-transform: uppercase;
+}
+
+.tile-right .data-source {
+  font-size: 1.8em;
+  font-weight: 450;
+  text-transform: uppercase;
+}
+
+.tile-right .summary {
+  margin-left: 15px;
+}
