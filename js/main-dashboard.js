@@ -22,9 +22,12 @@ dataProvider.onLoad(function() {
 
   dashboard.setData();
 
+  const tiles = new Tiles(dashboard);
+
   tilesConfig.forEach(function(options, i) {
     options.backgroundColor = d3.schemeCategory10[i];
-    new SummaryTile(dashboard, options)
-      .renderTo('#tiles-placeholder')
+    tiles.add(new SummaryTile(dashboard, options))
   });
+
+  tiles.renderTo('#tiles-placeholder');
 });

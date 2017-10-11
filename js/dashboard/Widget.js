@@ -1,7 +1,7 @@
 class Widget {
 
 
-  constructor(dashboard, options) {
+  constructor(dashboard, options = {}) {
 
     this._dashboard = dashboard;
     this._config = new Config(options);
@@ -12,5 +12,14 @@ class Widget {
 
     this._selector = selector;
     this._container = d3.select(this._selector);
+
+    return this;
+  }
+
+
+  onClick(callback) {
+
+    this._clickCallback = callback;
+    return this;
   }
 }

@@ -2,6 +2,7 @@
   width: 450px;
   height: 100px;
   border: 1px solid #ba8409;
+  cursor: pointer;
 }
 
 .tile-left {

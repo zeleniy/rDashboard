@@ -4,6 +4,29 @@ class SummaryTile extends Widget {
   constructor(dashboard, options) {
 
     super(dashboard, options);
+    // this._isSelected = true;
+  }
+
+
+  // isSelected() {
+  //
+  //   return this._isSelected;
+  // }
+  //
+  //
+  // toggle() {
+  //
+  //   this.highlight(! this._isSelected);
+  // }
+
+
+  highlight(select) {
+
+    if (select) {
+      this._table.style('opacity', 1);
+    } else {
+      this._table.style('opacity', 0.2);
+    }
   }
 
 
@@ -11,13 +34,18 @@ class SummaryTile extends Widget {
 
     super.renderTo(selector);
 
-    const table = this._container.append('table')
+    const self = this;
+
+    this._table = this._container
+      .append('table')
       .attr('class', 'tile')
-      .style('background-color', this._config.get('backgroundColor'))
+      .on('click', function(d, i, selection) {
+        self._clickCallback(self, this);
+      }).style('background-color', this._config.get('backgroundColor'))
       .append('tbody')
       .append('tr');
 
-    const leftSide = table.append('td')
+    const leftSide = this._table.append('td')
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
@@ -31,7 +59,7 @@ class SummaryTile extends Widget {
       .attr('class', 'summary')
       .text('100% of Total');
 
-    const rightSide = table.append('td')
+    const rightSide = this._table.append('td')
       .attr('class', 'tile-right');
 
     rightSide.append('div')
@@ -46,5 +74,7 @@ class SummaryTile extends Widget {
     rightSide.append('div')
       .attr('class', 'summary')
       .text('100% of Total');
+
+    return this;
   }
 }
