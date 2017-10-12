@@ -7,14 +7,11 @@ class Tile extends Widget {
 
 
   /**
-   * @public
-   * @constructor
-   * @param {Dashboard} dashboard
-   * @param {Object} options
+   * @inheritdoc
    */
-  constructor(dashboard, options) {
+  constructor(options) {
 
-    super(dashboard, options);
+    super(options);
   }
 
 
@@ -39,18 +36,6 @@ class Tile extends Widget {
   getDataKey() {
 
     return this._manager.getDataKey(this._config.get('accessor'));
-  }
-
-
-  /**
-   * Get data.
-   * @public
-   * @returns {Number[]}
-   */
-  getData() {
-
-    const key = this.getDataKey();
-    return this._dashboard.getData().map(d => +d[key]);
   }
 
 
@@ -85,7 +70,7 @@ class Tile extends Widget {
 
 
   /**
-   * @override
+   * @inheritdoc
    */
   renderTo(selector) {
 
@@ -136,7 +121,7 @@ class Tile extends Widget {
 
 
   /**
-   * @override
+   * @inheritdoc
    */
   update() {
 

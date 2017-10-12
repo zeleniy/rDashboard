@@ -6,20 +6,13 @@
 class Tiles extends Widget {
 
 
-  constructor(dashboard, options) {
+  constructor(options) {
 
-    super(dashboard, options);
+    super(options);
 
     this._tiles = [];
     this._clickedTile;
     this._mode = 'count';
-  }
-
-
-  add(tile) {
-
-    this._tiles.push(tile.setManager(this));
-    return this;
   }
 
 
@@ -66,10 +59,18 @@ class Tiles extends Widget {
 
     super.renderTo(selector);
 
-    this._tiles.forEach(function(tile) {
-      tile
+    this._config.getOptions().forEach(function(options, i) {
+
+      options.backgroundColor = d3.schemeCategory10[i];
+
+      var tile = new Tile(options)
+        .setManager(this)
+        .setDashboard(this._dashboard)
         .onClick(this._clickHandler.bind(this))
         .renderTo(selector);
+
+      this._tiles.push(tile);
+
     }.bind(this));
   }
 }

@@ -20,15 +20,17 @@ const tilesConfig = [{
 
 dataProvider.onLoad(function(data) {
 
-  const tiles = new Tiles(dashboard);
+  const tiles = new Tiles(tilesConfig);
 
-  dashboard.setData(data)
-    .addChart(tiles);
-
-  tilesConfig.forEach(function(options, i) {
-    options.backgroundColor = d3.schemeCategory10[i];
-    tiles.add(new Tile(dashboard, options))
+  const pieChart = new PieChart({
+    accessor: 'CaseType'
   });
 
+  dashboard
+    .setData(data)
+    .addChart(tiles)
+    .addChart(pieChart);
+
   tiles.renderTo('#tiles-placeholder');
+  pieChart.renderTo('#case-by-type-placeholder');
 });

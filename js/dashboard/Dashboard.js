@@ -21,7 +21,7 @@ class Dashboard {
 
   addChart(chart) {
 
-    this._charts.push(chart);
+    this._charts.push(chart.setDashboard(this));
     return this;
   }
 

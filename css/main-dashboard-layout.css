@@ -10,3 +10,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+#case-by-type-placeholder {
+  background-color: lightgrey;
+  height: 300px;
+}
+
+.column {
+  padding-left: 0;
+  padding-right: 0;
+}

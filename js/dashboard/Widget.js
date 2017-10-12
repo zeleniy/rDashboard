@@ -1,13 +1,68 @@
+/**
+ * Widget/chart basic class.
+ * @public
+ * @abstract
+ * @class
+ */
 class Widget {
 
 
-  constructor(dashboard, options = {}) {
+  /**
+   * @public
+   * @constructor
+   * @param {Object} options
+   */
+  constructor(options = {}) {
 
-    this._dashboard = dashboard;
     this._config = new Config(options);
   }
 
 
+  /**
+   * Set parent dashboard.
+   * @public
+   * @param {Dashboard} dashboard
+   * @returns {Widget}
+   */
+  setDashboard(dashboard) {
+
+    this._dashboard = dashboard;
+    return this;
+  }
+
+
+  /**
+   * Get chart outer width.
+   * @returns {Number}
+   */
+  getOuterWidth() {
+
+    return this._container
+      .node()
+      .getBoundingClientRect()
+      .width;
+  }
+
+
+  /**
+   * Get chart outer height.
+   * @returns {Number}
+   */
+  getOuterHeight() {
+
+    return this._container
+      .node()
+      .getBoundingClientRect()
+      .height;
+  }
+
+
+  /**
+   * Render widget.
+   * @public
+   * @param {String|HTMLElement} selector
+   * @returns {Widget}
+   */
   renderTo(selector) {
 
     this._selector = selector;
@@ -17,6 +72,12 @@ class Widget {
   }
 
 
+  /**
+   * Set click event handler.
+   * @public
+   * @param {Function} callback
+   * @returns {Widget}
+   */
   onClick(callback) {
 
     this._clickCallback = callback;
@@ -24,8 +85,37 @@ class Widget {
   }
 
 
+  /**
+   * Update widget.
+   * @public
+   * @abstract
+   * @returns {Widget}
+   */
   update() {
 
     throw new Error('Method update() not implemented on ' + this.constructor.name);
+  }
+
+
+  /**
+   * Get data key.
+   * @public
+   * @returns {String}
+   */
+  getDataKey() {
+
+    return this._config.get('accessor');
+  }
+
+
+  /**
+   * Get chart raw data.
+   * @public
+   * @returns {Mixed[]}
+   */
+  getData() {
+
+    const key = this.getDataKey();
+    return this._dashboard.getData().map(d => d[key]);
   }
 }

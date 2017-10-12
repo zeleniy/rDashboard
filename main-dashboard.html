@@ -7,6 +7,7 @@
     <link href="css/main-dashboard-layout.css" rel="stylesheet">
     <link href="css/tile.css" rel="stylesheet">
     <script src="lib/d3/d3.min.js"></script>
+    <script src="lib/lodash/lodash.min.js"></script>
     <script src="js/dashboard/Dashboard.js"></script>
     <script src="js/dashboard/Config.js"></script>
     <script src="js/dashboard/data-provider/DataProvider.js"></script>
@@ -14,11 +15,12 @@
     <script src="js/dashboard/Widget.js"></script>
     <script src="js/dashboard/charts/Tiles.js"></script>
     <script src="js/dashboard/charts/Tile.js"></script>
+    <script src="js/dashboard/charts/PieChart.js"></script>
 </head>
 <body>
   <main class="container">
     <div class="row">
-      <div id="filters-placeholder" class="col-md-12">
+      <div id="filters-placeholder" class="col-md-12 column">
         <div class="filter tiles-mode-filter">
           <label class="radio-inline"><input type="radio" name="tiles-mode" value="count" checked>count</label>
           <label class="radio-inline"><input type="radio" name="tiles-mode" value="size">size</label>
@@ -26,8 +28,10 @@
       </div>
     </div>
     <div class="row">
-      <div id="tiles-placeholder" class="col-md-12">
-      </div>
+      <div id="tiles-placeholder" class="col-md-12 column"></div>
+    </div>
+    <div class="row">
+      <div id="case-by-type-placeholder" class="col-md-6 column"></div>
     </div>
   </main>
   <script src="js/main-dashboard.js"></script>
