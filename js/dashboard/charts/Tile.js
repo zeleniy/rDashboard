@@ -1,23 +1,37 @@
-class SummaryTile extends Widget {
+class Tile extends Widget {
 
 
   constructor(dashboard, options) {
 
     super(dashboard, options);
-    // this._isSelected = true;
   }
 
 
-  // isSelected() {
-  //
-  //   return this._isSelected;
-  // }
-  //
-  //
-  // toggle() {
-  //
-  //   this.highlight(! this._isSelected);
-  // }
+  setManager(tiles) {
+
+    this._manager = tiles;
+    return this;
+  }
+
+
+  getDataKey() {
+
+    return this._manager.getDataKey(this._config.get('accessor'));
+  }
+
+
+  getData() {
+
+    const key = this.getDataKey();
+    return this._dashboard.getData().map(d => +d[key]);
+  }
+
+
+  getUnit() {
+
+    const key = this._config.get('accessor') + 'Unit';
+    return this._dashboard.getData()[0][key];
+  }
 
 
   highlight(select) {
@@ -49,12 +63,10 @@ class SummaryTile extends Widget {
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
-    div.append('span')
-      .attr('class', 'tile-value')
-      .text(26.1);
-    div.append('span')
-      .attr('class', 'tile-unit')
-      .text('gb');
+    this._valueText = div.append('span')
+      .attr('class', 'tile-value');
+    this._unitText = div.append('span')
+      .attr('class', 'tile-unit');
     leftSide.append('div')
       .attr('class', 'summary')
       .text('100% of Total');
@@ -75,6 +87,15 @@ class SummaryTile extends Widget {
       .attr('class', 'summary')
       .text('100% of Total');
 
+    this.update();
+
     return this;
+  }
+
+
+  update() {
+
+    this._valueText.text(d3.sum(this.getData()));
+    this._unitText.text(this.getUnit())
   }
 }

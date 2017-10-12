@@ -15,7 +15,7 @@ class LocalFileProvider extends DataProvider {
         return console.error(error);
       }
 
-      callback();
+      callback(data);
     })
   }
 }

@@ -9,15 +9,30 @@ class Tiles extends Widget {
   constructor(dashboard, options) {
 
     super(dashboard, options);
+
     this._tiles = [];
     this._clickedTile;
+    this._mode = 'count';
   }
 
 
   add(tile) {
 
-    this._tiles.push(tile);
+    this._tiles.push(tile.setManager(this));
     return this;
+  }
+
+
+  setMode(mode) {
+
+    this._mode = mode;
+    return this;
+  }
+
+
+  getDataKey(accessor) {
+
+    return accessor + this._mode[0].toUpperCase() + this._mode.substring(1).toLowerCase();
   }
 
 

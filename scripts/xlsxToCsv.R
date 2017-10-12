@@ -5,4 +5,4 @@ x = readxl::read_excel("~/Downloads/Sample Data for Dashboards/CaseStatsSummary.
 #
 # Write it in .csv format.
 #
-write.csv(x, "~/Projects/rDashboard/data/CaseStatsSummary.tsv", row.names = F)
+write.table(x, "~/Projects/rDashboard/data/CaseStatsSummary.tsv", sep="\t", row.names = F)

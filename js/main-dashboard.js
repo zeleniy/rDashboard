@@ -18,15 +18,15 @@ const tilesConfig = [{
     accessor: 'ProducedDocuments'
   }];
 
-dataProvider.onLoad(function() {
+dataProvider.onLoad(function(data) {
 
-  dashboard.setData();
+  dashboard.setData(data);
 
   const tiles = new Tiles(dashboard);
 
   tilesConfig.forEach(function(options, i) {
     options.backgroundColor = d3.schemeCategory10[i];
-    tiles.add(new SummaryTile(dashboard, options))
+    tiles.add(new Tile(dashboard, options))
   });
 
   tiles.renderTo('#tiles-placeholder');
