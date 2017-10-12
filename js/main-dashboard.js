@@ -23,7 +23,7 @@ dataProvider.onLoad(function(data) {
   const tiles = new Tiles(dashboard);
 
   dashboard.setData(data)
-    .setTiles(tiles);
+    .addChart(tiles);
 
   tilesConfig.forEach(function(options, i) {
     options.backgroundColor = d3.schemeCategory10[i];

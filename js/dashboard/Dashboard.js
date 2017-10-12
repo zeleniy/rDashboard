@@ -3,6 +3,8 @@ class Dashboard {
 
   constructor() {
 
+    this._charts = [];
+
     d3.selectAll('.tiles-mode-filter input')
       .on('change', this.tilesModeChangeEventHandler.bind(this));
   }
@@ -10,15 +12,16 @@ class Dashboard {
 
   tilesModeChangeEventHandler(d, i, set) {
 
-    this._tiles
+    this._charts
+      .find(chart => chart.constructor.name === Tiles.name)
       .setMode(d3.select(set[i]).attr('value'))
       .update();
   }
 
 
-  setTiles(tiles) {
+  addChart(chart) {
 
-    this._tiles = tiles;
+    this._charts.push(chart);
     return this;
   }
 
