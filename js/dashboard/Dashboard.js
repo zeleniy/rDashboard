@@ -7,6 +7,18 @@ class Dashboard {
 
     d3.selectAll('.tiles-mode-filter input')
       .on('change', this.tilesModeChangeEventHandler.bind(this));
+
+    d3.select(window).on('resize', function() {
+      this.resize();
+    }.bind(this))
+  }
+
+
+  resize() {
+
+    this._charts.forEach(function(chart) {
+      chart.resize();
+    });
   }
 
 

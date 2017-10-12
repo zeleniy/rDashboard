@@ -19,47 +19,99 @@ class PieChart extends Widget {
 
     super.renderTo(selector);
 
-    console.log(this.getOuterWidth(), this.getOuterHeight())
-    const width = this.getOuterWidth();
-    const height = this.getOuterHeight();
-    const radius = Math.min(width, height) / 2;
-
     this._svg = this._container
       .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+      .attr('class', 'pie-chart');
 
     this._canvas = this._svg
       .append('g')
-      .attr('class', 'canvas')
-      .attr('transform', 'translate(' + width / 2 + ', ' + height / 2 + ')');
-
-    var color = d3.scaleOrdinal(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
+      .attr('class', 'canvas');
 
     var pie = d3.pie()
-        .sort(null)
-        .value(d => d.value);
+      .sort(null)
+      .value(d => d.value);
 
-    var path = d3.arc()
-        .outerRadius(radius - 10)
-        .innerRadius(0);
+    const chartData = pie(this.getData());
+    this._slices = this._canvas
+      .selectAll('path')
+      .data(chartData)
+      .enter()
+      .append('path')
+      .attr('class', 'slice')
+      .attr('fill', (d, i) => d3.schemeCategory10[i]);
 
-    var label = d3.arc()
-        .outerRadius(radius - 40)
-        .innerRadius(radius - 40);
+    this._polylines = this._canvas
+      .selectAll('polyline')
+      .data(chartData)
+      .enter()
+      .append('polyline');
 
-    var arc = this._canvas.selectAll('.arc')
-      .data(pie(this.getData()))
-      .enter().append('g')
-        .attr('class', 'arc');
+    this._labels = this._canvas
+      .selectAll('text')
+      .data(chartData)
+      .enter()
+      .append('text')
+      .attr('dy', '.35em')
+      .text(function(d) {
+        return d.data.name;
+      }).style('text-anchor', function(d) {
+          return this._getMidAngle(d) < Math.PI ? 'start' : 'end';
+      }.bind(this));
 
-    arc.append('path')
-        .attr('d', path)
-        .attr('fill', d => color(d.data.value));
+      this.resize();
 
-    arc.append('text')
-        .attr('transform', function(d) { return 'translate(' + label.centroid(d) + ')'; })
-        .attr('dy', '0.35em')
-        .text(function(d) { return d.data.value; });
+      return this.update();
+  }
+
+
+  resize() {
+
+    const width = this.getOuterWidth();
+    const height = this.getOuterHeight();
+    const radius = Math.min(width, height) / 2 * 0.75;
+
+    this._svg
+      .attr('width', width)
+      .attr('height', height);
+
+    this._canvas
+      .attr('transform', 'translate(' + width / 2 + ', ' + height / 2 + ')');
+
+    var arc = d3.arc()
+      .outerRadius(radius * 0.9)
+      .innerRadius(0);
+
+    var outerArc = d3.arc()
+      .outerRadius(radius * 2)
+      .innerRadius(0);
+
+    this._slices
+      .attr('d', arc);
+
+    this._polylines
+      .attr('points', function(d) {
+        var position = outerArc.centroid(d);
+        position[0] = radius * 0.95 * (this._getMidAngle(d) < Math.PI ? 1 : -1);
+        return [arc.centroid(d), outerArc.centroid(d), position];
+      }.bind(this));
+
+    this._labels
+      .attr('transform', function(d) {
+        var position = outerArc.centroid(d);
+        position[0] = radius * (this._getMidAngle(d) < Math.PI ? 1 : -1);
+        return 'translate(' + position + ')';
+      }.bind(this));
+  }
+
+
+  update() {
+
+    return this;
+  }
+
+
+  _getMidAngle(d) {
+
+    return d.startAngle + (d.endAngle - d.startAngle) / 2;
   }
 }

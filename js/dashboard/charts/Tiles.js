@@ -55,6 +55,11 @@ class Tiles extends Widget {
   }
 
 
+  resize() {
+    
+  }
+
+
   renderTo(selector) {
 
     super.renderTo(selector);

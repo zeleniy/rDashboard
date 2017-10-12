@@ -98,6 +98,18 @@ class Widget {
 
 
   /**
+   * Update widget.
+   * @public
+   * @abstract
+   * @returns {Widget}
+   */
+  resize() {
+
+    throw new Error('Method resize() not implemented on ' + this.constructor.name);
+  }
+
+
+  /**
    * Get data key.
    * @public
    * @returns {String}
