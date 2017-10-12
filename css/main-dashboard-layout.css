@@ -5,3 +5,8 @@
 #tiles-placeholder .tile {
   float: left;
 }
+
+#filters-placeholder {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

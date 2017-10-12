@@ -20,9 +20,10 @@ const tilesConfig = [{
 
 dataProvider.onLoad(function(data) {
 
-  dashboard.setData(data);
-
   const tiles = new Tiles(dashboard);
+
+  dashboard.setData(data)
+    .setTiles(tiles);
 
   tilesConfig.forEach(function(options, i) {
     options.backgroundColor = d3.schemeCategory10[i];

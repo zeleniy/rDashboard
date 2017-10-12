@@ -22,4 +22,10 @@ class Widget {
     this._clickCallback = callback;
     return this;
   }
+
+
+  update() {
+
+    throw new Error('Method update() not implemented on ' + this.constructor.name);
+  }
 }

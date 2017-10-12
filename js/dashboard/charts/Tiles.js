@@ -54,6 +54,14 @@ class Tiles extends Widget {
   }
 
 
+  update() {
+
+    this._tiles.forEach(function(tile) {
+      tile.update()
+    });
+  }
+
+
   renderTo(selector) {
 
     super.renderTo(selector);

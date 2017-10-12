@@ -1,12 +1,29 @@
+/**
+ * Tile chart.
+ * @public
+ * @class
+ */
 class Tile extends Widget {
 
 
+  /**
+   * @public
+   * @constructor
+   * @param {Dashboard} dashboard
+   * @param {Object} options
+   */
   constructor(dashboard, options) {
 
     super(dashboard, options);
   }
 
 
+  /**
+   * Set tiles manager.
+   * @public
+   * @param {Tiles}
+   * @returns {Tile}
+   */
   setManager(tiles) {
 
     this._manager = tiles;
@@ -14,12 +31,22 @@ class Tile extends Widget {
   }
 
 
+  /**
+   * Get data key.
+   * @public
+   * @returns {String}
+   */
   getDataKey() {
 
     return this._manager.getDataKey(this._config.get('accessor'));
   }
 
 
+  /**
+   * Get data.
+   * @public
+   * @returns {Number[]}
+   */
   getData() {
 
     const key = this.getDataKey();
@@ -27,23 +54,46 @@ class Tile extends Widget {
   }
 
 
+  /**
+   * Get unit.
+   * @public
+   * @returns {String}
+   */
   getUnit() {
 
-    const key = this._config.get('accessor') + 'Unit';
+    const key = this.getDataKey() + 'Unit';
     return this._dashboard.getData()[0][key];
   }
 
 
+  /**
+   * Highlight tile§.
+   * @public
+   * @param {Boolean} select
+   */
   highlight(select) {
 
+    var bgColor = d3.color(this._config.get('backgroundColor'));
+
+    var opacity;
     if (select) {
-      this._table.style('opacity', 1);
+      opacity = 1;
     } else {
-      this._table.style('opacity', 0.2);
+      opacity = 0.5;
     }
+
+    bgColor.opacity = opacity;
+    console.log(bgColor);
+
+    this._table
+      .style('opacity', opacity)
+      .style('background-color', bgColor);
   }
 
 
+  /**
+   * @override
+   */
   renderTo(selector) {
 
     super.renderTo(selector);
@@ -53,11 +103,12 @@ class Tile extends Widget {
     this._table = this._container
       .append('table')
       .attr('class', 'tile')
+      .append('tbody')
+      .append('tr')
+      .style('background-color', this._config.get('backgroundColor'))
       .on('click', function(d, i, selection) {
         self._clickCallback(self, this);
-      }).style('background-color', this._config.get('backgroundColor'))
-      .append('tbody')
-      .append('tr');
+      });
 
     const leftSide = this._table.append('td')
       .attr('class', 'tile-left');
@@ -87,15 +138,18 @@ class Tile extends Widget {
       .attr('class', 'summary')
       .text('100% of Total');
 
-    this.update();
-
-    return this;
+    return this.update();
   }
 
 
+  /**
+   * @override
+   */
   update() {
 
-    this._valueText.text(d3.sum(this.getData()));
-    this._unitText.text(this.getUnit())
+    this._valueText.text(Math.round(d3.sum(this.getData())));
+    this._unitText.text(this.getUnit());
+
+    return this;
   }
 }
