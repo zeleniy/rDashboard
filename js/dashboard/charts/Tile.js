@@ -73,17 +73,10 @@ class Tile extends Widget {
    */
   highlight(select) {
 
+    const opacity = select ? 1 : 0.5;
+
     var bgColor = d3.color(this._config.get('backgroundColor'));
-
-    var opacity;
-    if (select) {
-      opacity = 1;
-    } else {
-      opacity = 0.5;
-    }
-
     bgColor.opacity = opacity;
-    console.log(bgColor);
 
     this._table
       .style('opacity', opacity)
