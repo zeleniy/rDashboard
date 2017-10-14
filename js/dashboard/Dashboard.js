@@ -14,6 +14,14 @@ class Dashboard {
   }
 
 
+  render() {
+
+    this._charts.forEach(function(chart) {
+      chart.render();
+    });
+  }
+
+
   resize() {
 
     this._charts.forEach(function(chart) {

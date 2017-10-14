@@ -1,7 +1,9 @@
 const dashboard = new Dashboard();
 const dataProvider = new LocalFileProvider('data/CaseStatsSummary.tsv');
 
-const tilesConfig = [{
+const tiles = new Tiles({
+  placeholder: '#tiles-placeholder',
+  tiles: [{
     name: 'identified',
     accessor: 'IdetifiedDataSources'
   }, {
@@ -16,33 +18,32 @@ const tilesConfig = [{
   }, {
     name: 'produced',
     accessor: 'ProducedDocuments'
-  }];
+  }]
+});
+
+const pieChart = new PieChart({
+  accessor: 'CaseType',
+  placeholder: '#case-by-type-placeholder'
+});
+
+const barChart = new BarChart({
+  accessor: 'EntityName',
+  placeholder: '#cases-by-entity-placeholder'
+});
+
+const scatterPlot = new ScatterPlot({
+  accessor: 'CaseName',
+  placeholder: '#case-volume-placeholder'
+});
+
 
 dataProvider.onLoad(function(data) {
-
-  const tiles = new Tiles(tilesConfig);
-
-  const pieChart = new PieChart({
-    accessor: 'CaseType'
-  });
-
-  const barChart = new BarChart({
-    accessor: 'EntityName'
-  });
-
-  const scatterPlot = new ScatterPlot({
-    accessor: 'CaseName'
-  });
 
   dashboard
     .setData(data)
     .addChart(tiles)
     .addChart(pieChart)
     .addChart(barChart)
-    .addChart(scatterPlot);
-
-  tiles.renderTo('#tiles-placeholder');
-  pieChart.renderTo('#case-by-type-placeholder');
-  barChart.renderTo('#cases-by-entity-placeholder');
-  scatterPlot.renderTo('#case-volume-placeholder');
+    .addChart(scatterPlot)
+    .render();
 });

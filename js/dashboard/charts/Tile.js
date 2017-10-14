@@ -72,11 +72,11 @@ class Tile extends Widget {
   /**
    * @inheritdoc
    */
-  renderTo(selector) {
-
-    super.renderTo(selector);
+  render() {
 
     const self = this;
+
+    this._container = d3.select(this._config.get('placeholder'));
 
     this._table = this._container
       .append('table')

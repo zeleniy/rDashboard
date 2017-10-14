@@ -60,9 +60,9 @@ class ScatterPlot extends Widget {
   }
 
 
-  renderTo(selector) {
+  render() {
 
-    super.renderTo(selector);
+    this._container = d3.select(this._config.get('placeholder'));
 
     this._svg = this._container
       .append('svg')

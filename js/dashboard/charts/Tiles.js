@@ -56,23 +56,22 @@ class Tiles extends Widget {
 
 
   resize() {
-    
+
   }
 
 
-  renderTo(selector) {
+  render() {
 
-    super.renderTo(selector);
-
-    this._config.getOptions().forEach(function(options, i) {
+    this._config.get('tiles').forEach(function(options, i) {
 
       options.backgroundColor = d3.schemeCategory10[i];
+      options.placeholder = this._config.get('placeholder');
 
       var tile = new Tile(options)
         .setManager(this)
         .setDashboard(this._dashboard)
         .onClick(this._clickHandler.bind(this))
-        .renderTo(selector);
+        .render();
 
       this._tiles.push(tile);
 

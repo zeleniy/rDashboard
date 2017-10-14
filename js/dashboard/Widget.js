@@ -107,15 +107,12 @@ class Widget {
   /**
    * Render widget.
    * @public
-   * @param {String|HTMLElement} selector
+   * @abstract
    * @returns {Widget}
    */
-  renderTo(selector) {
+  render() {
 
-    this._selector = selector;
-    this._container = d3.select(this._selector);
-
-    return this;
+    throw new Error('Method render() not implemented on ' + this.constructor.name);
   }
 
 
