@@ -6,6 +6,11 @@
   float: left;
 }
 
+#matter-type-placeholder {
+  background-color: lightgrey;
+  height: 300px;
+}
+
 #filters-placeholder {
   padding-top: 10px;
   padding-bottom: 10px;

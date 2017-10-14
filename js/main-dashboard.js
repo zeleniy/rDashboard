@@ -36,6 +36,11 @@ const scatterPlot = new ScatterPlot({
   placeholder: '#case-volume-placeholder'
 });
 
+const treeMap = new TreeMap({
+  accessor: 'MatterType',
+  placeholder: '#matter-type-placeholder'
+});
+
 
 dataProvider.onLoad(function(data) {
 
@@ -45,5 +50,6 @@ dataProvider.onLoad(function(data) {
     .addChart(pieChart)
     .addChart(barChart)
     .addChart(scatterPlot)
+    .addChart(treeMap)
     .render();
 });
