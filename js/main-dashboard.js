@@ -30,13 +30,19 @@ dataProvider.onLoad(function(data) {
     accessor: 'EntityName'
   });
 
+  const scatterPlot = new ScatterPlot({
+    accessor: 'CaseName'
+  });
+
   dashboard
     .setData(data)
     .addChart(tiles)
     .addChart(pieChart)
-    .addChart(barChart);
+    .addChart(barChart)
+    .addChart(scatterPlot);
 
   tiles.renderTo('#tiles-placeholder');
   pieChart.renderTo('#case-by-type-placeholder');
   barChart.renderTo('#cases-by-entity-placeholder');
+  scatterPlot.renderTo('#case-volume-placeholder');
 });

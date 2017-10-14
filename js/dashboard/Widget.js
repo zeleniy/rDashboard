@@ -25,6 +25,17 @@ class Widget {
 
 
   /**
+   * Get chart margin.
+   * @public
+   * @returns {Object}
+   */
+  getMargin() {
+
+    return this._margin;
+  }
+
+
+  /**
    * Set parent dashboard.
    * @public
    * @param {Dashboard} dashboard
@@ -56,10 +67,12 @@ class Widget {
    */
   getInnerWidth() {
 
+    const margin = this.getMargin();
+
     return this._container
       .node()
       .getBoundingClientRect()
-      .width - this._margin.left - this._margin.right;
+      .width - margin.left - margin.right;
   }
 
 
@@ -82,10 +95,12 @@ class Widget {
    */
   getInnerHeight() {
 
+    const margin = this.getMargin();
+
     return this._container
       .node()
       .getBoundingClientRect()
-      .height - this._margin.top - this._margin.bottom;
+      .height - margin.top - margin.bottom;
   }
 
 

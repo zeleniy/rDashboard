@@ -19,6 +19,10 @@ class BarChart extends Widget {
   }
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
   getData() {
 
     return _(super.getData())

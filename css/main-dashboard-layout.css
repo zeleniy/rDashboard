@@ -16,6 +16,11 @@
   height: 300px;
 }
 
+#case-volume-placeholder {
+  background-color: lightgrey;
+  height: 300px;
+}
+
 #cases-by-entity-placeholder {
   background-color: lightgrey;
   height: 300px;
