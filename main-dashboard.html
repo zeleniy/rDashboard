@@ -5,8 +5,10 @@
     <title>Main dashboard</title>
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main-dashboard-layout.css" rel="stylesheet">
+    <link href="css/chart.css" rel="stylesheet">
     <link href="css/tile.css" rel="stylesheet">
     <link href="css/pieChart.css" rel="stylesheet">
+    <link href="css/barChart.css" rel="stylesheet">
     <script src="lib/d3/d3.min.js"></script>
     <script src="lib/lodash/lodash.min.js"></script>
     <script src="js/dashboard/Dashboard.js"></script>
@@ -17,6 +19,7 @@
     <script src="js/dashboard/charts/Tiles.js"></script>
     <script src="js/dashboard/charts/Tile.js"></script>
     <script src="js/dashboard/charts/PieChart.js"></script>
+    <script src="js/dashboard/charts/BarChart.js"></script>
 </head>
 <body>
   <main class="container">
@@ -33,6 +36,7 @@
     </div>
     <div class="row">
       <div id="case-by-type-placeholder" class="col-md-6 column"></div>
+      <div id="cases-by-entity-placeholder" class="col-md-6 column"></div>
     </div>
   </main>
   <script src="js/main-dashboard.js"></script>

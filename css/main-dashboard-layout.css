@@ -16,6 +16,11 @@
   height: 300px;
 }
 
+#cases-by-entity-placeholder {
+  background-color: lightgrey;
+  height: 300px;
+}
+
 .column {
   padding-left: 0;
   padding-right: 0;

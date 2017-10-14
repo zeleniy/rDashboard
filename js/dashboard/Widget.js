@@ -15,6 +15,12 @@ class Widget {
   constructor(options = {}) {
 
     this._config = new Config(options);
+    this._margin = {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    };
   }
 
 
@@ -45,6 +51,19 @@ class Widget {
 
 
   /**
+   * Get chart inner width.
+   * @returns {Number}
+   */
+  getInnerWidth() {
+
+    return this._container
+      .node()
+      .getBoundingClientRect()
+      .width - this._margin.left - this._margin.right;
+  }
+
+
+  /**
    * Get chart outer height.
    * @returns {Number}
    */
@@ -54,6 +73,19 @@ class Widget {
       .node()
       .getBoundingClientRect()
       .height;
+  }
+
+
+  /**
+   * Get chart inner height.
+   * @returns {Number}
+   */
+  getInnerHeight() {
+
+    return this._container
+      .node()
+      .getBoundingClientRect()
+      .height - this._margin.top - this._margin.bottom;
   }
 
 

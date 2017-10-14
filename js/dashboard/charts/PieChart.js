@@ -51,6 +51,7 @@ class PieChart extends Widget {
       .data(chartData)
       .enter()
       .append('text')
+      .attr('class', 'label')
       .attr('dy', '.35em')
       .text(function(d) {
         return d.data.name;

@@ -26,11 +26,17 @@ dataProvider.onLoad(function(data) {
     accessor: 'CaseType'
   });
 
+  const barChart = new BarChart({
+    accessor: 'EntityName'
+  });
+
   dashboard
     .setData(data)
     .addChart(tiles)
-    .addChart(pieChart);
+    .addChart(pieChart)
+    .addChart(barChart);
 
   tiles.renderTo('#tiles-placeholder');
   pieChart.renderTo('#case-by-type-placeholder');
+  barChart.renderTo('#cases-by-entity-placeholder');
 });
