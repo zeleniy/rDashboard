@@ -1,3 +1,8 @@
+/**
+ * Scatter plot.
+ * @public
+ * @class
+ */
 class ScatterPlot extends Widget {
 
 
