@@ -46,6 +46,10 @@ const map = new Map({
   placeholder: '#map-placeholder'
 });
 
+const timeLine = new TimeLine({
+  accessor: 'CaseCreatedOn',
+  placeholder: '#timeline-placeholder'
+});
 
 dataProvider.onLoad(function(data) {
 
@@ -57,5 +61,6 @@ dataProvider.onLoad(function(data) {
     .addChart(scatterPlot)
     .addChart(treeMap)
     .addChart(map)
+    .addChart(timeLine)
     .render();
 });

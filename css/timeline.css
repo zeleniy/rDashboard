@@ -1,0 +1,4 @@
+svg.map path.custom-handle {
+  stroke: #000;
+  cursor: 'ew-resize';
+}
