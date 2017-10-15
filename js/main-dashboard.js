@@ -41,6 +41,11 @@ const treeMap = new TreeMap({
   placeholder: '#matter-type-placeholder'
 });
 
+const map = new Map({
+  accessor: 'Country',
+  placeholder: '#map-placeholder'
+});
+
 
 dataProvider.onLoad(function(data) {
 
@@ -51,5 +56,6 @@ dataProvider.onLoad(function(data) {
     .addChart(barChart)
     .addChart(scatterPlot)
     .addChart(treeMap)
+    .addChart(map)
     .render();
 });
