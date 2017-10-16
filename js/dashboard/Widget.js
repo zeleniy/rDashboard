@@ -17,6 +17,7 @@ class Widget {
     this._config = new Config(options);
 
     this._colorSet = d3.schemeCategory10;
+    this._colorScale = d3.scaleOrdinal();
 
     this._margin = {
       top: 0,
@@ -27,16 +28,21 @@ class Widget {
   }
 
 
+  getAccessor() {
+
+    return this._config.get('accessor');
+  }
+
+
   /**
    * Get item color.
    * @public
-   * @param {Object} d
-   * @param {Integer} i
+   * @param {String} d
    * @returns {String}
    */
   getColor(d, i) {
 
-    return this._colorSet[i % this._colorSet.length];
+    return null;
   }
 
 
@@ -123,12 +129,26 @@ class Widget {
   /**
    * Render widget.
    * @public
-   * @abstract
    * @returns {Widget}
    */
   render() {
 
-    throw new Error('Method render() not implemented on ' + this.constructor.name);
+    this._container = d3.select(this._config.get('placeholder'));
+
+    this._colorScale
+      .domain(this.getData())
+      .range(this.getColorRange());
+  }
+
+
+  /**
+  * Get color range.
+  * @public
+  * @returns {String[]}
+   */
+  getColorRange() {
+
+    return this.getData().map((d, i) => this._colorSet[i % this._colorSet.length]);
   }
 
 
@@ -183,11 +203,15 @@ class Widget {
   /**
    * Get chart raw data.
    * @public
+   * @param {String[]} excludeList - list of filters to exclude
    * @returns {Mixed[]}
    */
-  getData() {
+  getData(excludeList) {
 
     const key = this.getDataKey();
-    return this._dashboard.getData().map(d => d[key]);
+
+    return this._dashboard
+      .getData(excludeList)
+      .map(d => d[key]);
   }
 }

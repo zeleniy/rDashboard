@@ -1,9 +1,15 @@
+/**
+ * Dashboard.
+ * @public
+ * @class
+ */
 class Dashboard {
 
 
   constructor() {
 
     this._charts = [];
+    this._filters = {};
 
     d3.selectAll('.tiles-mode-filter input')
       .on('change', this.tilesModeChangeEventHandler.bind(this));
@@ -14,7 +20,22 @@ class Dashboard {
   }
 
 
+  _mungeData() {
+
+    this._charts.forEach(function(chart) {
+      var accessor = chart.getAccessor();
+      if ('munge' in chart) {
+
+        var mungedData = chart.munge();
+        this._data.forEach((d, i) => d[accessor] = mungedData[i]);
+      }
+    }.bind(this));
+  }
+
+
   render() {
+
+    this._mungeData();
 
     this._charts.forEach(function(chart) {
       chart.render();
@@ -53,8 +74,51 @@ class Dashboard {
   }
 
 
-  getData() {
+  /**
+   * Set data filter.
+   * @public
+   * @param {String} name - filter name.
+   * @param {Function} filter - filter function.
+   * @retuns {Dashboard}
+   */
+  setFilter(accessor, filter) {
 
-    return this._data;
+    this._filters[accessor] = filter;
+    this.update();
+  }
+
+
+  update() {
+
+    this._charts.forEach(function(chart) {
+      chart.update();
+    });
+  }
+
+
+  getData(excludeList = []) {
+
+    if (_.size(this._filters) == 0) {
+      return this._data;
+    }
+
+    if (! Array.isArray(excludeList)) {
+      excludeList = [excludeList];
+    }
+
+    var data = this._data.slice(0);
+
+    _.each(this._filters, function(filter, accessor) {
+
+      if (excludeList.length > 0 && excludeList.indexOf(accessor) != -1) {
+        return;
+      }
+
+      data = data.filter(function(d) {
+        return filter(d[accessor]);
+      })
+    })
+
+    return data;
   }
 }

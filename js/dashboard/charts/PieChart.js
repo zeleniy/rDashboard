@@ -17,7 +17,7 @@ class PieChart extends Widget {
 
   render() {
 
-    this._container = d3.select(this._config.get('placeholder'));
+    super.render();
 
     this._svg = this._container
       .append('svg')
@@ -27,41 +27,7 @@ class PieChart extends Widget {
       .append('g')
       .attr('class', 'canvas');
 
-    var pie = d3.pie()
-      .sort(null)
-      .value(d => d.value);
-
-    const chartData = pie(this.getData());
-    this._slices = this._canvas
-      .selectAll('path')
-      .data(chartData)
-      .enter()
-      .append('path')
-      .attr('class', 'slice')
-      .attr('fill', this.getColor.bind(this));
-
-    this._polylines = this._canvas
-      .selectAll('polyline')
-      .data(chartData)
-      .enter()
-      .append('polyline');
-
-    this._labels = this._canvas
-      .selectAll('text')
-      .data(chartData)
-      .enter()
-      .append('text')
-      .attr('class', 'label')
-      .attr('dy', '.35em')
-      .text(function(d) {
-        return d.data.name;
-      }).style('text-anchor', function(d) {
-          return this._getMidAngle(d) < Math.PI ? 'start' : 'end';
-      }.bind(this));
-
-      this.resize();
-
-      return this.update();
+    return this.update();
   }
 
 
@@ -102,12 +68,59 @@ class PieChart extends Widget {
         position[0] = radius * (this._getMidAngle(d) < Math.PI ? 1 : -1);
         return 'translate(' + position + ')';
       }.bind(this));
+
+    return this;
   }
 
 
   update() {
 
-    return this;
+    var pie = d3.pie()
+      .sort(null)
+      .value(d => d.value);
+
+    const chartData = pie(this.getData());
+
+    var update = this._canvas
+      .selectAll('path')
+      .data(chartData, d => d.data.name);
+    update.exit().remove();
+    update.enter()
+      .append('path')
+      .attr('class', 'slice')
+      .attr('fill', d => this._colorScale(d.data.name));
+
+    this._slices = this._canvas
+      .selectAll('path');
+
+    update = this._canvas
+      .selectAll('polyline')
+      .data(chartData, d => d.data.name);
+    update.exit().remove();
+    update.enter()
+      .append('polyline');
+
+    this._polylines = this._canvas
+      .selectAll('polyline');
+
+    update = this._canvas
+      .selectAll('text')
+      .data(chartData, d => d.data.name);
+    update.exit().remove();
+    update.enter()
+      .append('text')
+      .attr('class', 'label')
+      .attr('dy', '.35em')
+      .text(function(d) {
+        return d.data.name;
+      }).style('text-anchor', function(d) {
+          return this._getMidAngle(d) < Math.PI ? 'start' : 'end';
+      }.bind(this));
+
+    this._labels = this._canvas
+      .selectAll('text');
+
+    return this.resize();
   }
 
 

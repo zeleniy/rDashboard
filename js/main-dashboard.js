@@ -60,7 +60,7 @@ dataProvider.onLoad(function(data) {
     .addChart(barChart)
     .addChart(scatterPlot)
     .addChart(treeMap)
-    .addChart(map)
+    // .addChart(map)
     .addChart(timeLine)
     .render();
 });

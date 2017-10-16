@@ -14,6 +14,7 @@ class TimeLine extends Widget {
 
     super(options);
 
+    this._isFirstTime = true;
     this._height = 80;
     this._margin = {
       top: 0,
@@ -43,7 +44,8 @@ class TimeLine extends Widget {
     this._xScale = d3.scaleTime();
 
     this._brush = d3.brushX()
-        .on('brush', this._brushMoveEventHandler.bind(this));
+        .on('brush', this._brushMoveEventHandler.bind(this))
+        .on('end', this._brushEndEventHandler.bind(this));
 
     this._xAxis = this._canvas
       .append('g')
@@ -108,16 +110,6 @@ class TimeLine extends Widget {
   }
 
 
-  /**
-   * @inheritdoc
-   * @override
-   */
-  getData() {
-
-    return super.getData().map(d => moment(d).toDate());
-  }
-
-
   _getHandlePathString(d) {
 
     const height = this._height;
@@ -147,6 +139,27 @@ class TimeLine extends Widget {
   }
 
 
+  _brushEndEventHandler() {
+
+    if (this._isFirstTime === true) {
+      return this._isFirstTime = false;
+    }
+
+    var min = this._extent[0];
+    var max = this._extent[1];
+
+    this._dashboard.setFilter(this.getAccessor(), function(d) {
+      return d >= min && d <= max;
+    });
+  }
+
+
+  munge() {
+
+    return super.getData().map(d => moment(d).toDate())
+  }
+
+
   /**
    * @inheritdoc
    * @override
@@ -154,7 +167,7 @@ class TimeLine extends Widget {
   update() {
 
     this._xScale
-      .domain(d3.extent(this.getData()))
+      .domain(d3.extent(this.getData(this.getAccessor())))
 
     return this;
   }
