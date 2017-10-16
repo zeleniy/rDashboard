@@ -114,7 +114,7 @@ class TimeLine extends Widget {
    */
   getData() {
 
-    return super.getData().map(d => new Date(d));
+    return super.getData().map(d => moment(d).toDate());
   }
 
 
