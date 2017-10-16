@@ -55,7 +55,7 @@ dataProvider.onLoad(function(data) {
 
   dashboard
     .setData(data)
-    // .addChart(tiles)
+    .addChart(tiles)
     .addChart(pieChart)
     .addChart(barChart)
     .addChart(scatterPlot)

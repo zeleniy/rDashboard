@@ -60,11 +60,19 @@ class Tiles extends Widget {
   }
 
 
+  getDomain() {
+
+    return d3.range(this._config.get('tiles').length);
+  }
+
+
   render() {
+
+    super.render();
 
     this._config.get('tiles').forEach(function(options, i) {
 
-      options.backgroundColor = this.getColor({}, i);
+      options.backgroundColor = this._colorScale(i);
       options.placeholder = this._config.get('placeholder');
 
       var tile = new Tile(options)
