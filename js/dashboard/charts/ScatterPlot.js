@@ -53,9 +53,15 @@ class ScatterPlot extends Widget {
   }
 
 
+  getDomain() {
+
+    return d3.range(this.getData().length);
+  }
+
+
   render() {
 
-    this._container = d3.select(this._config.get('placeholder'));
+    super.render();
 
     this._svg = this._container
       .append('svg')
@@ -140,7 +146,7 @@ class ScatterPlot extends Widget {
 
     this._dots = this._canvas
       .selectAll('circle')
-      .style('fill', this.getColor.bind(this));
+      .style('fill', (d, i) => this._colorScale(i));
 
     return this;
   }

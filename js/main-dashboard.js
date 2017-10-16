@@ -58,7 +58,7 @@ dataProvider.onLoad(function(data) {
     // .addChart(tiles)
     .addChart(pieChart)
     .addChart(barChart)
-    // .addChart(scatterPlot)
+    .addChart(scatterPlot)
     .addChart(treeMap)
     // .addChart(map)
     .addChart(timeLine)
