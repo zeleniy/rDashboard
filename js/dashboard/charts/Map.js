@@ -12,7 +12,7 @@ class Map extends Widget {
    */
   render() {
 
-    this._container = d3.select(this._config.get('placeholder'));
+    super.render();
 
     this._svg = this._container
       .append('svg')
@@ -94,8 +94,7 @@ class Map extends Widget {
       };
     }.bind(this));
 
-    this._dataLayer
-      .selectAll('circle')
+    this._bubbles
       .attr('r', d => rScale(d.value))
       .attr('cx', d => centroids[d.name].x)
       .attr('cy', d => centroids[d.name].y);
@@ -127,6 +126,12 @@ class Map extends Widget {
   }
 
 
+  getDomain() {
+
+    return this.getData().map(d => d.name);
+  }
+
+
   /**
    * @inheritdoc
    * @override
@@ -137,7 +142,7 @@ class Map extends Widget {
 
     const update = this._dataLayer
       .selectAll('circle')
-      .data(data);
+      .data(data, d => d.name);
 
     update
       .exit()
@@ -147,10 +152,12 @@ class Map extends Widget {
       .enter()
       .append('circle')
       .attr('class', 'bubble')
-      .attr('fill', this.getColor.bind(this));
+      .attr('fill', d => this._colorScale(d.name));
 
-    this.resize();
+    this._bubbles = this._dataLayer
+      .selectAll('circle')
+      .data(data, d => d.name);
 
-    return this;
+    return this.resize();
   }
 }
