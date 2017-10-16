@@ -1,42 +1,31 @@
-#tiles-placeholder {
-  background-color: lightgrey;
-}
-
 #tiles-placeholder .tile {
   float: left;
 }
 
 #map-placeholder {
-  background-color: lightgrey;
   height: 300px;
 }
 
 #matter-type-placeholder {
-  background-color: lightgrey;
   height: 300px;
 }
 
 #filters-placeholder {
   padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 #case-by-type-placeholder {
-  background-color: lightgrey;
   height: 300px;
 }
 
 #case-volume-placeholder {
-  background-color: lightgrey;
   height: 300px;
 }
 
 #cases-by-entity-placeholder {
-  background-color: lightgrey;
   height: 300px;
 }
 
-.column {
-  padding-left: 0;
-  padding-right: 0;
+.row {
+  margin-top: 15px;
 }
