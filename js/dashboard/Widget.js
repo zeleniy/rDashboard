@@ -17,7 +17,6 @@ class Widget {
     this._config = new Config(options);
 
     this._colorSet = d3.schemeCategory10;
-    this._colorScale = d3.scaleOrdinal();
 
     this._margin = {
       top: 0,
@@ -37,12 +36,13 @@ class Widget {
   /**
    * Get item color.
    * @public
-   * @param {String} d
+   * @param {Object} d
+   * @param {Integer} i
    * @returns {String}
    */
   getColor(d, i) {
 
-    return null;
+    return this._colorSet[i % this._colorSet.length];
   }
 
 
@@ -129,26 +129,29 @@ class Widget {
   /**
    * Render widget.
    * @public
+   * @abstract
    * @returns {Widget}
    */
   render() {
 
     this._container = d3.select(this._config.get('placeholder'));
 
-    this._colorScale
-      .domain(this.getData())
+    this._colorScale = d3.scaleOrdinal()
+      .domain(this.getDomain())
       .range(this.getColorRange());
+
   }
 
 
-  /**
-  * Get color range.
-  * @public
-  * @returns {String[]}
-   */
+  getDomain() {
+
+    throw new Error('Method getDomain() not implemented on ' + this.constructor.name);
+  }
+
+
   getColorRange() {
 
-    return this.getData().map((d, i) => this._colorSet[i % this._colorSet.length]);
+    return this.getDomain().map((d, i) => this._colorSet[i % this._colorSet.length]);
   }
 
 

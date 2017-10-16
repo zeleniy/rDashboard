@@ -15,6 +15,12 @@ class PieChart extends Widget {
   }
 
 
+  getDomain() {
+
+    return this.getData().map(d => d.name);
+  }
+
+
   render() {
 
     super.render();

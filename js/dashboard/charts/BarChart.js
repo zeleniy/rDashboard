@@ -39,7 +39,7 @@ class BarChart extends Widget {
 
   render() {
 
-    this._container = d3.select(this._config.get('placeholder'));
+    super.render();
 
     this._svg = this._container
       .append('svg')
@@ -48,48 +48,6 @@ class BarChart extends Widget {
     this._canvas = this._svg
       .append('g')
       .attr('class', 'canvas');
-
-    const data = this.getData();
-    /*
-     * Render bars containers.
-     */
-    this._barsContainers = this._canvas
-      .selectAll('g.bar-container')
-      .data(data)
-      .enter()
-      .append('g')
-      .attr('class', 'bar-container');
-    /*
-     * Render background bars.
-     */
-    this._barsBackground = this._barsContainers
-      .append('rect')
-      .attr('class', 'background-bar')
-      .attr('x', 0)
-      .attr('y', 0);
-    /*
-     * Render bars.
-     */
-    this._bars = this._barsContainers
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', 0)
-      .attr('y', 0)
-      .style('fill', this.getColor.bind(this));
-    /*
-     * Append labels.
-     */
-    this._labels = this._barsContainers.append('text')
-      .attr('class', 'label')
-      .text(d => d.name);
-    /*
-     * Append value labels.
-     */
-    this._valueLabels = this._barsContainers.append('text')
-      .attr('class', 'label value')
-      .text(d => d.value);
-
-    this.resize();
 
     return this.update();
   }
@@ -109,6 +67,7 @@ class BarChart extends Widget {
      * Get max value.
      */
     this._xMax = d3.max(data, d => d.value);
+    
     this._blockHeight = this.getInnerHeight() / data.length;
     this._thickness = 15;
     /*
@@ -131,35 +90,107 @@ class BarChart extends Widget {
     /*
      * Render background bars.
      */
-    this._barsBackground
+    this._barsContainers
+      .selectAll('rect.background-bar')
       .attr('transform', 'translate(0, ' + this._yOffset + ')')
       .attr('width', d => this._xScale(this._xMax))
       .attr('height', this._thickness);
     /*
      * Render bars.
      */
-    this._bars
+    this._barsContainers
+      .selectAll('rect.bar')
       .attr('width', d => this._xScale(d.value))
       .attr('height', this._thickness)
-      .attr('transform', 'translate(0, ' + this._yOffset + ')')
-      .style('fill', (d, i) => d3.schemeCategory10[i]);
+      .attr('transform', 'translate(0, ' + this._yOffset + ')');
     /*
      * Append labels.
      */
-    this._labels
+    this._barsContainers
+      .selectAll('text.label')
       .attr('dy', this._yOffset - this._gap)
 
     /*
      * Append value labels.
      */
-    this._valueLabels
+    this._barsContainers
+      .selectAll('text.value')
       .attr('x', this._xScale(this._xMax))
-      .attr('dy', this._yOffset - this._gap)
+      .attr('dy', this._yOffset - this._gap);
+
+    return this;
+  }
+
+
+  getDomain() {
+
+    return this.getData().map(d => d.name);
   }
 
 
   update() {
 
-    return this;
+    const data = this.getData();
+    /*
+     * Render bars containers.
+     */
+    var update = this._canvas
+      .selectAll('g.bar-container')
+      .data(data, d => d.name);
+    update.exit().remove();
+    var barsContainers = update
+      .enter()
+      .append('g')
+      .attr('class', 'bar-container');
+    /*
+     * Render background bars.
+     */
+    barsContainers
+      .append('rect')
+      .attr('class', 'background-bar');
+    /*
+     * Render bars.
+     */
+    barsContainers
+      .append('rect')
+      .attr('class', 'bar')
+      .style('fill', d => this._colorScale(d.name));
+    /*
+     * Append labels.
+     */
+    barsContainers
+      .append('text')
+      .attr('class', 'label')
+      .text(d => d.name);
+    /*
+     * Append value labels.
+     */
+    this._valueLabels = barsContainers
+      .append('text')
+      .attr('class', 'label value')
+      .text(d => d.value);
+
+    this._barsContainers = this._canvas
+      .selectAll('g.bar-container');
+
+    this._barsContainers
+      .selectAll('rect.bar')
+      .data(data, d => d.name);
+
+    this._barsContainers
+      .selectAll('text.label')
+      .data(data, d => d.name)
+      .text(function(d) {
+        return d.name;
+      });
+
+    this._barsContainers
+      .selectAll('text.value')
+      .data(data, d => d.name)
+      .text(function(d) {
+        return d.value;
+      });
+
+    return this.resize();
   }
 }
