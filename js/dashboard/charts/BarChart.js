@@ -67,7 +67,7 @@ class BarChart extends Widget {
      * Get max value.
      */
     this._xMax = d3.max(data, d => d.value);
-    
+
     this._blockHeight = this.getInnerHeight() / data.length;
     this._thickness = 15;
     /*
@@ -176,13 +176,6 @@ class BarChart extends Widget {
     this._barsContainers
       .selectAll('rect.bar')
       .data(data, d => d.name);
-
-    this._barsContainers
-      .selectAll('text.label')
-      .data(data, d => d.name)
-      .text(function(d) {
-        return d.name;
-      });
 
     this._barsContainers
       .selectAll('text.value')

@@ -34,19 +34,6 @@ class Widget {
 
 
   /**
-   * Get item color.
-   * @public
-   * @param {Object} d
-   * @param {Integer} i
-   * @returns {String}
-   */
-  getColor(d, i) {
-
-    return this._colorSet[i % this._colorSet.length];
-  }
-
-
-  /**
    * Get chart margin.
    * @public
    * @returns {Object}
