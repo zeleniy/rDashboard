@@ -15,13 +15,6 @@ class ScatterPlot extends Widget {
     super(options);
 
     this._data = undefined;
-    this._colorSet = d3.schemeCategory10;
-  }
-
-
-  getColor(d, i) {
-
-    return this._colorSet[i % this._colorSet.length];
   }
 
 

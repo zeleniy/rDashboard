@@ -10,31 +10,6 @@ class Map extends Widget {
    * @inheritdoc
    * @override
    */
-  constructor(options = {}) {
-
-    super(options);
-
-    this._colorSet = d3.schemeCategory10;
-  }
-
-
-  /**
-   * Get bubble color.
-   * @public
-   * @param {Object} d
-   * @param {Integer} i
-   * @returns {String}
-   */
-  _getColor(d, i) {
-
-    return this._colorSet[i % this._colorSet.length];
-  }
-
-
-  /**
-   * @inheritdoc
-   * @override
-   */
   render() {
 
     this._container = d3.select(this._config.get('placeholder'));
@@ -172,7 +147,7 @@ class Map extends Widget {
       .enter()
       .append('circle')
       .attr('class', 'bubble')
-      .attr('fill', this._getColor.bind(this));
+      .attr('fill', this.getColor.bind(this));
 
     this.resize();
 

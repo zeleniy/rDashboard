@@ -75,7 +75,7 @@ class BarChart extends Widget {
       .attr('class', 'bar')
       .attr('x', 0)
       .attr('y', 0)
-      .style('fill', (d, i) => d3.schemeCategory10[i]);
+      .style('fill', this.getColor.bind(this));
     /*
      * Append labels.
      */

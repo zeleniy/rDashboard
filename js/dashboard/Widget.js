@@ -15,12 +15,28 @@ class Widget {
   constructor(options = {}) {
 
     this._config = new Config(options);
+
+    this._colorSet = d3.schemeCategory10;
+
     this._margin = {
       top: 0,
       right: 0,
       bottom: 0,
       left: 0
     };
+  }
+
+
+  /**
+   * Get item color.
+   * @public
+   * @param {Object} d
+   * @param {Integer} i
+   * @returns {String}
+   */
+  getColor(d, i) {
+
+    return this._colorSet[i % this._colorSet.length];
   }
 
 

@@ -64,7 +64,7 @@ class Tiles extends Widget {
 
     this._config.get('tiles').forEach(function(options, i) {
 
-      options.backgroundColor = d3.schemeCategory10[i];
+      options.backgroundColor = this.getColor({}, i);
       options.placeholder = this._config.get('placeholder');
 
       var tile = new Tile(options)

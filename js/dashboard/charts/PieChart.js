@@ -38,7 +38,7 @@ class PieChart extends Widget {
       .enter()
       .append('path')
       .attr('class', 'slice')
-      .attr('fill', (d, i) => d3.schemeCategory10[i]);
+      .attr('fill', this.getColor.bind(this));
 
     this._polylines = this._canvas
       .selectAll('polyline')
