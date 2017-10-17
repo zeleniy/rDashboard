@@ -1,3 +1,19 @@
+html, body {
+  background-color: #f2f2f2;
+}
+
+.column {
+  padding: 5px;
+}
+
+.chart {
+  background-color: #fff;
+}
+
+svg {
+  display: block;
+}
+
 #tiles-placeholder .tile {
   float: left;
 }
@@ -10,8 +26,8 @@
   height: 300px;
 }
 
-#filters-placeholder {
-  padding-top: 10px;
+.filter {
+  padding: 0 0 5px 0;
 }
 
 #case-by-type-placeholder {
@@ -24,8 +40,4 @@
 
 #cases-by-entity-placeholder {
   height: 300px;
-}
-
-.row {
-  margin-top: 15px;
 }
