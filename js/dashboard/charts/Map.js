@@ -99,7 +99,6 @@ class Map extends Widget {
       .attr('cx', d => centroids[d.name].x)
       .attr('cy', d => centroids[d.name].y);
 
-
     return this;
   }
 
@@ -152,7 +151,13 @@ class Map extends Widget {
       .enter()
       .append('circle')
       .attr('class', 'bubble')
-      .attr('fill', d => this._colorScale(d.name));
+      .attr('fill', d => this._colorScale(d.name))
+      .on('click', function(d) {
+        const value = d.name;
+        this._dashboard.setFilter(this.getAccessor(), function(d) {
+          return d == value;
+        });
+      }.bind(this));
 
     this._bubbles = this._dataLayer
       .selectAll('circle')

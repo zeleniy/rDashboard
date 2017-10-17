@@ -94,7 +94,13 @@ class PieChart extends Widget {
     update.enter()
       .append('path')
       .attr('class', 'slice')
-      .attr('fill', d => this._colorScale(d.data.name));
+      .attr('fill', d => this._colorScale(d.data.name))
+      .on('click', function(d) {
+        const value = d.data.name;
+        this._dashboard.setFilter(this.getAccessor(), function(d) {
+          return d == value;
+        });
+      }.bind(this));
 
     this._slices = this._canvas
       .selectAll('path');

@@ -1,6 +1,3 @@
-const dashboard = new Dashboard();
-const dataProvider = new LocalFileProvider('data/CaseStatsSummary.tsv');
-
 const tiles = new Tiles({
   placeholder: '#tiles-placeholder',
   tiles: [{
@@ -51,9 +48,9 @@ const timeLine = new TimeLine({
   placeholder: '#timeline-placeholder'
 });
 
-dataProvider.onLoad(function(data) {
+new LocalFileProvider('data/CaseStatsSummary.tsv').onLoad(function(data) {
 
-  dashboard
+  new Dashboard()
     .setData(data)
     .addChart(tiles)
     .addChart(pieChart)
