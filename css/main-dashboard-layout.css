@@ -14,10 +14,6 @@ svg {
   display: block;
 }
 
-#tiles-placeholder .tile {
-  float: left;
-}
-
 #map-placeholder {
   height: 300px;
 }

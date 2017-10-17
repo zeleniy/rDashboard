@@ -79,16 +79,14 @@ class Tile extends Widget {
     this._container = d3.select(this._config.get('placeholder'));
 
     this._table = this._container
-      .append('table')
+      .append('div')
       .attr('class', 'tile')
-      .append('tbody')
-      .append('tr')
       .style('background-color', this._config.get('backgroundColor'))
       .on('click', function(d, i, selection) {
         self._clickCallback(self, this);
       });
 
-    const leftSide = this._table.append('td')
+    const leftSide = this._table.append('div')
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
@@ -100,7 +98,7 @@ class Tile extends Widget {
       .attr('class', 'summary')
       .text('100% of Total');
 
-    const rightSide = this._table.append('td')
+    const rightSide = this._table.append('div')
       .attr('class', 'tile-right');
 
     rightSide.append('div')

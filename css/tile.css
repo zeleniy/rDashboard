@@ -1,53 +1,69 @@
-.tile {
-  width: 450px;
-  height: 100px;
-  border: 1px solid #ba8409;
-  cursor: pointer;
+.tiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /*align-items: stretch;*/
 }
 
-.tile-left {
-  width: 143px;
+.tiles .tile {
+  /*width: 450px;*/
+  height: 100px;
+  flex: 1;
+  /*border: 1px solid #ba8409;*/
+  cursor: pointer;
+  display: block;
+}
+
+.tiles .tile > div {
+  display: inline-block;
+}
+
+.tiles .tile-left {
+  float: left;
+  width: 100px;
   height: 100px;
   border-right: 1px solid #bbb980;
   color: black;
   text-align: center;
 }
 
-.tile-value {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.tile-left .tile-unit {
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.tile-left .summary {
-  font-weight: 500;
-}
-
-.tile-right {
-  color: white;
-}
-
-.tile-right .tile-value {
-  float: left;
-  font-size: 35px;
-  padding: 0px 15px 0px 15px;
-}
-
-.tile-right .data-source-text {
-  text-transform: uppercase;
-}
-
-.tile-right .data-source {
+.tiles .tile-value {
   font-size: 1.8em;
-  font-weight: 450;
+  font-weight: bold;
+}
+
+.tiles .tile-left .tile-unit {
+  /*font-size: 15px;
+  font-weight: bold;*/
   text-transform: uppercase;
 }
 
-.tile-right .summary {
-  margin-left: 15px;
+.tiles .tile-left .summary {
+  /*font-weight: 500;*/
+}
+
+.tiles .tile-right {
+  color: white;
+  height: 100px;
+}
+
+.tiles .tile-right .tile-value {
+  /*float: left;*/
+  /*font-size: 30px;*/
+  /*padding: 0px 15px 0px 15px;*/
+}
+
+.tiles .tile-right .data-source-text {
+  text-transform: uppercase;
+  /*white-space: nowrap;*/
+}
+
+.tiles .tile-right .data-source {
+  /*font-size: 1.2em;
+  font-weight: 450;*/
+  text-transform: uppercase;
+}
+
+.tiles .tile-right .summary {
+  /*margin-left: 15px;*/
 }

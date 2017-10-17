@@ -70,10 +70,15 @@ class Tiles extends Widget {
 
     super.render();
 
+    const container = d3.select(this._config.get('placeholder'))
+      .append('div')
+      .attr('class', 'tiles')
+      .node();
+
     this._config.get('tiles').forEach(function(options, i) {
 
       options.backgroundColor = this._colorScale(i);
-      options.placeholder = this._config.get('placeholder');
+      options.placeholder = container;
 
       var tile = new Tile(options)
         .setManager(this)
