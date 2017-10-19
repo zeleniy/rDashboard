@@ -33,7 +33,8 @@ class BarChart extends Widget {
           name: d[0],
           value: d.length
         }
-      }).value();
+      }).value()
+      .sort((a, b) => b.value - a.value);
   }
 
 
