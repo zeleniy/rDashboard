@@ -71,6 +71,7 @@ class TreeMap extends Widget {
     const margin = this.getMargin();
 
     const data = this.getData();
+    const total = d3.sum(data.children, d => d.size);
 
     const treemap = d3.treemap().size([width, height]);
     const root = d3.hierarchy(data, (d) => d.children).sum((d) => d.size);
@@ -85,13 +86,25 @@ class TreeMap extends Widget {
       .append('div')
       .attr('class', 'node')
       .style('background', d => this._colorScale(d.data.name))
-      .text(d => d.data.name)
       .on('click', function(d) {
         const value = d.data.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
         });
-      }.bind(this));
+      }.bind(this))
+      .each(function(d, i) {
+        const persent = Math.round(d.value / total * 1000) / 10;
+        if (persent > 10) {
+          d3.select(this)
+            .append('div')
+            .attr('class', 'node-label')
+            .selectAll('div')
+            .data([d.data.name, d.data.size + ' (' + persent + '%)'])
+            .enter()
+            .append('div')
+            .text(String);
+        }
+      });
 
     this._nodes = this._main
       .selectAll('div.node');
