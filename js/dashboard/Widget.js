@@ -121,7 +121,30 @@ class Widget {
    */
   render() {
 
-    this._container = d3.select(this._config.get('placeholder'));
+    const container = d3.select(this._config.get('placeholder'));
+    // this._container = d3.select(this._config.get('placeholder'));
+
+    const title = this._config.get('title', '');
+    if (title != '') {
+      container
+        .append('div')
+        .attr('class', 'chart-title')
+        .text(title);
+    }
+
+    const subtitle = this._config.get('subtitle', '');
+    if (subtitle != '') {
+      container
+        .append('div')
+        .attr('class', 'chart-subtitle')
+        .text(subtitle);
+    }
+
+    this._container = container
+      .append('div')
+      .attr('class', 'chart-container');
+
+    console.log(this.getOuterWidth(), this.getOuterHeight());
 
     this._colorScale = d3.scaleOrdinal()
       .domain(this.getDomain())

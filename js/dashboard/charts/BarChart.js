@@ -188,7 +188,6 @@ class BarChart extends Widget {
       .selectAll('text.value')
       .data(data, d => d.name)
       .text(function(d) {
-        console.log(totalSum, d.value)
         return d.value + ' (' + (Math.round(d.value / totalSum * 1000) / 10) + '%)';
       });
 

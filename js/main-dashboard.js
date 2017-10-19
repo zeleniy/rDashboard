@@ -20,27 +20,36 @@ const tiles = new Tiles({
 
 const pieChart = new PieChart({
   accessor: 'CaseType',
-  placeholder: '#case-by-type-placeholder'
+  placeholder: '#case-by-type-placeholder',
+  title: 'case types',
+  subtitle: 'some subtitle'
 });
 
 const barChart = new BarChart({
   accessor: 'EntityName',
-  placeholder: '#cases-by-entity-placeholder'
+  placeholder: '#cases-by-entity-placeholder',
+  title: 'entity names',
+  subtitle: 'some subtitle'
 });
 
 const scatterPlot = new ScatterPlot({
   accessor: 'CaseName',
-  placeholder: '#case-volume-placeholder'
+  placeholder: '#case-volume-placeholder',
+  title: 'case names',
+  subtitle: 'some subtitle'
 });
 
 const treeMap = new TreeMap({
   accessor: 'MatterType',
-  placeholder: '#matter-type-placeholder'
+  placeholder: '#matter-type-placeholder',
+  subtitle: 'some subtitle'
 });
 
 const map = new Map({
   accessor: 'Country',
-  placeholder: '#map-placeholder'
+  placeholder: '#map-placeholder',
+  title: 'World map',
+  subtitle: 'some subtitle'
 });
 
 const timeLine = new TimeLine({

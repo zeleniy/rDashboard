@@ -2,3 +2,22 @@ svg text.label {
   font-size: 1em;
   font-weight: normal;
 }
+
+.chart {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.chart-subtitle {
+  text-align: center;
+}
+
+.chart-container {
+  flex: 1;
+}
