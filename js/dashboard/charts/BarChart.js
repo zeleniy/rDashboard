@@ -173,8 +173,7 @@ class BarChart extends Widget {
      */
     this._valueLabels = barsContainers
       .append('text')
-      .attr('class', 'label value')
-      .text(d => d.value);
+      .attr('class', 'label value');
 
     this._barsContainers = this._canvas
       .selectAll('g.bar-container');
@@ -183,11 +182,14 @@ class BarChart extends Widget {
       .selectAll('rect.bar')
       .data(data, d => d.name);
 
+    const totalSum = d3.sum(data, d => d.value);
+
     this._barsContainers
       .selectAll('text.value')
       .data(data, d => d.name)
       .text(function(d) {
-        return d.value;
+        console.log(totalSum, d.value)
+        return d.value + ' (' + (Math.round(d.value / totalSum * 1000) / 10) + '%)';
       });
 
     return this.resize();
