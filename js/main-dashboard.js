@@ -34,6 +34,7 @@ const barChart = new BarChart({
 
 const scatterPlot = new ScatterPlot({
   accessor: 'CaseName',
+  xAxessor: 'CaseCreatedOn',
   placeholder: '#case-volume-placeholder',
   title: 'case names',
   subtitle: 'some subtitle'

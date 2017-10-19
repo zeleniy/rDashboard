@@ -1,6 +1,20 @@
 class PieChart extends Widget {
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
+  constructor(options = {}) {
+
+    super(options);
+
+    this._pie = d3.pie()
+      .sort(null)
+      .value(d => d.value);
+  }
+
+
   getData() {
 
     return _(super.getData())
@@ -81,11 +95,9 @@ class PieChart extends Widget {
 
   update() {
 
-    var pie = d3.pie()
-      .sort(null)
-      .value(d => d.value);
-
-    const chartData = pie(this.getData());
+    const data = this.getData();
+    const total = d3.sum(data, d => d.value);
+    const chartData = this._pie(data);
 
     var update = this._canvas
       .selectAll('path')
@@ -122,12 +134,20 @@ class PieChart extends Widget {
     update.enter()
       .append('text')
       .attr('class', 'label')
-      .attr('dy', '.35em')
-      .text(function(d) {
-        return d.data.name;
-      }).style('text-anchor', function(d) {
+      .style('text-anchor', function(d) {
           return this._getMidAngle(d) < Math.PI ? 'start' : 'end';
-      }.bind(this));
+      }.bind(this))
+      .each(function(d) {
+        d3.select(this)
+          .selectAll('tspan')
+          .data([d.data.name, d.data.value + ' (' + (Math.round(d.data.value / total * 1000) / 10) + '%)'])
+          .enter()
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', (d, i) => i == 0 ? 0 : '1.2em')
+          .attr('dy', '-.2em')
+          .text(String);
+      });
 
     this._labels = this._canvas
       .selectAll('text');
