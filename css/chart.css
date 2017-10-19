@@ -1,3 +1,11 @@
+svg {
+  display: block;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
 svg text.label {
   font-size: 1em;
   font-weight: normal;

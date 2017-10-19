@@ -85,14 +85,15 @@ class Tile extends Widget {
     this._container = d3.select(this._config.get('placeholder'));
 
     this._table = this._container
-      .append('div')
+      .append('table')
       .attr('class', 'tile')
       .style('background-color', this._config.get('backgroundColor'))
       .on('click', function(d, i, selection) {
         self._clickCallback(self, this);
-      });
+      }).append('tbody')
+      .append('tr');
 
-    const leftSide = this._table.append('div')
+    const leftSide = this._table.append('td')
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
@@ -104,20 +105,27 @@ class Tile extends Widget {
       .attr('class', 'summary')
       .text('100% of Total');
 
-    const rightSide = this._table.append('div')
-      .attr('class', 'tile-right');
+    const rightSide = this._table.append('td')
+      .attr('class', 'tile-right')
+      .append('table')
+      .append('tbody');
 
-    rightSide.append('div')
+    const row = rightSide.append('tr');
+
+    row.append('td')
       .attr('class', 'tile-value')
       .text(48);
-    rightSide.append('div')
+    const td = row.append('td')
       .attr('class', 'data-source-text')
       .text('data source(s)');
-    rightSide.append('div')
+    td.append('div')
       .attr('class', 'data-source')
       .text(this._config.get('name'));
-    rightSide.append('div')
+    rightSide
+      .append('tr')
+      .append('td')
       .attr('class', 'summary')
+      .attr('colspan', 2)
       .text('100% of Total');
 
     return this.update();

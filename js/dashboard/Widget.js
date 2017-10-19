@@ -122,7 +122,6 @@ class Widget {
   render() {
 
     const container = d3.select(this._config.get('placeholder'));
-    // this._container = d3.select(this._config.get('placeholder'));
 
     const title = this._config.get('title', '');
     if (title != '') {
@@ -144,12 +143,9 @@ class Widget {
       .append('div')
       .attr('class', 'chart-container');
 
-    console.log(this.getOuterWidth(), this.getOuterHeight());
-
     this._colorScale = d3.scaleOrdinal()
       .domain(this.getDomain())
       .range(this.getColorRange());
-
   }
 
 
