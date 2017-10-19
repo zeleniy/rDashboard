@@ -42,7 +42,7 @@ class ScatterPlot extends Widget {
     if (this._data === undefined) {
       this._data = d3.range(10).map(function() {
         return {
-          x: Math.random(),
+          x: Math.random() * 100000000,
           y: Math.random(),
           value: Math.random()
         }
@@ -73,11 +73,11 @@ class ScatterPlot extends Widget {
 
     this.update();
 
-    this._xAxis = this._canvas
+    this._xAxisContainer = this._canvas
       .append('g')
       .attr('class', 'axis x-axis');
 
-    this._yAxis = this._canvas
+    this._yAxisContainer = this._canvas
       .append('g')
       .attr('class', 'axis x-axis');
 
@@ -120,12 +120,21 @@ class ScatterPlot extends Widget {
       .attr('cx', d => xScale(d.x))
       .attr('cy', d => yScale(d.y));
 
-    this._xAxis
-      .attr('transform', 'translate(0,' + this.getInnerHeight() + ')')
-      .call(d3.axisBottom(xScale));
+    const xAxis = d3.axisBottom(xScale);
 
-    this._yAxis
+    this._xAxisContainer
+      .attr('transform', 'translate(0,' + this.getInnerHeight() + ')')
+      .call(xAxis);
+
+    XTicks.getInstance(xAxis, this._xAxisContainer)
+      .rarefy();
+
+    const yAxis = d3.axisLeft(yScale)
+    this._yAxisContainer
       .call(d3.axisLeft(yScale));
+
+    YTicks.getInstance(yAxis, this._yAxisContainer)
+      .rarefy();
   }
 
 

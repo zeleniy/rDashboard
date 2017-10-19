@@ -47,7 +47,7 @@ class TimeLine extends Widget {
         .on('brush', this._brushMoveEventHandler.bind(this))
         .on('end', this._brushEndEventHandler.bind(this));
 
-    this._xAxis = this._canvas
+    this._xAxisContainer = this._canvas
       .append('g')
       .attr('class', 'axis x-axis');
 
@@ -90,9 +90,11 @@ class TimeLine extends Widget {
     this._xScale
       .range([0, width]);
 
-    this._xAxis
+    const xAxis = d3.axisBottom(this._xScale);
+
+    this._xAxisContainer
       .attr('transform', 'translate(0,' + (height - margin.bottom) + ')')
-      .call(d3.axisBottom(this._xScale));
+      .call(xAxis);
 
     this._brush
       .extent([[0, 0], [width, height]]);
@@ -105,6 +107,9 @@ class TimeLine extends Widget {
 
     this._handle
       .attr('d', this._getHandlePathString.bind(this));
+
+    XTicks.getInstance(xAxis, this._xAxisContainer)
+      .rarefy();
 
     return this;
   }
