@@ -183,13 +183,13 @@ class BarChart extends Widget {
       .selectAll('rect.bar')
       .data(data, d => d.name);
 
-    const totalSum = d3.sum(data, d => d.value);
+    const total = d3.sum(data, d => d.value);
 
     this._barsContainers
       .selectAll('text.value')
       .data(data, d => d.name)
       .text(function(d) {
-        return d.value + ' (' + (Math.round(d.value / totalSum * 1000) / 10) + '%)';
+        return d.value + ' (' + (Math.round(d.value / total * 1000) / 10) + '%)';
       });
 
     return this.resize();
