@@ -150,7 +150,7 @@ class TimeLine extends Widget {
 
     this._dashboard.setDataFilter(this.getAccessor(), function(d) {
       return d >= min && d <= max;
-    });
+    }, true);
   }
 
 

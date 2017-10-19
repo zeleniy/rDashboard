@@ -50,8 +50,12 @@ const timeLine = new TimeLine({
 
 new LocalFileProvider('data/CaseStatsSummary.tsv').onLoad(function(data) {
 
-  new Dashboard()
-    .setData(data)
+  new Dashboard({
+      filters: {
+        placeholder: '#filters-placeholder',
+        list: ['EntityName', 'MatterType']
+      }
+    }).setData(data)
     .addChart(tiles)
     .addChart(pieChart)
     .addChart(barChart)

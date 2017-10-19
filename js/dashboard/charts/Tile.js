@@ -47,7 +47,13 @@ class Tile extends Widget {
   getUnit() {
 
     const key = this.getDataKey() + 'Unit';
-    return this._dashboard.getData()[0][key];
+    const data = this._dashboard.getData();
+
+    if (data.length > 0) {
+      return data[0][key];
+    } else {
+      return '';
+    }
   }
 
 

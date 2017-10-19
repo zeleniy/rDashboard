@@ -10,6 +10,10 @@ html, body {
   background-color: #fff;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 svg {
   display: block;
 }
@@ -22,8 +26,32 @@ svg {
   height: 300px;
 }
 
-.filter {
-  padding: 0 0 5px 0;
+.clear {
+  clear: both;
+}
+
+.filters .filter {
+  margin: 10px 15px 0 0;
+  float: left;
+}
+
+.filters-list {
+  margin: 10px 15px 10px 0;
+  float: left;
+}
+
+.filters-list .filter {
+  float: left;
+  border: 2px solid lightblue;
+  padding: 0 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
+
+.filters-list .filter .filter-remove {
+  margin-left: 10px;
+  cursor: pointer;
+  color: lightblue;
 }
 
 #case-by-type-placeholder {
