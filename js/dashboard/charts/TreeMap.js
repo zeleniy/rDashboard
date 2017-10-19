@@ -88,7 +88,7 @@ class TreeMap extends Widget {
       .text(d => d.data.name)
       .on('click', function(d) {
         const value = d.data.name;
-        this._dashboard.setFilter(this.getAccessor(), function(d) {
+        this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
         });
       }.bind(this));

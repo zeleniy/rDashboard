@@ -148,7 +148,7 @@ class TimeLine extends Widget {
     var min = this._extent[0];
     var max = this._extent[1];
 
-    this._dashboard.setFilter(this.getAccessor(), function(d) {
+    this._dashboard.setDataFilter(this.getAccessor(), function(d) {
       return d >= min && d <= max;
     });
   }

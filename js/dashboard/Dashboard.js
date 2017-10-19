@@ -81,7 +81,7 @@ class Dashboard {
    * @param {Function} filter - filter function.
    * @retuns {Dashboard}
    */
-  setFilter(accessor, filter) {
+  setDataFilter(accessor, filter) {
 
     this._filters[accessor] = filter;
     this.update();

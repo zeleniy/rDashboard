@@ -154,7 +154,7 @@ class Map extends Widget {
       .attr('fill', d => this._colorScale(d.name))
       .on('click', function(d) {
         const value = d.name;
-        this._dashboard.setFilter(this.getAccessor(), function(d) {
+        this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
         });
       }.bind(this));
