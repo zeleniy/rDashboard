@@ -6,15 +6,8 @@ html, body {
   padding: 5px;
 }
 
-.chart {
+div.chart {
   background-color: #fff;
-}
-
-#map-placeholder {
-  height: 300px;
-}
-
-#matter-type-placeholder {
   height: 300px;
 }
 
@@ -46,14 +39,6 @@ html, body {
   color: lightblue;
 }
 
-#case-by-type-placeholder {
-  height: 300px;
-}
-
-#case-volume-placeholder {
-  height: 300px;
-}
-
-#cases-by-entity-placeholder {
-  height: 300px;
+.reset-button {
+  background-color: lightblue;
 }

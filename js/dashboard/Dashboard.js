@@ -16,6 +16,9 @@ class Dashboard {
     d3.selectAll('.tiles-mode-filter input')
       .on('change', this.tilesModeChangeEventHandler.bind(this));
 
+    d3.selectAll('.reset-button')
+      .on('click', this.resetAllFilters.bind(this));
+
     d3.select(window).on('resize', function() {
       this.resize();
     }.bind(this))
@@ -186,6 +189,21 @@ class Dashboard {
 
     delete this._filters[accessor];
     this.update();
+
+    return this;
+  }
+
+
+  /**
+   * Reset all filters.
+   * @public
+   * @returns {Dashboard}
+   */
+  resetAllFilters() {
+
+    _(this._filters).each(function(comparator, accessor) {
+      this._resetFilterButton(accessor);
+    }.bind(this));
 
     return this;
   }
