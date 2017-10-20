@@ -245,10 +245,9 @@ class Dashboard {
    * @public
    * @param {String} name - filter name.
    * @param {Function} comparator - filter function.
-   * @param {Boolean} [isSilent=false]
    * @retuns {Dashboard}
    */
-  setDataFilter(accessor, comparator, isSilent = false) {
+  setDataFilter(accessor, comparator) {
     /*
      * Remove filter button if any.
      */
@@ -256,23 +255,18 @@ class Dashboard {
 
     this._filters[accessor] = comparator;
 
-    if (isSilent === false) {
-      /*
-       * Render new filter button.
-       */
-      const self = this;
-      d3.select('.filters-list')
-        .append('div')
-        .datum(accessor)
-        .attr('class', 'filter')
-        .text(String)
-        .append('span')
-        .attr('class', 'filter-remove')
-        .text('x')
-        .on('click', function() {
-          self._resetFilterButton(accessor);
-        });
-    }
+    /*
+     * Render new filter button.
+     */
+    d3.select('.filters-list')
+      .append('div')
+      .datum(accessor)
+      .attr('class', 'filter')
+      .text(String)
+      .append('span')
+      .attr('class', 'filter-remove')
+      .text('x')
+      .on('click', this._resetFilterButton.bind(this, accessor));
 
     this.update();
   }

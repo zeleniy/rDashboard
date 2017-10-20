@@ -14,8 +14,14 @@ class TimeLine extends Widget {
 
     super(options);
 
-    this._isFirstTime = true;
-    this._height = 80;
+    this._xScale = d3.scaleTime();
+
+    this._brush = d3.brushX()
+      .on('brush', this._brushMoveEventHandler.bind(this))
+      .on('end', this._brushEndEventHandler.bind(this));
+
+    this._ignoreMoveEvent = true;
+    this._height = 50;
     this._margin = {
       top: 0,
       right: 10,
@@ -40,12 +46,6 @@ class TimeLine extends Widget {
     this._canvas = this._svg
       .append('g')
       .attr('class', 'canvas');
-
-    this._xScale = d3.scaleTime();
-
-    this._brush = d3.brushX()
-        .on('brush', this._brushMoveEventHandler.bind(this))
-        .on('end', this._brushEndEventHandler.bind(this));
 
     this._xAxisContainer = this._canvas
       .append('g')
@@ -146,8 +146,8 @@ class TimeLine extends Widget {
 
   _brushEndEventHandler() {
 
-    if (this._isFirstTime === true) {
-      return this._isFirstTime = false;
+    if (this._ignoreMoveEvent === true) {
+      return this._ignoreMoveEvent = false;
     }
 
     var min = this._extent[0];
@@ -165,8 +165,21 @@ class TimeLine extends Widget {
    */
   update() {
 
-    this._xScale
-      .domain(d3.extent(this.getData(this.getAccessor())))
+    const defaultExtent = d3.extent(this.getData(this.getAccessor()));
+    const currentExtent = d3.extent(this.getData());
+
+    this._xScale.domain(defaultExtent);
+
+    const isResetRequest = defaultExtent[0] == currentExtent[0] &&
+      defaultExtent[1] == currentExtent[1] &&
+      this._ignoreMoveEvent == false;
+
+    if (isResetRequest) {
+      this._ignoreMoveEvent = true;
+
+      this._brushContainer
+        .call(this._brush.move, [0, this.getInnerWidth()]);
+    }
 
     return this;
   }

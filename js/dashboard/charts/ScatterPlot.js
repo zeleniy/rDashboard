@@ -15,7 +15,7 @@ class ScatterPlot extends Widget {
     super(options);
 
     this._margin = {
-      top: 0,
+      top: 5,
       right: 10,
       bottom: 20,
       left: 0
@@ -48,16 +48,15 @@ class ScatterPlot extends Widget {
     const r = this._config.get('radiusAccessor');
     const color = this._config.get('colorAccessor');
 
-    this._data = this._dashboard
+    return this._dashboard
       .getData()
       .map(d => ({
+        id: d['CaseID'],
         x: d[x],
         y: d[y],
         r: d[r],
         color: d[color]
       }));
-
-    return this._data;
   }
 
 
@@ -90,8 +89,6 @@ class ScatterPlot extends Widget {
       .append('g')
       .attr('class', 'canvas');
 
-    this.update();
-
     this._xAxisContainer = this._canvas
       .append('g')
       .attr('class', 'axis x-axis');
@@ -100,7 +97,7 @@ class ScatterPlot extends Widget {
       .append('g')
       .attr('class', 'axis x-axis');
 
-    return this.resize();
+    return this.update();
   }
 
 
@@ -194,20 +191,20 @@ class ScatterPlot extends Widget {
     const data = this.getData();
 
     const update = this._canvas
-      .selectAll('circle')
-      .data(data);
+      .selectAll('circle.dot')
+      .data(data, d => d.id);
 
     update.exit()
       .remove();
 
     update.enter()
       .append('circle')
-      .attr('class', 'dot');
+      .attr('class', 'dot')
+      .attr('fill', d => this._colorScale(d.color));
 
     this._dots = this._canvas
-      .selectAll('circle')
-      .style('fill', d => this._colorScale(d.color));
+      .selectAll('circle.dot');
 
-    return this;
+    return this.resize();
   }
 }
