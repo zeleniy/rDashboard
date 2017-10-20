@@ -22,16 +22,21 @@ class Dashboard {
   }
 
 
+  /**
+   * Munge data.
+   * See https://en.wikipedia.org/wiki/Data_wrangling
+   * @private
+   */
   _mungeData() {
 
-    this._charts.forEach(function(chart) {
-      var accessor = chart.getAccessor();
-      if ('munge' in chart) {
+    this._data = this._data.map(function(d) {
 
-        var mungedData = chart.munge();
-        this._data.forEach((d, i) => d[accessor] = mungedData[i]);
-      }
-    }.bind(this));
+      d['CaseCreatedOn'] = moment(d['CaseCreatedOn']).toDate();
+      d['DataSourceCount'] = Number(d['DataSourceCount']);
+      d['DataSourceSize'] = Number(d['DataSourceSize']);
+
+      return d;
+    });
   }
 
 
@@ -43,7 +48,6 @@ class Dashboard {
   render() {
     /*
      * Munge data.
-     * See https://en.wikipedia.org/wiki/Data_wrangling
      */
     this._mungeData();
     /*

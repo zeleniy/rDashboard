@@ -60,7 +60,7 @@ class Tiles extends Widget {
   }
 
 
-  getDomain() {
+  getColorDomain() {
 
     return d3.range(this._config.get('tiles').length);
   }

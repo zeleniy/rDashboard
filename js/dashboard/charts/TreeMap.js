@@ -33,7 +33,7 @@ class TreeMap extends Widget {
   }
 
 
-  getDomain() {
+  getColorDomain() {
 
     return this._getGroupedData().map(d => d.name);
   }

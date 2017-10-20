@@ -14,7 +14,6 @@ class ScatterPlot extends Widget {
 
     super(options);
 
-    this._data = undefined;
     this._margin = {
       top: 0,
       right: 10,
@@ -44,26 +43,41 @@ class ScatterPlot extends Widget {
    */
   getData() {
 
-    if (this._data === undefined) {
-      this._data = d3.range(10).map(function() {
-        return {
-          x: Math.random(),
-          y: Math.random(),
-          value: Math.random()
-        }
-      });
-    }
+    const x = this._config.get('xAccessor');
+    const y = this._config.get('yAccessor');
+    const r = this._config.get('radiusAccessor');
+    const color = this._config.get('colorAccessor');
+
+    this._data = this._dashboard
+      .getData()
+      .map(d => ({
+        x: d[x],
+        y: d[y],
+        r: d[r],
+        color: d[color]
+      }));
 
     return this._data;
   }
 
 
-  getDomain() {
+  /**
+   * @inheritdoc
+   * @override
+   */
+  getColorDomain() {
 
-    return d3.range(this.getData().length);
+    return _(this.getData())
+      .map(d => d.color)
+      .uniq()
+      .value();
   }
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
   render() {
 
     super.render();
@@ -90,6 +104,10 @@ class ScatterPlot extends Widget {
   }
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
   resize() {
 
     this._svg
@@ -109,13 +127,18 @@ class ScatterPlot extends Widget {
     const yScale = d3.scaleLinear()
       .range([innerHeight, 0])
       .domain(yDomain);
-
+   /*
+    * Calculate extra "space" to implement padding on Y axis.
+    */
     const yExtra = yScale.invert(innerHeight - maxR) * 1.2;
+    /*
+     * Extend domain depending on extra "space".
+     */
     yScale.domain([yDomain[0] - yExtra, yDomain[1] + yExtra])
 
     const yAxis = d3.axisLeft(yScale)
     this._yAxisContainer
-      .call(d3.axisLeft(yScale));
+      .call(yAxis);
 
     YTicks.getInstance(yAxis, this._yAxisContainer)
       .rarefy();
@@ -124,18 +147,27 @@ class ScatterPlot extends Widget {
 
     const rScale = d3.scaleLinear()
       .range([5, maxR])
-      .domain([0, d3.max(data, d => d.value)]);
+      .domain([0, d3.max(data, d => d.r)]);
 
     const xDomain = d3.extent(data, d => d.x);
-    const xScale = d3.scaleLinear()
+    const xScale = d3.scaleTime()
       .range([0, this.getInnerWidth()])
       .domain(xDomain);
 
-    const xExtra = xScale.invert(maxR) * 1.2;
-    xScale.domain([xDomain[0] - xExtra, xDomain[1] + xExtra])
+    /*
+     * Calculate extra "space" to implement padding on X axis.
+     */
+    const xExtra = - (xDomain[0].getTime() - xScale.invert(maxR).getTime())// * 1.2;
+    /*
+     * Extend domain depending on extra "space".
+     */
+    xScale.domain([
+      new Date(xDomain[0].getTime() - xExtra),
+      new Date(xDomain[1].getTime() + xExtra)
+    ]);
 
     this._dots
-      .attr('r', d => rScale(d.value))
+      .attr('r', d => rScale(d.r))
       .attr('cx', d => xScale(d.x))
       .attr('cy', d => yScale(d.y));
 
@@ -153,6 +185,10 @@ class ScatterPlot extends Widget {
   }
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
   update() {
 
     const data = this.getData();
@@ -170,7 +206,7 @@ class ScatterPlot extends Widget {
 
     this._dots = this._canvas
       .selectAll('circle')
-      .style('fill', (d, i) => this._colorScale(i));
+      .style('fill', d => this._colorScale(d.color));
 
     return this;
   }

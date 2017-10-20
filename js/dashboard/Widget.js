@@ -144,20 +144,20 @@ class Widget {
       .attr('class', 'chart-container');
 
     this._colorScale = d3.scaleOrdinal()
-      .domain(this.getDomain())
+      .domain(this.getColorDomain())
       .range(this.getColorRange());
   }
 
 
-  getDomain() {
+  getColorDomain() {
 
-    throw new Error('Method getDomain() not implemented on ' + this.constructor.name);
+    throw new Error('Method getColorDomain() not implemented on ' + this.constructor.name);
   }
 
 
   getColorRange() {
 
-    return this.getDomain().map((d, i) => this._colorSet[i % this._colorSet.length]);
+    return this.getColorDomain().map((d, i) => this._colorSet[i % this._colorSet.length]);
   }
 
 

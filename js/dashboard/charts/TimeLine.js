@@ -159,12 +159,6 @@ class TimeLine extends Widget {
   }
 
 
-  munge() {
-
-    return super.getData().map(d => moment(d).toDate())
-  }
-
-
   /**
    * @inheritdoc
    * @override

@@ -125,7 +125,7 @@ class Map extends Widget {
   }
 
 
-  getDomain() {
+  getColorDomain() {
 
     return this.getData().map(d => d.name);
   }
