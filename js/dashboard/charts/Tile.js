@@ -31,11 +31,12 @@ class Tile extends Widget {
   /**
    * Get data key.
    * @public
+   * @param {'count'|'size'} [mode]
    * @returns {String}
    */
-  getDataKey() {
+  getDataKey(mode) {
 
-    return this._manager.getDataKey(this._config.get('accessor'));
+    return this._manager.getDataKey(this._config.get('accessor'), mode);
   }
 
 
@@ -97,13 +98,12 @@ class Tile extends Widget {
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
-    this._valueText = div.append('span')
+    this._countValue = div.append('span')
       .attr('class', 'tile-value');
-    this._unitText = div.append('span')
+    this._countUnit = div.append('span')
       .attr('class', 'tile-unit');
-    leftSide.append('div')
-      .attr('class', 'summary')
-      .text('100% of Total');
+    this._countPercent = leftSide.append('div')
+      .attr('class', 'summary');
 
     const rightSide = this._table.append('td')
       .attr('class', 'tile-right')
@@ -112,21 +112,19 @@ class Tile extends Widget {
 
     const row = rightSide.append('tr');
 
-    row.append('td')
-      .attr('class', 'tile-value')
-      .text(48);
+    this._sizeValue = row.append('td')
+      .attr('class', 'tile-value');
     const td = row.append('td')
       .attr('class', 'data-source-text')
       .text('data source(s)');
     td.append('div')
       .attr('class', 'data-source')
       .text(this._config.get('name'));
-    rightSide
+    this._sizePercent = rightSide
       .append('tr')
       .append('td')
       .attr('class', 'summary')
-      .attr('colspan', 2)
-      .text('100% of Total');
+      .attr('colspan', 2);
 
     return this.update();
   }
@@ -136,9 +134,30 @@ class Tile extends Widget {
    * @inheritdoc
    */
   update() {
+    // IDENTIFIED:
+    // % IDENTIFIED (count)= IdentifiedDataSourcesCount / DataSourceCount
+    // % IDENTIFIED (size)= IdentifiedDataSourcesSize / DataSourcesSize
+    const data = this._dashboard.getData();
 
-    this._valueText.text(Math.round(d3.sum(this.getData())));
-    this._unitText.text(this.getUnit());
+    const totalCount = d3.sum(data, d => d['DataSourceCount']);
+    const totalSize  = d3.sum(data, d => d['DataSourceSize']);
+
+    const countKey = this.getDataKey('count');
+    const sizeKey  = this.getDataKey('size');
+
+    const count = d3.sum(data, d => d[countKey]);
+    const size  = d3.sum(data, d => d[sizeKey]);
+
+    // console.log(count / totalCount, size / totalSize);
+    // console.log(count, d3.sum(this.getData()));
+    console.log(countKey, sizeKey);
+
+    this._countValue.text(Math.round(count));
+    this._countUnit.text(this.getUnit());
+    this._countPercent.text(Math.round(count / totalCount * 100) + '% of Total');
+
+    this._sizeValue.text(Math.round(size));
+    this._sizePercent.text(Math.round(size / totalSize * 100) + '% of Total');
 
     return this;
   }
