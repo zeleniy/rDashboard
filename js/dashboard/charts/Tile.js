@@ -134,9 +134,7 @@ class Tile extends Widget {
    * @inheritdoc
    */
   update() {
-    // IDENTIFIED:
-    // % IDENTIFIED (count)= IdentifiedDataSourcesCount / DataSourceCount
-    // % IDENTIFIED (size)= IdentifiedDataSourcesSize / DataSourcesSize
+
     const data = this._dashboard.getData();
 
     const totalCount = d3.sum(data, d => d['DataSourceCount']);
@@ -147,10 +145,6 @@ class Tile extends Widget {
 
     const count = d3.sum(data, d => d[countKey]);
     const size  = d3.sum(data, d => d[sizeKey]);
-
-    // console.log(count / totalCount, size / totalSize);
-    // console.log(count, d3.sum(this.getData()));
-    console.log(countKey, sizeKey);
 
     this._countValue.text(Math.round(count));
     this._countUnit.text(this.getUnit());
