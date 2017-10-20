@@ -154,7 +154,7 @@ class BarChart extends Widget {
      */
     barsContainers
       .append('rect')
-      .attr('class', 'bar')
+      .attr('class', 'bar clickable')
       .style('fill', d => this._colorScale(d.name))
       .on('click', function(d) {
         const value = d.name;

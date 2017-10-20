@@ -105,7 +105,7 @@ class PieChart extends Widget {
     update.exit().remove();
     update.enter()
       .append('path')
-      .attr('class', 'slice')
+      .attr('class', 'slice clickable')
       .attr('fill', d => this._colorScale(d.data.name))
       .on('click', function(d) {
         const value = d.data.name;

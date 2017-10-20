@@ -150,7 +150,7 @@ class Map extends Widget {
     update
       .enter()
       .append('circle')
-      .attr('class', 'bubble')
+      .attr('class', 'bubble clickable')
       .attr('fill', d => this._colorScale(d.name))
       .on('click', function(d) {
         const value = d.name;
