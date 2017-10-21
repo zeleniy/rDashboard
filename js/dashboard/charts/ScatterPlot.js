@@ -49,7 +49,8 @@ class ScatterPlot extends Widget {
     const color = this._config.get('colorAccessor');
 
     return this._dashboard
-      .getData()
+      .getDataProvider()
+      .getFilteredData()
       .map(d => ({
         id: d['CaseID'],
         x: d[x],
@@ -142,9 +143,10 @@ class ScatterPlot extends Widget {
 
     margin = this.getMargin();
 
+    const rAccessor = this._config.get('radiusAccessor');
     const rScale = d3.scaleLinear()
       .range([5, maxR])
-      .domain([0, d3.max(data, d => d.r)]);
+      .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
 
     const xDomain = d3.extent(data, d => d.x);
     const xScale = d3.scaleTime()

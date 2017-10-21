@@ -6,11 +6,11 @@
 class DataProvider {
 
 
-  constructor(data = [], filters = {}, accessor) {
+  constructor(data = [], filters = {}, mode = 'Count') {
 
     this._data = data;
     this._filters = filters;
-    this._accessor = accessor;
+    this._mode = mode;
   }
 
 
@@ -25,6 +25,12 @@ class DataProvider {
     } else {
       return new SizeDataProvider(data, filters, accessor);
     }
+  }
+
+
+  setMode(mode) {
+
+    this._mode = mode;
   }
 
 
@@ -94,17 +100,19 @@ class DataProvider {
   }
 
 
-  getKey() {
+  /**
+   * Get filtered and grouped by accessor data.
+   * @public
+   * @param {String} accessor - property name to group by
+   * @param {String[]} excludeList - list of filters names to exclude
+   * @returns {Object[]}
+   */
+  getGroupedData(accessor, excludeList = []) {
 
-    throw new Error('Method getAccessor() not implemented on ' + this.constructor.name);
-  }
+    const topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
 
-
-  filter(accessor, excludeList = []) {
-
-    const topLevelAccessor = this.getKey();
-
-    const data = _(this.getData()).groupBy(function(d) {
+    var data = _(this.getFilteredData(excludeList));
+    data = data.groupBy(function(d) {
       return d[accessor];
     }).transform(function(result, value, key) {
       result.push({
@@ -120,11 +128,13 @@ class DataProvider {
   }
 
 
-  getFilteredData(accessor, excludeList = []) {
-
-    if (skipFilters === true) {
-      return this._data;
-    }
+  /**
+   * Get filtered data.
+   * @public
+   * @param {String[]} excludeList - list of filters names to exclude
+   * @returns {Object[]}
+   */
+  getFilteredData(excludeList = []) {
 
     if (_.size(this._filters) == 0) {
       return this._data;

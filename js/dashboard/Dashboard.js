@@ -9,7 +9,7 @@ class Dashboard {
   constructor(options) {
 
     this._config = new Config(options);
-    this._dataProvider = new CountDataProvider();
+    this._dataProvider = new DataProvider();
     this._charts = [];
 
     const self = this;
@@ -25,6 +25,12 @@ class Dashboard {
     d3.select(window).on('resize', function() {
       this.resize();
     }.bind(this))
+  }
+
+
+  getDataProvider() {
+
+    return this._dataProvider;
   }
 
 
@@ -207,9 +213,9 @@ class Dashboard {
 
   _modeChangeEventHandler(node) {
 
-    const mode = node.value;
+    const mode = node.value[0].toUpperCase() + node.value.substring(1).toLowerCase()
 
-    this._dataProvider = DataProvider.fromProvider(mode, this._dataProvider);
+    this._dataProvider.setMode(mode);
 
     this._charts.forEach(function(chart) {
       chart.setMode(mode);
@@ -275,11 +281,5 @@ class Dashboard {
   getData() {
 
     return this._dataProvider.getData();
-  }
-
-
-  getFilteredData(accessor, excludeList = []) {
-
-    return this._dataProvider.getFilteredData(accessor, excludeList);
   }
 }

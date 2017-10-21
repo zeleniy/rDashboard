@@ -100,6 +100,7 @@ class TimeLine extends Widget {
       .extent([[0, 0], [width, height]]);
 
     const extent = (this._extent || this._xScale.domain()).map(this._xScale);
+    this._ignoreMoveEvent = true;
 
     this._brushContainer
       .call(this._brush)
@@ -166,12 +167,10 @@ class TimeLine extends Widget {
   update() {
 
     const accessor = this.getDataKey();
+    const dataProvider = this._dashboard.getDataProvider();
 
-    // const defaultExtent = d3.extent(this.getData(this.getAccessor()));
-    // const currentExtent = d3.extent(this.getData());
-    const defaultExtent = d3.extent(this._dashboard.getData(), d => d[accessor]);
-    const currentExtent = d3.extent(this._dashboard.getData(), d => d[accessor]);
-    // console.log(defaultExtent, currentExtent);
+    const defaultExtent = d3.extent(dataProvider.getData(), d => d[accessor]);
+    const currentExtent = d3.extent(dataProvider.getFilteredData(), d => d[accessor]);
 
     this._xScale.domain(defaultExtent);
 

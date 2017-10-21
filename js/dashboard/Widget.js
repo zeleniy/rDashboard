@@ -223,17 +223,15 @@ class Widget {
 
 
   /**
-   * Get chart raw data.
+   * Get chart grouped data.
    * @public
    * @param {String[]} excludeList - list of filters to exclude
    * @returns {Mixed[]}
    */
   getData(excludeList) {
 
-    const accessor = this.getDataKey();
-
     return this._dashboard
-      .getFilteredData(accessor, excludeList)
-      // .map(d => d[key]);
+      .getDataProvider()
+      .getGroupedData(this.getDataKey(), excludeList);
   }
 }
