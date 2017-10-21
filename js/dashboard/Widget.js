@@ -17,6 +17,7 @@ class Widget {
     this._config = new Config(options);
 
     this._colorSet = d3.schemeCategory10;
+    this._mode = 'count';
 
     this._margin = {
       top: 0,
@@ -24,6 +25,12 @@ class Widget {
       bottom: 0,
       left: 0
     };
+  }
+
+
+  setMode(mode) {
+
+    this._mode = mode;
   }
 
 

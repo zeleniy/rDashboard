@@ -200,11 +200,17 @@ class Dashboard {
 
   _modeChangeEventHandler(node) {
 
+    const mode = node.value;
+
     this._dataProvider = DataProvider.getInstance(
-      node.value,
+      mode,
       this._dataProvider.getData(),
       this._dataProvider.getFilters()
     );
+
+    this._charts.forEach(function(chart) {
+      chart.setMode(mode);
+    });
 
     this.update();
   }
