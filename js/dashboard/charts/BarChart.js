@@ -19,25 +19,6 @@ class BarChart extends Widget {
   }
 
 
-  /**
-   * @inheritdoc
-   * @override
-   */
-  getData() {
-
-    return _(super.getData())
-      .groupBy(function(d) {
-        return d;
-      }).map(function(d) {
-        return {
-          name: d[0],
-          value: d.length
-        }
-      }).value()
-      .sort((a, b) => b.value - a.value);
-  }
-
-
   render() {
 
     super.render();

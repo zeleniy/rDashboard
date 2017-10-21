@@ -15,20 +15,6 @@ class PieChart extends Widget {
   }
 
 
-  getData() {
-
-    return _(super.getData())
-      .groupBy(function(d) {
-        return d;
-      }).map(function(d) {
-        return {
-          name: d[0],
-          value: d.length
-        }
-      }).value();
-  }
-
-
   getColorDomain() {
 
     return this.getData().map(d => d.name);

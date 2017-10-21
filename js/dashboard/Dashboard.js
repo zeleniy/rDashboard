@@ -9,7 +9,7 @@ class Dashboard {
   constructor(options) {
 
     this._config = new Config(options);
-    this._dataProvider = new DataProvider();
+    this._dataProvider = new CountDataProvider();
     this._charts = [];
 
     const self = this;
@@ -198,8 +198,15 @@ class Dashboard {
   }
 
 
-  _modeChangeEventHandler(d, i) {
+  _modeChangeEventHandler(node) {
 
+    this._dataProvider = DataProvider.getInstance(
+      node.value,
+      this._dataProvider.getData(),
+      this._dataProvider.getFilters()
+    );
+
+    this.update();
   }
 
 
@@ -256,8 +263,14 @@ class Dashboard {
   }
 
 
-  getData(excludeList = []) {
+  getData() {
 
-    return this._dataProvider.getData(excludeList);
+    return this._dataProvider.getData();
+  }
+
+
+  getFilteredData(accessor, excludeList = []) {
+
+    return this._dataProvider.getFilteredData(accessor, excludeList);
   }
 }

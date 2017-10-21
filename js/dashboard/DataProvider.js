@@ -6,10 +6,20 @@
 class DataProvider {
 
 
-  constructor() {
+  constructor(data = [], filters = {}) {
 
-    this._data = [];
-    this._filters = {};
+    this._data = data;
+    this._filters = filters;
+  }
+
+
+  static getInstance(mode, data, filters) {
+
+    if (mode.toLowerCase() == 'count') {
+      return new CountDataProvider(data, filters);
+    } else {
+      return new SizeDataProvider(data, filters);
+    }
   }
 
 
@@ -61,7 +71,17 @@ class DataProvider {
   }
 
 
-  getData(excludeList = []) {
+  getData() {
+
+    return this._data;
+  }
+
+
+  getFilteredData(accessor, excludeList = []) {
+
+    if (skipFilters === true) {
+      return this._data;
+    }
 
     if (_.size(this._filters) == 0) {
       return this._data;

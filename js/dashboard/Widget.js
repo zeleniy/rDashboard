@@ -217,10 +217,10 @@ class Widget {
    */
   getData(excludeList) {
 
-    const key = this.getDataKey();
+    const accessor = this.getDataKey();
 
     return this._dashboard
-      .getData(excludeList)
-      .map(d => d[key]);
+      .getFilteredData(accessor, excludeList)
+      // .map(d => d[key]);
   }
 }

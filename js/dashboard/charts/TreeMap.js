@@ -14,28 +14,14 @@ class TreeMap extends Widget {
 
     return {
       'name': 'flare',
-      'children': this._getGroupedData()
+      'children': super.getData()
     }
-  }
-
-
-  _getGroupedData() {
-
-    return _(super.getData())
-      .groupBy(function(d) {
-        return d;
-      }).map(function(d) {
-        return {
-          name: d[0],
-          size: d.length
-        }
-      }).value();
   }
 
 
   getColorDomain() {
 
-    return this._getGroupedData().map(d => d.name);
+    return super.getData().map(d => d.name);
   }
 
 
@@ -71,16 +57,17 @@ class TreeMap extends Widget {
     const margin = this.getMargin();
 
     const data = this.getData();
-    const total = d3.sum(data.children, d => d.size);
+    const total = d3.sum(data.children, d => d.value);
 
     const treemap = d3.treemap().size([width, height]);
-    const root = d3.hierarchy(data, (d) => d.children).sum((d) => d.size);
+    const root = d3.hierarchy(data, (d) => d.children).sum((d) => d.value);
     const tree = treemap(root);
+    const chartData = tree.leaves();
 
     const update = this._main
       .datum(root)
       .selectAll('.node')
-      .data(tree.leaves(), d => d.data.name);
+      .data(chartData, d => d.data.name);
     update.exit().remove();
     update.enter()
       .append('div')
@@ -99,7 +86,7 @@ class TreeMap extends Widget {
             .append('div')
             .attr('class', 'node-label')
             .selectAll('div')
-            .data([d.data.name, d.data.size + ' (' + persent + '%)'])
+            .data([d.data.name, d.data.value + ' (' + persent + '%)'])
             .enter()
             .append('div')
             .text(String);
@@ -108,6 +95,19 @@ class TreeMap extends Widget {
 
     this._nodes = this._main
       .selectAll('div.node');
+
+    this._nodes
+      .selectAll('.node-label')
+      .data(chartData, d => d.data.name)
+      .each(function(d, i) {
+        const persent = Math.round(d.value / total * 1000) / 10;
+        if (persent > 10) {
+          d3.select(this)
+            .selectAll('div')
+            .data([d.data.name, d.data.value + ' (' + persent + '%)'])
+            .text(String);
+        }
+      });
 
     return this.resize();
   }

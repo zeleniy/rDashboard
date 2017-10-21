@@ -165,8 +165,13 @@ class TimeLine extends Widget {
    */
   update() {
 
-    const defaultExtent = d3.extent(this.getData(this.getAccessor()));
-    const currentExtent = d3.extent(this.getData());
+    const accessor = this.getDataKey();
+
+    // const defaultExtent = d3.extent(this.getData(this.getAccessor()));
+    // const currentExtent = d3.extent(this.getData());
+    const defaultExtent = d3.extent(this._dashboard.getData(), d => d[accessor]);
+    const currentExtent = d3.extent(this._dashboard.getData(), d => d[accessor]);
+    // console.log(defaultExtent, currentExtent);
 
     this._xScale.domain(defaultExtent);
 

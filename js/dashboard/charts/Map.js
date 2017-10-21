@@ -103,28 +103,6 @@ class Map extends Widget {
   }
 
 
-  /**
-   * @inheritdoc
-   * @override
-   */
-  getData() {
-
-    return _(super.getData())
-      .groupBy(function(d) {
-        return d;
-      }).transform(function(r, v, k) {
-
-        r.push({
-          name: k,
-          value: v.length
-        });
-
-        return r;
-      }, [])
-      .value();
-  }
-
-
   getColorDomain() {
 
     return this.getData().map(d => d.name);
