@@ -1,7 +1,0 @@
-class DataProvider {
-
-
-  onLoad(callback) {
-
-  }
-}

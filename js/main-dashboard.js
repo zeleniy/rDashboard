@@ -61,7 +61,7 @@ const timeLine = new TimeLine({
   placeholder: '#timeline-placeholder'
 });
 
-new LocalFileProvider('data/CaseStatsSummary.tsv').onLoad(function(data) {
+DataLoader.getInstance('data/CaseStatsSummary.tsv').onLoad(function(data) {
 
   new Dashboard({
       filters: {

@@ -1,10 +1,15 @@
-class LocalFileProvider extends DataProvider {
+class DataLoader {
 
 
   constructor(filePath) {
 
-    super();
     this._filePath = filePath;
+  }
+
+
+  static getInstance(filePath) {
+
+    return new DataLoader(filePath);
   }
 
 
