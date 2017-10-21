@@ -41,4 +41,8 @@ div.chart {
 
 .reset-button {
   background-color: lightblue;
+  border: 2px solid lightblue;
+  padding: 0 5px;
+  border-radius: 4px;
+  float: right !important;
 }
