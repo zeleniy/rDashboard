@@ -104,12 +104,6 @@ class BarChart extends Widget {
   }
 
 
-  getColorDomain() {
-
-    return this.getData().map(d => d.name);
-  }
-
-
   update() {
 
     const data = this.getData();

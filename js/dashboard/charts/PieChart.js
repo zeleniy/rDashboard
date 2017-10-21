@@ -15,12 +15,6 @@ class PieChart extends Widget {
   }
 
 
-  getColorDomain() {
-
-    return this.getData().map(d => d.name);
-  }
-
-
   render() {
 
     super.render();

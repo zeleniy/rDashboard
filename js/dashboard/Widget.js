@@ -158,7 +158,7 @@ class Widget {
 
   getColorDomain() {
 
-    throw new Error('Method getColorDomain() not implemented on ' + this.constructor.name);
+    return this.getData().map(d => d.name);
   }
 
 

@@ -103,12 +103,6 @@ class Map extends Widget {
   }
 
 
-  getColorDomain() {
-
-    return this.getData().map(d => d.name);
-  }
-
-
   /**
    * @inheritdoc
    * @override
