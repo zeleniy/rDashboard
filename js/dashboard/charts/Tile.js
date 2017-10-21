@@ -87,14 +87,14 @@ class Tile extends Widget {
 
     this._table = this._container
       .append('table')
-      .attr('class', 'tile')
-      .style('background-color', this._config.get('backgroundColor'))
+      .attr('class', 'tile');
+    const table = this._table.style('background-color', this._config.get('backgroundColor'))
       .on('click', function(d, i, selection) {
         self._clickCallback(self, this);
       }).append('tbody')
       .append('tr');
 
-    const leftSide = this._table.append('td')
+    const leftSide = table.append('td')
       .attr('class', 'tile-left');
 
     var div = leftSide.append('div')
@@ -105,7 +105,7 @@ class Tile extends Widget {
     this._countPercent = leftSide.append('div')
       .attr('class', 'summary');
 
-    const rightSide = this._table.append('td')
+    const rightSide = table.append('td')
       .attr('class', 'tile-right')
       .append('table')
       .append('tbody');

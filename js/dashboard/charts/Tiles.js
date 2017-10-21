@@ -37,6 +37,8 @@ class Tiles extends Widget {
     });
 
     this._clickedTile = isSame ? undefined : clickedTile;
+
+    this._dashboard.setAccessor(isSame ? undefined : clickedTile.getConfig().get('accessor'));
   }
 
 

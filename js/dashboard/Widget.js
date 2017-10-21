@@ -28,6 +28,12 @@ class Widget {
   }
 
 
+  getConfig() {
+
+    return this._config;
+  }
+
+
   setMode(mode) {
 
     this._mode = mode;

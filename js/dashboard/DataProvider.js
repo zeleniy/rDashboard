@@ -6,20 +6,31 @@
 class DataProvider {
 
 
-  constructor(data = [], filters = {}) {
+  constructor(data = [], filters = {}, accessor) {
 
     this._data = data;
     this._filters = filters;
+    this._accessor = accessor;
   }
 
 
-  static getInstance(mode, data, filters) {
+  static fromProvider(mode, provider) {
+
+    const data     = provider.getData();
+    const filters  = provider.getFilters();
+    const accessor = provider.getAccessor();
 
     if (mode.toLowerCase() == 'count') {
-      return new CountDataProvider(data, filters);
+      return new CountDataProvider(data, filters, accessor);
     } else {
-      return new SizeDataProvider(data, filters);
+      return new SizeDataProvider(data, filters, accessor);
     }
+  }
+
+
+  getAccessor() {
+
+    return this._accessor;
   }
 
 
@@ -53,6 +64,12 @@ class DataProvider {
   }
 
 
+  setAccessor(accessor) {
+
+    this._accessor = accessor;
+  }
+
+
   /**
    * Munge data.
    * @private
@@ -74,6 +91,32 @@ class DataProvider {
   getData() {
 
     return this._data;
+  }
+
+
+  getKey() {
+
+    throw new Error('Method getAccessor() not implemented on ' + this.constructor.name);
+  }
+
+
+  filter(accessor, excludeList = []) {
+
+    const topLevelAccessor = this.getKey();
+
+    const data = _(this.getData()).groupBy(function(d) {
+      return d[accessor];
+    }).transform(function(result, value, key) {
+      result.push({
+        name: key,
+        value: Math.round(d3.sum(value, d => d[topLevelAccessor]))
+      });
+    }, [])
+    .filter(function(d) {
+      return d.value > 0;
+    }).value();
+
+    return data;
   }
 
 

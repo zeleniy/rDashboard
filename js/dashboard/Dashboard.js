@@ -198,15 +198,18 @@ class Dashboard {
   }
 
 
+  setAccessor(accessor) {
+
+    this._dataProvider.setAccessor(accessor);
+    this.update();
+  }
+
+
   _modeChangeEventHandler(node) {
 
     const mode = node.value;
 
-    this._dataProvider = DataProvider.getInstance(
-      mode,
-      this._dataProvider.getData(),
-      this._dataProvider.getFilters()
-    );
+    this._dataProvider = DataProvider.fromProvider(mode, this._dataProvider);
 
     this._charts.forEach(function(chart) {
       chart.setMode(mode);

@@ -62,7 +62,7 @@ class TreeMap extends Widget {
     const treemap = d3.treemap().size([width, height]);
     const root = d3.hierarchy(data, (d) => d.children).sum((d) => d.value);
     const tree = treemap(root);
-    const chartData = tree.leaves();
+    const chartData = data.children.length ? tree.leaves() : [];
 
     const update = this._main
       .datum(root)
