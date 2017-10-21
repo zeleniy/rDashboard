@@ -16,13 +16,6 @@ class Tiles extends Widget {
   }
 
 
-  setMode(mode) {
-
-    this._mode = mode;
-    return this;
-  }
-
-
   getDataKey(accessor, mode = this._mode) {
 
     return accessor + mode[0].toUpperCase() + mode.substring(1).toLowerCase();

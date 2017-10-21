@@ -13,8 +13,12 @@ class Dashboard {
     this._charts = [];
     this._filters = {};
 
+    const self = this;
+
     d3.selectAll('.tiles-mode-filter input')
-      .on('change', this.tilesModeChangeEventHandler.bind(this));
+      .on('change', function() {
+        self._modeChangeEventHandler(this);
+      });
 
     d3.selectAll('.reset-button')
       .on('click', this.resetAllFilters.bind(this));
@@ -217,12 +221,8 @@ class Dashboard {
   }
 
 
-  tilesModeChangeEventHandler(d, i, set) {
+  _modeChangeEventHandler(d, i) {
 
-    this._charts
-      .find(chart => chart.constructor.name === Tiles.name)
-      .setMode(d3.select(set[i]).attr('value'))
-      .update();
   }
 
 
