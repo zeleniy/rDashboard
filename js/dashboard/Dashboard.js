@@ -9,9 +9,8 @@ class Dashboard {
   constructor(options) {
 
     this._config = new Config(options);
-
+    this._dataProvider = new DataProvider();
     this._charts = [];
-    this._filters = {};
 
     const self = this;
 
@@ -30,33 +29,11 @@ class Dashboard {
 
 
   /**
-   * Munge data.
-   * See https://en.wikipedia.org/wiki/Data_wrangling
-   * @private
-   */
-  _mungeData() {
-
-    this._data = this._data.map(function(d) {
-
-      d['CaseCreatedOn'] = moment(d['CaseCreatedOn']).toDate();
-      d['DataSourceCount'] = Number(d['DataSourceCount']);
-      d['DataSourceSize'] = Number(d['DataSourceSize']);
-
-      return d;
-    });
-  }
-
-
-  /**
    * Render dashboard components.
    * @public
    * @returns {Dashboard}
    */
   render() {
-    /*
-     * Munge data.
-     */
-    this._mungeData();
     /*
      * Render filters.
      */
@@ -86,7 +63,7 @@ class Dashboard {
       /*
        * Get filter values.
        */
-      const values = _(this._data)
+      const values = _(this.getData())
         .map(d => d[accessor])
         .uniq()
         .value();
@@ -191,7 +168,7 @@ class Dashboard {
    */
   resetDataFilter(accessor) {
 
-    delete this._filters[accessor];
+    this._dataProvider.resetFilter(accessor);
     this.update();
 
     return this;
@@ -205,7 +182,7 @@ class Dashboard {
    */
   resetAllFilters() {
 
-    _(this._filters).each(function(comparator, accessor) {
+    _(this._dataProvider.getFilters()).each(function(comparator, accessor) {
       this._resetFilterButton(accessor);
     }.bind(this));
 
@@ -235,7 +212,7 @@ class Dashboard {
 
   setData(data) {
 
-    this._data = data;
+    this._dataProvider.setData(data);
     return this;
   }
 
@@ -253,8 +230,7 @@ class Dashboard {
      */
     this._removeFilterButton(accessor);
 
-    this._filters[accessor] = comparator;
-
+    this._dataProvider.setFilter(accessor, comparator);
     /*
      * Render new filter button.
      */
@@ -282,27 +258,6 @@ class Dashboard {
 
   getData(excludeList = []) {
 
-    if (_.size(this._filters) == 0) {
-      return this._data;
-    }
-
-    if (! Array.isArray(excludeList)) {
-      excludeList = [excludeList];
-    }
-
-    var data = this._data.slice(0);
-
-    _.each(this._filters, function(filter, accessor) {
-
-      if (excludeList.length > 0 && excludeList.indexOf(accessor) != -1) {
-        return;
-      }
-
-      data = data.filter(function(d) {
-        return filter(d[accessor]);
-      })
-    })
-
-    return data;
+    return this._dataProvider.getData(excludeList);
   }
 }
