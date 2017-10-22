@@ -94,7 +94,18 @@ class TreeMap extends Widget {
       });
 
     this._nodes = this._main
-      .selectAll('div.node');
+      .selectAll('div.node')
+      .on('mouseenter', function(d) {
+        this.getTooltip()
+          .setContent(d.data.name + ': ' + d.data.value)
+          .show();
+      }.bind(this))
+      .on('mouseout', function(d) {
+        this.getTooltip().hide();
+      }.bind(this))
+      .on('mousemove', function(d) {
+        this.getTooltip().move();
+      }.bind(this));
 
     this._nodes
       .selectAll('.node-label')

@@ -156,7 +156,18 @@ class BarChart extends Widget {
 
     this._barsContainers
       .selectAll('rect.bar')
-      .data(data, d => d.name);
+      .data(data, d => d.name)
+      .on('mouseenter', function(d) {
+        this.getTooltip()
+          .setContent(d.name + ': ' + d.value)
+          .show();
+      }.bind(this))
+      .on('mouseout', function(d) {
+        this.getTooltip().hide();
+      }.bind(this))
+      .on('mousemove', function(d) {
+        this.getTooltip().move();
+      }.bind(this));
 
     const total = d3.sum(data, d => d.value);
 

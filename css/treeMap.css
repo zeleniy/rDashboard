@@ -7,4 +7,5 @@ div.treemap .node {
 
 div.treemap .node-label {
   margin-left: 5px;
+  pointer-events: none;
 }

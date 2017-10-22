@@ -95,7 +95,18 @@ class PieChart extends Widget {
       }.bind(this));
 
     this._slices = this._canvas
-      .selectAll('path');
+      .selectAll('path')
+      .on('mouseenter', function(d) {
+        this.getTooltip()
+          .setContent(d.data.name + ': ' + d.data.value)
+          .show();
+      }.bind(this))
+      .on('mouseout', function(d) {
+        this.getTooltip().hide();
+      }.bind(this))
+      .on('mousemove', function(d) {
+        this.getTooltip().move();
+      }.bind(this));
 
     update = this._canvas
       .selectAll('polyline')

@@ -205,7 +205,18 @@ class ScatterPlot extends Widget {
       .attr('fill', d => this._colorScale(d.color));
 
     this._dots = this._canvas
-      .selectAll('circle.dot');
+      .selectAll('circle.dot')
+      .on('mouseenter', function(d) {
+        this.getTooltip()
+          .setContent(d.color + ': ' + d.y)
+          .show();
+      }.bind(this))
+      .on('mouseout', function(d) {
+        this.getTooltip().hide();
+      }.bind(this))
+      .on('mousemove', function(d) {
+        this.getTooltip().move();
+      }.bind(this));
 
     return this.resize();
   }

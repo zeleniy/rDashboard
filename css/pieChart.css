@@ -3,8 +3,5 @@ svg.pie-chart polyline {
   stroke: black;
   stroke-width: 1;
   fill: none;
-}
-
-svg.pie-chart text {
-
+  pointer-events: none;
 }

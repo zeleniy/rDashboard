@@ -133,7 +133,18 @@ class Map extends Widget {
 
     this._bubbles = this._dataLayer
       .selectAll('circle')
-      .data(data, d => d.name);
+      .data(data, d => d.name)
+      .on('mouseenter', function(d) {
+        this.getTooltip()
+          .setContent(d.name + ': ' + d.value)
+          .show();
+      }.bind(this))
+      .on('mouseout', function(d) {
+        this.getTooltip().hide();
+      }.bind(this))
+      .on('mousemove', function(d) {
+        this.getTooltip().move();
+      }.bind(this));
 
     return this.resize();
   }

@@ -10,6 +10,7 @@ class Dashboard {
 
     this._config = new Config(options);
     this._dataProvider = new DataProvider();
+    this._tooltip = new Tooltip();
     this._charts = [];
 
     const self = this;
@@ -31,6 +32,12 @@ class Dashboard {
   getDataProvider() {
 
     return this._dataProvider;
+  }
+
+
+  getTooltip() {
+
+    return this._tooltip;
   }
 
 

@@ -28,6 +28,12 @@ class Widget {
   }
 
 
+  getTooltip() {
+
+    return this._dashboard.getTooltip();
+  }
+
+
   getConfig() {
 
     return this._config;
