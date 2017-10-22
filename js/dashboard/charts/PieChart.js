@@ -9,6 +9,9 @@ class PieChart extends Widget {
 
     super(options);
 
+    this._legendBoxSize = 15;
+    this._legendBoxGap = 2;
+
     this._pie = d3.pie()
       .sort(null)
       .value(d => d.value);
@@ -26,6 +29,10 @@ class PieChart extends Widget {
     this._canvas = this._svg
       .append('g')
       .attr('class', 'canvas');
+
+    this._legend = this._svg
+      .append('g')
+      .attr('class', 'legend');
 
     return this.update(false);
   }
@@ -68,6 +75,18 @@ class PieChart extends Widget {
         .attr('d', arc);
     }
 
+    this._legend
+      .selectAll('g')
+      .attr('transform', (d, i) => 'translate(5, ' + (i * this._legendBoxSize + i * this._legendBoxGap) + ')');
+    this._legend
+      .selectAll('rect')
+      .attr('width', this._legendBoxSize)
+      .attr('height', this._legendBoxSize);
+    this._legend
+      .selectAll('text')
+      .attr('x', this._legendBoxSize + this._legendBoxGap);
+
+
     return this;
   }
 
@@ -75,10 +94,23 @@ class PieChart extends Widget {
   update(animate = true) {
 
     const data = this.getData();
+
+    var update = this._legend
+      .selectAll('g')
+      .data(data, d => d.name);
+    update.exit().remove();
+    var rows = update.enter()
+      .append('g');
+    rows.append('rect')
+      .attr('fill', d => this._colorScale(d.name));
+    rows.append('text')
+      .attr('dy', '0.9em')
+      .text(d => d.name);
+
     const total = d3.sum(data, d => d.value);
     const chartData = this._pie(data);
 
-    var update = this._canvas
+    update = this._canvas
       .selectAll('path')
       .data(chartData, d => d.data.name);
     update.exit().remove();
