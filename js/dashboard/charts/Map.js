@@ -58,7 +58,7 @@ class Map extends Widget {
    * @inheritdoc
    * @override
    */
-  resize(animate = true) {
+  resize(animate = false) {
 
     const width = this.getOuterWidth();
     const height = this.getOuterHeight();

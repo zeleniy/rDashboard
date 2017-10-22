@@ -35,7 +35,7 @@ class BarChart extends Widget {
   }
 
 
-  resize(animate = true) {
+  resize(animate = false) {
 
     this._svg
       .attr('width', this.getOuterWidth())

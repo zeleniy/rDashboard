@@ -38,9 +38,22 @@ class TreeMap extends Widget {
   }
 
 
-  resize(animate = true) {
+  resize(animate = false) {
 
-    this._getTransition(animate, this._nodes)
+    const width = this.getOuterWidth();
+    const height = this.getOuterHeight();
+    const margin = this.getMargin();
+
+    const data = this.getData();
+    const total = d3.sum(data.children, d => d.value);
+
+    const treemap = d3.treemap().size([width, height]);
+    const root = d3.hierarchy(data, (d) => d.children).sum((d) => d.value);
+    const tree = treemap(root);
+    const chartData = data.children.length ? tree.leaves() : [];
+
+    this._getTransition(animate, this._nodes
+      .data(chartData))
       .style('left', d => d.x0 + 'px')
       .style('top', d => d.y0 + 'px')
       .style('width', d => Math.max(0, d.x1 - d.x0 - 1) + 'px')
@@ -94,6 +107,7 @@ class TreeMap extends Widget {
 
     this._nodes = this._main
       .selectAll('div.node')
+      .data(chartData, d => d.data.name)
       .on('mouseenter', function(d) {
         this.getTooltip()
           .setContent(d.data.name + ': ' + d.data.value)

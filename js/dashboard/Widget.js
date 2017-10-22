@@ -221,10 +221,10 @@ class Widget {
    * Update widget.
    * @public
    * @abstract
-   * @param {Boolean} [animate=true]
+   * @param {Boolean} [animate=false]
    * @returns {Widget}
    */
-  resize() {
+  resize(animate = false) {
 
     throw new Error('Method resize() not implemented on ' + this.constructor.name);
   }
