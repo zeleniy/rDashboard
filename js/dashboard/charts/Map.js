@@ -46,7 +46,7 @@ class Map extends Widget {
         .append('path')
         .attr('class', 'country');
 
-      this.update();
+      this.update(false);
 
     }.bind(this));
 
@@ -58,7 +58,7 @@ class Map extends Widget {
    * @inheritdoc
    * @override
    */
-  resize() {
+  resize(animate = true) {
 
     const width = this.getOuterWidth();
     const height = this.getOuterHeight();
@@ -94,10 +94,11 @@ class Map extends Widget {
       };
     }.bind(this));
 
-    this._bubbles
-      .attr('r', d => rScale(d.value))
+    this._getTransition(animate, this._bubbles
       .attr('cx', d => centroids[d.name].x)
-      .attr('cy', d => centroids[d.name].y);
+      .attr('cy', d => centroids[d.name].y))
+
+      .attr('r', d => rScale(d.value))
 
     return this;
   }
@@ -107,7 +108,7 @@ class Map extends Widget {
    * @inheritdoc
    * @override
    */
-  update() {
+  update(animate = true) {
 
     const data = this.getData();
 
@@ -146,6 +147,6 @@ class Map extends Widget {
         this.getTooltip().move();
       }.bind(this));
 
-    return this.resize();
+    return this.resize(animate);
   }
 }

@@ -27,11 +27,11 @@ class PieChart extends Widget {
       .append('g')
       .attr('class', 'canvas');
 
-    return this.update();
+    return this.update(false);
   }
 
 
-  resize() {
+  resize(animate = true) {
 
     const width = this.getOuterWidth();
     const height = this.getOuterHeight();
@@ -52,28 +52,27 @@ class PieChart extends Widget {
       .outerRadius(radius * 2)
       .innerRadius(0);
 
-    this._slices
-      .attr('d', arc);
-
-    this._polylines
-      .attr('points', function(d) {
-        var position = outerArc.centroid(d);
-        position[0] = radius * 0.95 * (this._getMidAngle(d) < Math.PI ? 1 : -1);
-        return [arc.centroid(d), outerArc.centroid(d), position];
-      }.bind(this));
-
-    this._labels
-      .attr('transform', function(d) {
-        var position = outerArc.centroid(d);
-        position[0] = radius * (this._getMidAngle(d) < Math.PI ? 1 : -1);
-        return 'translate(' + position + ')';
-      }.bind(this));
+    if (animate) {
+      this._slices
+        .transition()
+        .duration(this._duration)
+        .attrTween('d', function(d) {
+          var i = d3.interpolate(this._current, d);
+          this._current = i(0);
+          return function(t) {
+            return arc(i(t));
+          }
+        });
+    } else {
+      this._slices
+        .attr('d', arc);
+    }
 
     return this;
   }
 
 
-  update() {
+  update(animate = true) {
 
     const data = this.getData();
     const total = d3.sum(data, d => d.value);
@@ -108,42 +107,7 @@ class PieChart extends Widget {
         this.getTooltip().move();
       }.bind(this));
 
-    update = this._canvas
-      .selectAll('polyline')
-      .data(chartData, d => d.data.name);
-    update.exit().remove();
-    update.enter()
-      .append('polyline');
-
-    this._polylines = this._canvas
-      .selectAll('polyline');
-
-    update = this._canvas
-      .selectAll('text')
-      .data(chartData, d => d.data.name);
-    update.exit().remove();
-    update.enter()
-      .append('text')
-      .attr('class', 'label')
-      .style('text-anchor', function(d) {
-          return this._getMidAngle(d) < Math.PI ? 'start' : 'end';
-      }.bind(this))
-      .each(function(d) {
-        d3.select(this)
-          .selectAll('tspan')
-          .data([d.data.name, d.data.value + ' (' + (Math.round(d.data.value / total * 1000) / 10) + '%)'])
-          .enter()
-          .append('tspan')
-          .attr('x', 0)
-          .attr('y', (d, i) => i == 0 ? 0 : '1.2em')
-          .attr('dy', '-.2em')
-          .text(String);
-      });
-
-    this._labels = this._canvas
-      .selectAll('text');
-
-    return this.resize();
+    return this.resize(animate);
   }
 
 

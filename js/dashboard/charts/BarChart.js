@@ -31,11 +31,11 @@ class BarChart extends Widget {
       .append('g')
       .attr('class', 'canvas');
 
-    return this.update();
+    return this.update(false);
   }
 
 
-  resize() {
+  resize(animate = true) {
 
     this._svg
       .attr('width', this.getOuterWidth())
@@ -80,18 +80,17 @@ class BarChart extends Widget {
     /*
      * Render bars.
      */
-    this._barsContainers
+    this._getTransition(animate, this._barsContainers
       .selectAll('rect.bar')
+      .attr('transform', 'translate(0, ' + this._yOffset + ')'))
       .attr('width', d => this._xScale(d.value))
-      .attr('height', this._thickness)
-      .attr('transform', 'translate(0, ' + this._yOffset + ')');
+      .attr('height', this._thickness);
     /*
      * Append labels.
      */
     this._barsContainers
       .selectAll('text.label')
       .attr('dy', this._yOffset - this._gap)
-
     /*
      * Append value labels.
      */
@@ -104,7 +103,7 @@ class BarChart extends Widget {
   }
 
 
-  update() {
+  update(animate = true) {
 
     const data = this.getData();
     /*
@@ -178,6 +177,6 @@ class BarChart extends Widget {
         return d.value + ' (' + (Math.round(d.value / total * 1000) / 10) + '%)';
       });
 
-    return this.resize();
+    return this.resize(animate);
   }
 }

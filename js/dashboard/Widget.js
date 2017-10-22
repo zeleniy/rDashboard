@@ -17,6 +17,7 @@ class Widget {
     this._config = new Config(options);
 
     this._colorSet = d3.schemeCategory10;
+    this._duration = 1000;
     this._mode = 'count';
 
     this._margin = {
@@ -25,6 +26,16 @@ class Widget {
       bottom: 0,
       left: 0
     };
+  }
+
+
+  _getTransition(animate, selection) {
+
+    if (animate) {
+      return selection.transition().duration(this._duration);
+    } else {
+      return selection;
+    }
   }
 
 
@@ -197,9 +208,10 @@ class Widget {
    * Update widget.
    * @public
    * @abstract
+   * @param {Boolean} [animate=true]
    * @returns {Widget}
    */
-  update() {
+  update(animate = true) {
 
     throw new Error('Method update() not implemented on ' + this.constructor.name);
   }
@@ -209,6 +221,7 @@ class Widget {
    * Update widget.
    * @public
    * @abstract
+   * @param {Boolean} [animate=true]
    * @returns {Widget}
    */
   resize() {

@@ -34,13 +34,13 @@ class TreeMap extends Widget {
       .attr('class', 'treemap')
       .style('position', 'relative');
 
-    return this.update();
+    return this.update(false);
   }
 
 
-  resize() {
+  resize(animate = true) {
 
-    this._nodes
+    this._getTransition(animate, this._nodes)
       .style('left', d => d.x0 + 'px')
       .style('top', d => d.y0 + 'px')
       .style('width', d => Math.max(0, d.x1 - d.x0 - 1) + 'px')
@@ -50,7 +50,7 @@ class TreeMap extends Widget {
   }
 
 
-  update() {
+  update(animate = true) {
 
     const width = this.getOuterWidth();
     const height = this.getOuterHeight();
@@ -88,8 +88,7 @@ class TreeMap extends Widget {
             .selectAll('div')
             .data([d.data.name, d.data.value + ' (' + persent + '%)'])
             .enter()
-            .append('div')
-            .text(String);
+            .append('div');
         }
       });
 
@@ -120,6 +119,6 @@ class TreeMap extends Widget {
         }
       });
 
-    return this.resize();
+    return this.resize(animate);
   }
 }
