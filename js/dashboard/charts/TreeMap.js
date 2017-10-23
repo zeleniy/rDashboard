@@ -84,7 +84,7 @@ class TreeMap extends Widget {
     update.enter()
       .append('div')
       .attr('class', 'node clickable')
-      .style('background', d => this._colorScale(d.data.name))
+      .style('background-color', d => this._colorScale(d.data.name))
       .on('click', function(d) {
         const value = d.data.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
