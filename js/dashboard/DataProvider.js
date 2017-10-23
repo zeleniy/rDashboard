@@ -122,7 +122,10 @@ class DataProvider {
     }, [])
     .filter(function(d) {
       return d.value > 0;
-    }).value();
+    }).value()
+    .sort(function(a, b) {
+      return b.value - a.value;
+    });
 
     return data;
   }

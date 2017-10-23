@@ -113,7 +113,11 @@ class PieChart extends Widget {
     update = this._canvas
       .selectAll('path')
       .data(chartData, d => d.data.name);
-    update.exit().remove();
+    update.exit()
+      .each(function(d) {
+        this._current = _.clone(d);
+        d.startAngle = d.endAngle;
+      });
     update.enter()
       .append('path')
       .attr('class', 'slice clickable')
@@ -123,7 +127,10 @@ class PieChart extends Widget {
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
         });
-      }.bind(this));
+      }.bind(this))
+      .each(function(d) {
+        this._current = d;
+      });
 
     this._slices = this._canvas
       .selectAll('path')

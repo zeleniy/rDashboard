@@ -45,6 +45,10 @@ class BarChart extends Widget {
       .attr('transform', 'translate(' + this._margin.left + ', ' + this._margin.top + ')');
 
     const data = this.getData();
+    const index = _(data)
+      .sort((a, b) => b.value - a.value)
+      .transform((result, value, index) => result[value.name] = index, {})
+      .value();
     /*
      * Get max value.
      */
@@ -61,10 +65,8 @@ class BarChart extends Widget {
     /*
      * Render bars containers.
      */
-    this._barsContainers
-      .attr('transform', function(d, i) {
-        return 'translate(0, ' + (i * this._blockHeight) + ')';
-      }.bind(this));
+    this._getTransition(animate, this._barsContainers)
+      .attr('transform', d => 'translate(0, ' + (index[d.name] * this._blockHeight) + ')');
     /**
      *
      */
