@@ -32,19 +32,20 @@ class DataProvider {
   }
 
 
-  setFilter(accessor, comparator) {
+  setFilter(accessor, comparator, callback) {
 
-    this._filters[accessor] = comparator;
+    this._filters[accessor] = {
+      comparator: comparator,
+      callback: callback
+    };
   }
 
 
-  resetFilter(accessor) {
+  resetFilter(accessor, applyCallback = true) {
 
-    delete this._filters[accessor];
-  }
-
-
-  resetFilters() {
+    if (applyCallback && this._filters[accessor].callback) {
+      this._filters[accessor].callback();
+    }
 
     delete this._filters[accessor];
   }
@@ -141,7 +142,7 @@ class DataProvider {
       }
 
       data = data.filter(function(d) {
-        return filter(d[accessor]);
+        return filter.comparator(d[accessor]);
       })
     })
 

@@ -18,11 +18,40 @@ class Tiles extends Widget {
 
   getDataKey(accessor, mode = this._mode) {
 
+    accessor = accessor || this._clickedTile.getAccessor();
     return accessor + mode[0].toUpperCase() + mode.substring(1).toLowerCase();
   }
 
 
-  _clickHandler(clickedTile, element) {
+  updateFilter() {
+
+    d3.selectAll('.filters-list div.filter')
+      .filter(d => d == 'ValueColumn')
+      .select('span')
+      .text('ValueColumn = ' + this.getDataKey())
+  }
+
+
+  _clickHandler(clickedTile) {
+
+    const isSame = this._clickedTile == clickedTile;
+
+    this._toggle(clickedTile);
+
+    if (isSame) {
+      this._dashboard.resetDataFilter('ValueColumn', false);
+    } else {
+      this._dashboard.setDataFilter(
+        'ValueColumn',
+        () => true,
+        this.getDataKey(clickedTile.getConfig().get('accessor')),
+        this._toggle.bind(this, clickedTile)
+      );
+    }
+  }
+
+
+  _toggle(clickedTile) {
 
     const isSame = this._clickedTile == clickedTile;
 

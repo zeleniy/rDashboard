@@ -81,8 +81,6 @@ class Tile extends Widget {
    */
   render() {
 
-    const self = this;
-
     this._container = d3.select(this._config.get('placeholder'));
 
     this._table = this._container
@@ -90,8 +88,9 @@ class Tile extends Widget {
       .attr('class', 'tile');
     const table = this._table.style('background-color', this._config.get('backgroundColor'))
       .on('click', function(d, i, selection) {
-        self._clickCallback(self, this);
-      }).append('tbody')
+        this._clickCallback(this);
+      }.bind(this))
+      .append('tbody')
       .append('tr');
 
     const leftSide = table.append('td')

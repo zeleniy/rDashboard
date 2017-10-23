@@ -142,7 +142,7 @@ class PieChart extends Widget {
         const value = d.data.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
-        });
+        }, value);
       }.bind(this))
       .each(function(d) {
         this._current = d;

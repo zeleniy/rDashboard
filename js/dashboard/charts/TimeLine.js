@@ -151,12 +151,14 @@ class TimeLine extends Widget {
       return this._ignoreMoveEvent = false;
     }
 
-    var min = this._extent[0];
-    var max = this._extent[1];
+    const min = this._extent[0];
+    const max = this._extent[1];
+
+    const format = 'D/M/YYYY HH:mm:ss';
 
     this._dashboard.setDataFilter(this.getAccessor(), function(d) {
       return d >= min && d <= max;
-    }, true);
+    }, moment(min).format(format) + ' - ' + moment(max).format(format));
   }
 
 

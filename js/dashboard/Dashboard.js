@@ -125,7 +125,7 @@ class Dashboard {
      */
     this.setDataFilter(accessor, function(d) {
       return d == value;
-    })
+    }, value);
   }
 
 
@@ -152,10 +152,6 @@ class Dashboard {
    */
   _resetFilterButton(accessor, resetSelect = true) {
     /*
-     * Remove filter button.
-     */
-    this._removeFilterButton(accessor);
-    /*
      * Reset dashboard filter.
      */
     this.resetDataFilter(accessor);
@@ -177,11 +173,19 @@ class Dashboard {
    * Reset data filter.
    * @public
    * @param {String} name - filter name.
+   * @param {Boolean} applyCallback
    * @retuns {Dashboard}
    */
-  resetDataFilter(accessor) {
+  resetDataFilter(accessor, applyCallback = true) {
+    /*
+     * Remove filter button.
+     */
+    this._removeFilterButton(accessor);
+    /*
+     * Remove filter from data provider.
+     */
+    this._dataProvider.resetFilter(accessor, applyCallback);
 
-    this._dataProvider.resetFilter(accessor);
     this.update();
 
     return this;
@@ -195,7 +199,7 @@ class Dashboard {
    */
   resetAllFilters() {
 
-    _(this._dataProvider.getFilters()).each(function(comparator, accessor) {
+    _(this._dataProvider.getFilters()).each(function(filter, accessor) {
       this._resetFilterButton(accessor);
     }.bind(this));
 
@@ -228,6 +232,10 @@ class Dashboard {
       chart.setMode(mode);
     });
 
+    this._charts
+      .find(chart => chart.constructor.name == 'Tiles')
+      .updateFilter();
+
     this.update();
   }
 
@@ -251,24 +259,28 @@ class Dashboard {
    * @public
    * @param {String} name - filter name.
    * @param {Function} comparator - filter function.
+   * @param {String} [value] - filter value.
+   * @param {Function} [callback] - reset button click callback.
    * @retuns {Dashboard}
    */
-  setDataFilter(accessor, comparator) {
+  setDataFilter(accessor, comparator, value, callback) {
     /*
      * Remove filter button if any.
      */
     this._removeFilterButton(accessor);
 
-    this._dataProvider.setFilter(accessor, comparator);
+    this._dataProvider.setFilter(accessor, comparator, callback);
     /*
      * Render new filter button.
      */
-    d3.select('.filters-list')
+    const button = d3.select('.filters-list')
       .append('div')
       .datum(accessor)
-      .attr('class', 'filter')
-      .text(String)
+      .attr('class', 'filter');
+    button
       .append('span')
+      .text(accessor + (value ? ' = ' + value : ''));
+    button.append('span')
       .attr('class', 'filter-remove')
       .text('x')
       .on('click', this._resetFilterButton.bind(this, accessor));

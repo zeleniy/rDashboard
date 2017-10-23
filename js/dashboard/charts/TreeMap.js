@@ -89,7 +89,7 @@ class TreeMap extends Widget {
         const value = d.data.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
-        });
+        }, value);
       }.bind(this))
       .each(function(d, i) {
         const persent = Math.round(d.value / total * 1000) / 10;

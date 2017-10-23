@@ -23,14 +23,13 @@ div.chart {
 .filters-list {
   margin: 10px 15px 10px 0;
   float: left;
-  height: 20px;
 }
 
 .filters-list .filter {
   float: left;
   border: 2px solid lightblue;
   padding: 0 5px;
-  margin-right: 5px;
+  margin: 5px;
   border-radius: 4px;
 }
 

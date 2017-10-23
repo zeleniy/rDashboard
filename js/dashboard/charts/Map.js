@@ -133,7 +133,7 @@ class Map extends Widget {
         const value = d.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {
           return d == value;
-        });
+        }, value);
       }.bind(this));
 
     this._bubbles = this._dataLayer
