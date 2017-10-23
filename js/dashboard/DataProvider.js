@@ -14,20 +14,6 @@ class DataProvider {
   }
 
 
-  static fromProvider(mode, provider) {
-
-    const data     = provider.getData();
-    const filters  = provider.getFilters();
-    const accessor = provider.getAccessor();
-
-    if (mode.toLowerCase() == 'count') {
-      return new CountDataProvider(data, filters, accessor);
-    } else {
-      return new SizeDataProvider(data, filters, accessor);
-    }
-  }
-
-
   setMode(mode) {
 
     this._mode = mode;
@@ -105,29 +91,28 @@ class DataProvider {
    * @public
    * @param {String} accessor - property name to group by
    * @param {String[]} excludeList - list of filters names to exclude
+   * @param {Object[]} [data] - data to group
    * @returns {Object[]}
    */
-  getGroupedData(accessor, excludeList = []) {
+  getGroupedData(accessor, excludeList = [], data) {
 
     const topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
 
-    var data = _(this.getFilteredData(excludeList));
-    data = data.groupBy(function(d) {
-      return d[accessor];
-    }).transform(function(result, value, key) {
-      result.push({
-        name: key,
-        value: Math.round(d3.sum(value, d => d[topLevelAccessor]))
+    return _(data || this.getFilteredData(excludeList))
+      .groupBy(function(d) {
+        return d[accessor];
+      }).transform(function(result, value, key) {
+        result.push({
+          name: key,
+          value: Math.round(d3.sum(value, d => d[topLevelAccessor]))
+        });
+      }, [])
+      .filter(function(d) {
+        return d.value > 0;
+      }).value()
+      .sort(function(a, b) {
+        return b.value - a.value;
       });
-    }, [])
-    .filter(function(d) {
-      return d.value > 0;
-    }).value()
-    .sort(function(a, b) {
-      return b.value - a.value;
-    });
-
-    return data;
   }
 
 

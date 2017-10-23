@@ -76,9 +76,13 @@ class Map extends Widget {
     this._countries
       .attr('d', path);
 
+    const accessor = this._config.get('accessor');
+    const dataProvider = this._dashboard.getDataProvider();
+    const rData = dataProvider.getGroupedData(accessor, [], dataProvider.getData());
+
     const rScale = d3.scaleLinear()
       .range([5, Math.min(width, height) / 10])
-      .domain([0, d3.max(this.getData(), d => d.value)]);
+      .domain([0, d3.max(rData, d => d.value)]);
 
     var centroids = {};
 
