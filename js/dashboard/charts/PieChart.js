@@ -11,6 +11,7 @@ class PieChart extends Widget {
 
     this._legendBoxSize = 15;
     this._legendBoxGap = 2;
+    this._legendBottomOffset = 5;
 
     this._pie = d3.pie()
       .sort(null)
@@ -38,25 +39,52 @@ class PieChart extends Widget {
   }
 
 
+  getInnerHeight() {
+
+    return super.getInnerHeight() - this._legend.node().getBoundingClientRect().height - this._legendBottomOffset;
+  }
+
+
   resize(animate = true) {
 
-    const width = this.getOuterWidth();
-    const height = this.getOuterHeight();
-    const radius = Math.min(width, height) / 2 * 0.75;
+    const outerWidth = this.getOuterWidth();
+    const outerHeight = this.getOuterHeight();
 
     this._svg
-      .attr('width', width)
-      .attr('height', height);
+      .attr('width', outerWidth)
+      .attr('height', outerHeight);
+
+    var labelMaxLength = this._legend.selectAll('text').nodes().reduce(function(maxLength, node) {
+        return Math.max(maxLength, node.getBoundingClientRect().width)
+    }, 0);
+
+    var columnLength = labelMaxLength + this._legendBoxSize * 1.5 + this._legendBoxGap;
+    var columnsPerRow = Math.floor(this.getOuterWidth() / columnLength);
+
+    this._legend.selectAll('g')
+      .attr('transform', function(d, i) {
+        return 'translate(' + (i % columnsPerRow * columnLength) + ', ' + (Math.floor(i / columnsPerRow) * 20) + ')';
+      });
+
+    this._legend.selectAll('text')
+      .attr('x', this._legendBoxSize + this._legendBoxGap);
+
+    const box = this._legend.node().getBoundingClientRect();
+    const offset = [(outerWidth - box.width) / 2, outerHeight - box.height - this._legendBottomOffset];
+
+    this._legend
+      .attr('transform', () => 'translate(' + offset + ')');
+
+    const innerWidth = this.getInnerWidth();
+    const innerHeight = this.getInnerHeight();
 
     this._canvas
-      .attr('transform', 'translate(' + width / 2 + ', ' + height / 2 + ')');
+      .attr('transform', 'translate(' + [innerWidth / 2, innerHeight / 2] + ')');
+
+    const radius = Math.min(innerWidth, innerHeight) / 2;
 
     var arc = d3.arc()
       .outerRadius(radius * 0.9)
-      .innerRadius(0);
-
-    var outerArc = d3.arc()
-      .outerRadius(radius * 2)
       .innerRadius(0);
 
     if (animate) {
@@ -75,18 +103,6 @@ class PieChart extends Widget {
         .attr('d', arc);
     }
 
-    this._legend
-      .selectAll('g')
-      .attr('transform', (d, i) => 'translate(5, ' + (i * this._legendBoxSize + i * this._legendBoxGap) + ')');
-    this._legend
-      .selectAll('rect')
-      .attr('width', this._legendBoxSize)
-      .attr('height', this._legendBoxSize);
-    this._legend
-      .selectAll('text')
-      .attr('x', this._legendBoxSize + this._legendBoxGap);
-
-
     return this;
   }
 
@@ -102,6 +118,8 @@ class PieChart extends Widget {
     var rows = update.enter()
       .append('g');
     rows.append('rect')
+      .attr('width', this._legendBoxSize)
+      .attr('height', this._legendBoxSize)
       .attr('fill', d => this._colorScale(d.name));
     rows.append('text')
       .attr('dy', '0.9em')
