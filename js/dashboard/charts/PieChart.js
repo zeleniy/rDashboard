@@ -122,10 +122,8 @@ class PieChart extends Widget {
       .attr('height', this._legendBoxSize)
       .attr('fill', d => this._colorScale(d.name));
     rows.append('text')
-      .attr('dy', '0.9em')
-      .text(d => d.name);
+      .attr('dy', '0.9em');
 
-    const total = d3.sum(data, d => d.value);
     const chartData = this._pie(data);
 
     update = this._canvas
@@ -163,6 +161,13 @@ class PieChart extends Widget {
       .on('mousemove', function(d) {
         this.getTooltip().move();
       }.bind(this));
+
+    const total = d3.sum(data, d => d.value);
+
+    this._legend
+      .selectAll('text')
+      .data(data)
+      .text(d => d.name + ' ' + d.value + ' (' + (Math.round(d.value / total * 1000) / 10) + '%)');
 
     return this.resize(animate);
   }
