@@ -45,7 +45,7 @@ class ScatterPlot extends Widget {
 
     const x = this._config.get('xAccessor');
     const y = this._config.get('yAccessor');
-    const r = this._config.get('radiusAccessor');
+    const r = this._getRadiusKey();
     const color = this._config.get('colorAccessor');
 
     return this._dashboard
@@ -58,6 +58,14 @@ class ScatterPlot extends Widget {
         r: d[r],
         color: d[color]
       }));
+  }
+
+
+  _getRadiusKey() {
+
+    return this._config.get('radiusAccessor') +
+      this._mode[0].toUpperCase() +
+      this._mode.substring(1).toLowerCase();
   }
 
 
@@ -90,6 +98,18 @@ class ScatterPlot extends Widget {
       .append('g')
       .attr('class', 'canvas');
 
+    this._xLabel = this._canvas
+      .append('text')
+      .attr('class', 'axis-label x-axis-label')
+      .text(this._config.get('xLabel'));
+
+    this._yLabel = this._canvas
+      .append('text')
+      .attr('class', 'axis-label y-axis-label')
+      .attr('transform', 'rotate(90)')
+      .attr('y', -4)
+      .text(this._config.get('yLabel'));
+
     this._xAxisContainer = this._canvas
       .append('g')
       .attr('class', 'axis x-axis');
@@ -98,7 +118,7 @@ class ScatterPlot extends Widget {
       .append('g')
       .attr('class', 'axis x-axis');
 
-    return this.update();
+    return this.update(false);
   }
 
 
@@ -106,7 +126,7 @@ class ScatterPlot extends Widget {
    * @inheritdoc
    * @override
    */
-  resize() {
+  resize(animate = false) {
 
     this._svg
       .attr('width', this.getOuterWidth())
@@ -143,7 +163,7 @@ class ScatterPlot extends Widget {
 
     margin = this.getMargin();
 
-    const rAccessor = this._config.get('radiusAccessor');
+    const rAccessor = this._getRadiusKey();
     const rScale = d3.scaleLinear()
       .range([5, maxR])
       .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
@@ -165,16 +185,20 @@ class ScatterPlot extends Widget {
       new Date(xDomain[1].getTime() + xExtra)
     ]);
 
-    this._dots
-      .attr('r', d => rScale(d.r))
+    this._getTransition(animate, this._dots
       .attr('cx', d => xScale(d.x))
-      .attr('cy', d => yScale(d.y));
+      .attr('cy', d => yScale(d.y)))
+      .attr('r', d => rScale(d.r));
 
     const xAxis = d3.axisBottom(xScale);
 
     this._xAxisContainer
       .attr('transform', 'translate(0,' + this.getInnerHeight() + ')')
       .call(xAxis);
+
+    this._xLabel
+      .attr('x', this.getInnerWidth())
+      .attr('y', this.getInnerHeight() - 2);
 
     XTicks.getInstance(xAxis, this._xAxisContainer)
       .rarefy();
@@ -188,7 +212,7 @@ class ScatterPlot extends Widget {
    * @inheritdoc
    * @override
    */
-  update() {
+  update(animate = true) {
 
     const data = this.getData();
 
@@ -218,6 +242,6 @@ class ScatterPlot extends Widget {
         this.getTooltip().move();
       }.bind(this));
 
-    return this.resize();
+    return this.resize(animate);
   }
 }

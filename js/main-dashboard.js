@@ -35,9 +35,10 @@ const barChart = new BarChart({
 const scatterPlot = new ScatterPlot({
   xAccessor: 'CaseCreatedOn',
   yAccessor: 'DataSourceCount',
-  radiusAccessor: 'DataSourceSize',
+  radiusAccessor: 'DataSource',
   colorAccessor: 'MatterType',
-  yAccessor: 'DataSourceCount',
+  xLabel: 'Case Created Dates',
+  yLabel: 'Data Source Count',
   placeholder: '#case-volume-placeholder',
   title: 'case names',
   subtitle: 'some subtitle'
