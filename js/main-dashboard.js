@@ -22,14 +22,16 @@ const pieChart = new PieChart({
   accessor: 'CaseType',
   placeholder: '#case-by-type-placeholder',
   title: 'case types',
-  subtitle: 'some subtitle'
+  subtitle: 'some subtitle',
+  colorScheme: colorbrewer['Set2'][8]
 });
 
 const barChart = new BarChart({
   accessor: 'EntityName',
   placeholder: '#cases-by-entity-placeholder',
   title: 'entity names',
-  subtitle: 'some subtitle'
+  subtitle: 'some subtitle',
+  colorScheme: colorbrewer['Dark2'][8]
 });
 
 const scatterPlot = new ScatterPlot({

@@ -16,7 +16,7 @@ class Widget {
 
     this._config = new Config(options);
 
-    this._colorSet = d3.schemeCategory10;
+    this._colorSet = this._config.get('colorScheme', d3.schemeCategory10);
     this._duration = 1000;
     this._mode = 'count';
 
