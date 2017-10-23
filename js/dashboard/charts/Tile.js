@@ -95,22 +95,11 @@ class Tile extends Widget {
       .append('tr');
 
     const leftSide = table.append('td')
-      .attr('class', 'tile-left');
-
-    var div = leftSide.append('div')
-    this._countValue = div.append('span')
-      .attr('class', 'tile-value');
-    this._countUnit = div.append('span')
-      .attr('class', 'tile-unit');
-    this._countPercent = leftSide.append('div')
-      .attr('class', 'summary');
-
-    const rightSide = table.append('td')
       .attr('class', 'tile-right')
       .append('table')
       .append('tbody');
 
-    const row = rightSide.append('tr');
+    const row = leftSide.append('tr');
 
     this._sizeValue = row.append('td')
       .attr('class', 'tile-value');
@@ -120,11 +109,23 @@ class Tile extends Widget {
     td.append('div')
       .attr('class', 'data-source')
       .text(this._config.get('name'));
-    this._sizePercent = rightSide
+    this._sizePercent = leftSide
       .append('tr')
       .append('td')
       .attr('class', 'summary')
       .attr('colspan', 2);
+
+    const rightSide = table.append('td')
+      .attr('class', 'tile-left');
+
+    var div = rightSide.append('div')
+    this._countValue = div.append('span')
+      .attr('class', 'tile-value');
+    this._countUnit = div.append('span')
+      .attr('class', 'tile-unit');
+    this._countPercent = rightSide.append('div')
+      .attr('class', 'summary');
+
 
     return this.update();
   }

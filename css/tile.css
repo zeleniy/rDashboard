@@ -19,7 +19,7 @@
 
 .tiles .tile-left {
   min-width: 80px;
-  border-right: 1px solid #bbb980;
+  border-left: 1px solid #bbb980;
   padding: 0 10px;
   color: black;
   text-align: center;
