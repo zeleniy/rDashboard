@@ -31,7 +31,7 @@ class Tile extends Widget {
   /**
    * Get data key.
    * @public
-   * @param {'count'|'size'} [mode]
+   * @param {'Count'|'Size'|'Case'} [mode]
    * @returns {String}
    */
   getDataKey(mode) {

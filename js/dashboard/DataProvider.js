@@ -6,7 +6,7 @@
 class DataProvider {
 
 
-  constructor(data = [], filters = {}, mode = 'Count') {
+  constructor(data = [], filters = {}, mode = 'Case') {
 
     this._data = data;
     this._filters = filters;
@@ -17,6 +17,12 @@ class DataProvider {
   setMode(mode) {
 
     this._mode = mode;
+  }
+
+
+  getMode() {
+
+    return this._mode;
   }
 
 

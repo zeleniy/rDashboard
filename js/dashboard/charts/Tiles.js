@@ -12,7 +12,7 @@ class Tiles extends Widget {
 
     this._tiles = [];
     this._clickedTile;
-    this._mode = 'count';
+    this._mode = 'Count';
   }
 
 

@@ -22,7 +22,6 @@ class Widget {
     }
 
     this._duration = 1000;
-    this._mode = 'count';
 
     this._margin = {
       top: 0,

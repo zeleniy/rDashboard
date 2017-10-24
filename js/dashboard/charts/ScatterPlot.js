@@ -14,6 +14,8 @@ class ScatterPlot extends Widget {
 
     super(options);
 
+    this._mode = 'Count';
+
     this._margin = {
       top: 5,
       right: 10,
