@@ -41,7 +41,7 @@ class TimeLine extends Widget {
 
     this._svg = this._container
       .append('svg')
-      .attr('class', 'map');
+      .attr('class', 'time-line');
 
     this._canvas = this._svg
       .append('g')
