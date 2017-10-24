@@ -19,12 +19,6 @@ class TreeMap extends Widget {
   }
 
 
-  getColorDomain() {
-
-    return super.getData().map(d => d.name);
-  }
-
-
   render() {
 
     super.render();
@@ -84,10 +78,7 @@ class TreeMap extends Widget {
     update.enter()
       .append('div')
       .attr('class', 'node clickable')
-      .style('background-color', function(d) {
-        // console.log(d.data.name, this._colorScale(d.data.name))
-        return this._colorScale(d.data.name);
-      }.bind(this))
+      .style('background-color', d => this._colorScale(d.data.name))
       .on('click', function(d) {
         const value = d.data.name;
         this._dashboard.setDataFilter(this.getAccessor(), function(d) {

@@ -183,9 +183,24 @@ class Widget {
   }
 
 
+  /**
+   * @inheritdoc
+   * @override
+   */
+  getColorKey() {
+
+    return this._config.get('accessor');
+  }
+
+
   getColorDomain() {
 
-    return this.getData().map(d => d.name);
+    const accessor = this.getColorKey();
+    return _(this._dashboard.getData())
+      .map(d => d[accessor])
+      .uniq()
+      .sort()
+      .value();
   }
 
 

@@ -73,12 +73,9 @@ class ScatterPlot extends Widget {
    * @inheritdoc
    * @override
    */
-  getColorDomain() {
+  getColorKey() {
 
-    return _(this.getData())
-      .map(d => d.color)
-      .uniq()
-      .value();
+    return this._config.get('colorAccessor');
   }
 
 
@@ -106,8 +103,8 @@ class ScatterPlot extends Widget {
     this._yLabel = this._canvas
       .append('text')
       .attr('class', 'axis-label y-axis-label')
-      .attr('transform', 'rotate(90)')
-      .attr('y', -4)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 11)
       .text(this._config.get('yLabel'));
 
     this._xAxisContainer = this._canvas
@@ -196,6 +193,9 @@ class ScatterPlot extends Widget {
       .attr('transform', 'translate(0,' + this.getInnerHeight() + ')')
       .call(xAxis);
 
+    this._yLabel
+      .attr('x', - this._yLabel.node().getBoundingClientRect().height)
+
     this._xLabel
       .attr('x', this.getInnerWidth())
       .attr('y', this.getInnerHeight() - 2);
@@ -222,14 +222,11 @@ class ScatterPlot extends Widget {
 
     update.exit()
       .remove();
-console.log(this._colorScale.domain())
+
     update.enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('fill', function(d) {
-        // console.log(d.color, this._colorScale(d.color))
-        return this._colorScale(d.color);
-      }.bind(this));
+      .attr('fill', d => this._colorScale(d.color));
 
     this._dots = this._canvas
       .selectAll('circle.dot')

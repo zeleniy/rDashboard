@@ -1,11 +1,11 @@
 svg.scatter-plot .dot {
-  /*opacity: 0.6;*/
+  opacity: 0.6;
 }
 
 svg.scatter-plot text.axis-label {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 svg.scatter-plot text.x-axis-label {
-    text-anchor: end;
+  text-anchor: end;
 }
