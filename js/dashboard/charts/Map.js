@@ -67,6 +67,11 @@ class Map extends Widget {
       .attr('width', width)
       .attr('height', height);
 
+    /*
+     * Map scale ratio
+     * d3.select('svg.map .canvas').node().getBoundingClientRect()
+     * 673.7666625976562 / 436.2166748046875 = 1.5445687923308522
+     */
     // const size = Math.max(width, height);
     var projection = d3.geoMercator()
       .rotate([-180, 0])
