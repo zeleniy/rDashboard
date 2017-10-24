@@ -49,12 +49,18 @@ class Tile extends Widget {
 
     const key = this.getDataKey('size') + 'Unit';
     const data = this._dashboard.getData();
+console.log()
 
-    if (data.length > 0) {
-      return data[0][key];
-    } else {
+    if (data.length == 0) {
       return '';
     }
+
+    const unitString = data.find(d => d[key]);
+    if (unitString) {
+      return unitString[key];
+    }
+
+    return '';
   }
 
 
@@ -100,7 +106,7 @@ class Tile extends Widget {
 
     const row = leftSide.append('tr');
 
-    this._sizeValue = row.append('td')
+    this._countValue = row.append('td')
       .attr('class', 'tile-value');
     const td = row.append('td')
       .attr('class', 'data-source-text')
@@ -108,7 +114,7 @@ class Tile extends Widget {
     td.append('div')
       .attr('class', 'data-source')
       .text(this._config.get('name'));
-    this._sizePercent = leftSide
+    this._countPercent = leftSide
       .append('tr')
       .append('td')
       .attr('class', 'summary')
@@ -118,11 +124,11 @@ class Tile extends Widget {
       .attr('class', 'tile-left');
 
     var div = rightSide.append('div')
-    this._countValue = div.append('span')
+    this._sizeValue = div.append('span')
       .attr('class', 'tile-value');
-    this._countUnit = div.append('span')
+    this._sizeUnit = div.append('span')
       .attr('class', 'tile-unit');
-    this._countPercent = rightSide.append('div')
+    this._sizePercent = rightSide.append('div')
       .attr('class', 'summary');
 
 
@@ -146,12 +152,12 @@ class Tile extends Widget {
     const count = d3.sum(data, d => d[countKey]);
     const size  = d3.sum(data, d => d[sizeKey]);
 
-    this._countValue.text(Math.round(count));
-    this._countUnit.text(this.getUnit());
-    this._countPercent.text(Math.round(count / totalCount * 100) + '% of Total');
-
     this._sizeValue.text(Math.round(size));
+    this._sizeUnit.text(this.getUnit());
     this._sizePercent.text(Math.round(size / totalSize * 100) + '% of Total');
+
+    this._countValue.text(Math.round(count));
+    this._countPercent.text(Math.round(count / totalCount * 100) + '% of Total');
 
     return this;
   }

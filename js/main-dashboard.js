@@ -1,5 +1,6 @@
 const tiles = new Tiles({
   placeholder: '#tiles-placeholder',
+  colorScheme: '#76acd4',
   tiles: [{
     name: 'identified',
     accessor: 'IdetifiedDataSources'
