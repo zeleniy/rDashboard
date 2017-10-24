@@ -1,7 +1,8 @@
 #
 # Read .xlsx file.
 #
-x = readxl::read_excel("~/Downloads/Sample Data for Dashboards/CaseStatsSummary.xlsx")
+x = readxl::read_excel("~/Downloads/CaselevelStats.xlsx")
+x = as.data.frame(x)
 #
 # Write it in .csv format.
 #
