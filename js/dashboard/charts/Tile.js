@@ -143,7 +143,7 @@ console.log()
 
     const data = this._dashboard.getData();
 
-    const totalCount = d3.sum(data, d => d['DataSourceCount']);
+    const totalCount = d3.sum(data, d => d['IdetifiedDataSourcesCount']);
     const totalSize  = d3.sum(data, d => d['DataSourceSize']);
 
     const countKey = this.getDataKey('count');
