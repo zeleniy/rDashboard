@@ -123,6 +123,11 @@ class TreeMap extends Widget {
             .selectAll('div')
             .data([d.data.name, d.data.value + ' (' + persent + '%)'])
             .text(String);
+        } else {
+          d3.select(this)
+            .selectAll('div')
+            .data(['', ''])
+            .text(String);
         }
       });
 
