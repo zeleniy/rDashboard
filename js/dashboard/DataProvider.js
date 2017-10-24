@@ -103,6 +103,21 @@ class DataProvider {
   }
 
 
+  _getSummaryFunction() {
+
+    if (this._mode == 'Case') {
+      return function(input) {
+        return input.length;
+      }
+    } else {
+      const topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
+      return function(input) {
+        return Math.round(d3.sum(input, d => d[topLevelAccessor]));
+      }
+    }
+  }
+
+
   /**
    * Get filtered and grouped by accessor data.
    * @public
@@ -113,15 +128,16 @@ class DataProvider {
    */
   getGroupedData(accessor, excludeList = [], data) {
 
-    const topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
+    var summary = this._getSummaryFunction();
 
     return _(data || this.getFilteredData(excludeList))
       .groupBy(function(d) {
         return d[accessor];
       }).transform(function(result, value, key) {
+        // console.log(value)
         result.push({
           name: key,
-          value: Math.round(d3.sum(value, d => d[topLevelAccessor]))
+          value: summary(value)
         });
       }, [])
       .filter(function(d) {

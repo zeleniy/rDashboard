@@ -61,6 +61,14 @@ class ScatterPlot extends Widget {
   }
 
 
+  setMode(mode) {
+
+    if (mode.toLowerCase() != 'case') {
+      super.setMode(mode)
+    }
+  }
+
+
   _getRadiusKey() {
 
     return this._config.get('radiusAccessor') +
