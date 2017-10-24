@@ -25,10 +25,13 @@ class Tiles extends Widget {
 
   updateFilter() {
 
-    d3.selectAll('.filters-list div.filter')
+    const span = d3.selectAll('.filters-list div.filter')
       .filter(d => d == 'ValueColumn')
-      .select('span')
-      .text('ValueColumn = ' + this.getDataKey())
+      .select('span');
+
+    if (span.size()) {
+      span.text('ValueColumn = ' + this.getDataKey())
+    }
   }
 
 
