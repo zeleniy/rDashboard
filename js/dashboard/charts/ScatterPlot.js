@@ -222,11 +222,14 @@ class ScatterPlot extends Widget {
 
     update.exit()
       .remove();
-
+console.log(this._colorScale.domain())
     update.enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('fill', d => this._colorScale(d.color));
+      .attr('fill', function(d) {
+        // console.log(d.color, this._colorScale(d.color))
+        return this._colorScale(d.color);
+      }.bind(this));
 
     this._dots = this._canvas
       .selectAll('circle.dot')

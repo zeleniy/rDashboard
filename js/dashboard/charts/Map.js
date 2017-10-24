@@ -67,14 +67,14 @@ class Map extends Widget {
       .attr('width', width)
       .attr('height', height);
 
-    const size = Math.max(width, height);
+    // const size = Math.max(width, height);
     var projection = d3.geoMercator()
       .rotate([-180, 0])
-      .fitSize([size, size], this._mapData);
+      .fitSize([width, height], this._mapData);
 
-    if (size > height) {
-      this._canvas.attr('transform', 'translate(0, ' + ((height - size) / 2) + ')');
-    }
+    // if (size > height) {
+    //   this._canvas.attr('transform', 'translate(0, ' + ((height - size) / 2) + ')');
+    // }
 
     var path = d3.geoPath().projection(projection);
 
