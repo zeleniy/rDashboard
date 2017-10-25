@@ -22,16 +22,15 @@ const tiles = new Tiles({
 const pieChart = new PieChart({
   accessor: 'CaseType',
   placeholder: '#case-by-type-placeholder',
-  title: 'case types',
-  subtitle: 'some subtitle',
+  title: 'Case Type Distribution',
   colorScheme: colorbrewer['Set2'][8]
 });
 
 const barChart = new BarChart({
   accessor: 'EntityName',
   placeholder: '#cases-by-entity-placeholder',
-  title: 'entity names',
-  subtitle: 'some subtitle',
+  title: 'Entity-wise distribution',
+  titleAlign: 'left',
   colorScheme: colorbrewer['Dark2'][8]
 });
 
@@ -43,21 +42,21 @@ const scatterPlot = new ScatterPlot({
   xLabel: 'Case Created Dates',
   yLabel: 'Data Source Count',
   placeholder: '#case-volume-placeholder',
-  title: 'case names',
-  subtitle: 'some subtitle'
+  title: 'Case Population',
+  subtitle: 'Cases vs Data Sources plotted on Case Created Date'
 });
 
 const treeMap = new TreeMap({
   accessor: 'MatterType',
   placeholder: '#matter-type-placeholder',
-  subtitle: 'some subtitle'
+  title: 'Matter Type Distribution'
 });
 
 const map = new Map({
   accessor: 'Country',
   placeholder: '#map-placeholder',
-  title: 'World map',
-  subtitle: 'some subtitle'
+  title: 'Location-wise Distribution',
+  subtitle: 'Geographic distribution of'
 });
 
 const timeLine = new TimeLine({

@@ -161,6 +161,7 @@ class Widget {
       container
         .append('div')
         .attr('class', 'chart-title')
+        .style('text-align', this._config.get('titleAlign', 'center'))
         .text(title);
     }
 
@@ -169,6 +170,7 @@ class Widget {
       container
         .append('div')
         .attr('class', 'chart-subtitle')
+        .style('text-align', this._config.get('titleAlign', 'center'))
         .text(subtitle);
     }
 

@@ -17,13 +17,9 @@ svg text.label {
 }
 
 .chart-title {
-  text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.2em;
-}
-
-.chart-subtitle {
-  text-align: center;
+  padding: 0 10px;
 }
 
 .chart-container {
