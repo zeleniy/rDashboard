@@ -12,6 +12,7 @@ class Dashboard {
     this._dataProvider = new DataProvider();
     this._tooltip = new Tooltip();
     this._charts = [];
+    this._mode = 'Count';
 
     const self = this;
 
@@ -26,6 +27,20 @@ class Dashboard {
     d3.select(window).on('resize', function() {
       this.resize();
     }.bind(this))
+  }
+
+
+  getDataKey() {
+
+    const tile = this._charts
+      .find(chart => chart.constructor.name == 'Tiles')
+      .getActiveTile();
+
+    if (tile) {
+      return tile.getDataKey();
+    } else {
+      return 'DataSource' + this._mode;
+    }
   }
 
 
@@ -224,13 +239,13 @@ class Dashboard {
 
   _modeChangeEventHandler(node) {
 
-    const mode = node.value[0].toUpperCase() + node.value.substring(1).toLowerCase()
+    this._mode = node.value[0].toUpperCase() + node.value.substring(1).toLowerCase()
 
-    this._dataProvider.setMode(mode);
+    this._dataProvider.setMode(this._mode);
 
     this._charts.forEach(function(chart) {
-      chart.setMode(mode);
-    });
+      chart.setMode(this._mode);
+    }, this);
 
     this._charts
       .find(chart => chart.constructor.name == 'Tiles')

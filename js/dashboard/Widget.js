@@ -23,12 +23,22 @@ class Widget {
 
     this._duration = 1000;
 
+    this._tips = this._config.get('tooltip', []).map(function(tip) {
+      return tip.setChart(this);
+    }.bind(this));
+
     this._margin = {
       top: 0,
       right: 0,
       bottom: 0,
       left: 0
     };
+  }
+
+
+  getDashboard() {
+
+    return this._dashboard;
   }
 
 
@@ -45,6 +55,14 @@ class Widget {
   getTooltip() {
 
     return this._dashboard.getTooltip();
+  }
+
+
+  getTooltipContent(accessor, value) {
+
+    return this._tips.map(function(tip) {
+      return tip.getData(accessor, value);
+    })
   }
 
 

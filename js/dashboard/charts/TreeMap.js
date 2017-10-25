@@ -103,7 +103,7 @@ class TreeMap extends Widget {
       .data(chartData, d => d.data.name)
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(d.data.name + ': ' + d.data.value)
+          .setContent(this.getTooltipContent(this._config.get('accessor'), d.data.name))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {

@@ -9,3 +9,12 @@ div.dashboard-tooltip {
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 5;
 }
+
+div.dashboard-tooltip tr td:first-child {
+  text-align: left;
+  padding-right: 10px;
+}
+
+div.dashboard-tooltip tr td:last-child {
+  text-align: right;
+}

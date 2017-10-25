@@ -15,6 +15,9 @@ class Tooltip {
       .append('div')
       .attr('class', 'dashboard-tooltip')
       .style('display', 'none');
+    this._table = this._tip
+      .append('table')
+      .append('tbody');
   }
 
 
@@ -63,11 +66,22 @@ class Tooltip {
    */
   show() {
 
-    this._tip.html(
-      '<div>' +
-        this._content +
-      '</div>'
-    ).style('display', 'block');
+    this._table
+      .selectAll('tr')
+      .remove();
+
+    this._table.selectAll('tr')
+      .data(this._content)
+      .enter()
+      .append('tr')
+      .selectAll('td')
+      .data(d => d)
+      .enter()
+      .append('td')
+      .text(String);
+
+    this._tip
+      .style('display', 'block');
 
     this.move();
 

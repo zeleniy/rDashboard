@@ -16,6 +16,12 @@ class Tiles extends Widget {
   }
 
 
+  getActiveTile() {
+
+    return this._clickedTile;
+  }
+
+
   getDataKey(accessor, mode = this._mode) {
 
     accessor = accessor || this._clickedTile.getAccessor();

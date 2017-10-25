@@ -242,7 +242,7 @@ class ScatterPlot extends Widget {
       .selectAll('circle.dot')
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(d.color + ': ' + d.y)
+          .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d.color))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {
