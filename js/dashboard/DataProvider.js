@@ -86,7 +86,7 @@ class DataProvider {
     } else if (this._mode == 'Count') {
       topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
       return function(input) {
-        return Math.round(d3.sum(input, d => d[topLevelAccessor]) * 10) / 10;
+        return d3.sum(input, d => d[topLevelAccessor]);
       }
     } else {
       topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
