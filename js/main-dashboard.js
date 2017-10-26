@@ -62,7 +62,13 @@ const scatterPlot = new ScatterPlot({
   yLabel: 'Data Source Count',
   placeholder: '#case-volume-placeholder',
   title: 'Case Population',
-  subtitle: 'Cases vs Data Sources plotted on Case Created Date',
+  subtitle: function(chart) {
+    if (chart.getMode() == 'Count') {
+      return 'Bubble size represents Data Sources Count';
+    } else {
+      return 'Bubble size represents Data Sources Size';
+    }
+  },
   tooltip: [
     new TitleTip('CaseName'),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),

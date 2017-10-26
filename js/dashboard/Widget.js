@@ -210,17 +210,15 @@ class Widget {
       this._title = container
         .append('div')
         .attr('class', 'chart-title')
-        .style('text-align', this._config.get('titleAlign', 'center'))
-        .text(title);
+        .style('text-align', this._config.get('titleAlign', 'center'));
     }
 
     const subtitle = this.getSubtitle();
     if (subtitle != '') {
-      this._title = container
+      this._subtitle = container
         .append('div')
         .attr('class', 'chart-subtitle')
-        .style('text-align', this._config.get('titleAlign', 'center'))
-        .text(subtitle);
+        .style('text-align', this._config.get('titleAlign', 'center'));
     }
 
     this._container = container
