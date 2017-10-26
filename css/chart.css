@@ -22,6 +22,10 @@ svg text.label {
   padding: 0 10px;
 }
 
+.chart-subtitle {
+  padding: 0 10px;
+}
+
 .chart-container {
   flex: 1;
 }

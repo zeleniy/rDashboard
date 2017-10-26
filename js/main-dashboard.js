@@ -76,9 +76,9 @@ const scatterPlot = new ScatterPlot({
   title: 'Case Population',
   subtitle: function(chart) {
     if (chart.getMode() == 'Count') {
-      return 'Bubble size represents Data Sources Count';
+      return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Count)';
     } else {
-      return 'Bubble size represents Data Sources Size';
+      return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Size)';
     }
   },
   tooltip: [
