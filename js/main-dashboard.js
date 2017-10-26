@@ -28,6 +28,7 @@ const pieChart = new PieChart({
   title: 'Case Type Distribution',
   colorScheme: colorbrewer['Set2'][8],
   tooltip: [
+    new TitleTip(),
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
@@ -43,6 +44,7 @@ const barChart = new BarChart({
   titleAlign: 'left',
   colorScheme: colorbrewer['Dark2'][8],
   tooltip: [
+    new TitleTip(),
     new FrequencyTip('Matters:', 'MatterID'),
     new FrequencyTip('Cases:', 'CaseID'),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
@@ -62,6 +64,7 @@ const scatterPlot = new ScatterPlot({
   title: 'Case Population',
   subtitle: 'Cases vs Data Sources plotted on Case Created Date',
   tooltip: [
+    new TitleTip(),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SimpleTip('Data Source Count:', function(chart) {
       return chart.getDashboard().getDataKey();
@@ -77,6 +80,7 @@ const treeMap = new TreeMap({
   placeholder: '#matter-type-placeholder',
   title: 'Matter Type Distribution',
   tooltip: [
+    new TitleTip(),
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
@@ -91,6 +95,7 @@ const map = new Map({
   title: 'Location-wise Distribution',
   subtitle: 'Geographic distribution of',
   tooltip: [
+    new TitleTip(),
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),

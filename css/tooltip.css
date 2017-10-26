@@ -10,6 +10,10 @@ div.dashboard-tooltip {
   z-index: 5;
 }
 
+div.dashboard-tooltip td[colspan="2"] {
+  text-align: center !important;
+}
+
 div.dashboard-tooltip tr td:first-child {
   text-align: left;
   padding-right: 10px;

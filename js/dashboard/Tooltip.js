@@ -78,7 +78,9 @@ class Tooltip {
       .data(d => d)
       .enter()
       .append('td')
-      .text(String);
+      .attr('colspan', function(d, i, set) {
+        return 2 - set.length + 1;
+      }).text(String);
 
     this._tip
       .style('display', 'block');
