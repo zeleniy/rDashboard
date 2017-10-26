@@ -23,7 +23,7 @@ class ScatterPlot extends Widget {
       top: this._maxR,
       right: this._maxR,
       bottom: 20,
-      left: 0
+      left: 5
     };
   }
 
@@ -101,8 +101,7 @@ class ScatterPlot extends Widget {
       .append('text')
       .attr('class', 'axis-label y-axis-label')
       .attr('transform', 'rotate(-90)')
-      .attr('y', 11)
-      .text(this._config.get('yLabel'));
+      .attr('y', 11);
 
     this._xAxisContainer = this._canvas
       .append('g')
@@ -124,6 +123,26 @@ class ScatterPlot extends Widget {
   }
 
 
+  _getYAccessor() {
+
+    if (this.getMode() == 'Count') {
+      return 'DataSourceSize';
+    } else {
+      return 'DataSourceCount';
+    }
+  }
+
+
+  _getYAxisLabel() {
+
+    if (this.getMode() == 'Count') {
+      return 'Data Source Size';
+    } else {
+      return 'Data Source Count';
+    }
+  }
+
+
   /**
    * @inheritdoc
    * @override
@@ -139,7 +158,7 @@ class ScatterPlot extends Widget {
     const data = this.getData();
 
     const x = this._config.get('xAccessor');
-    const y = this._config.get('yAccessor');
+    const y = this._getYAccessor();
     const r = this._getRadiusKey();
     const color = this._config.get('colorAccessor');
 
@@ -183,6 +202,7 @@ class ScatterPlot extends Widget {
       .call(xAxis);
 
     this._yLabel
+      .text(this._getYAxisLabel())
       .attr('x', - this._yLabel.node().getBoundingClientRect().height)
 
     this._xLabel
