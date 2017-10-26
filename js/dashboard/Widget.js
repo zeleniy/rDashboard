@@ -36,6 +36,12 @@ class Widget {
   }
 
 
+  getMode() {
+
+    return this._mode;
+  }
+
+
   getDashboard() {
 
     return this._dashboard;

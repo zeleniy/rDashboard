@@ -25,11 +25,11 @@ const pieChart = new PieChart({
   title: 'Case Type Distribution',
   colorScheme: colorbrewer['Set2'][8],
   tooltip: [
-    new FrequencyTip('Matters:', 'MatterID'),
-    new FrequencyTip('Cases:', 'CaseID'),
+    new FrequencyTip('Matters:', 'MatterID', true),
+    new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize')
+    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
   ]
 });
 
@@ -64,7 +64,7 @@ const scatterPlot = new ScatterPlot({
       return chart.getDashboard().getDataKey();
     }),
     new SummationTip('Total Size:', function(chart) {
-      return chart.getDashboard().getDataKey();
+      return 'DataSource' + chart.getMode();
     })
   ]
 });
@@ -74,11 +74,11 @@ const treeMap = new TreeMap({
   placeholder: '#matter-type-placeholder',
   title: 'Matter Type Distribution',
   tooltip: [
-    new FrequencyTip('Matters:', 'MatterID'),
-    new FrequencyTip('Cases:', 'CaseID'),
+    new FrequencyTip('Matters:', 'MatterID', true),
+    new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize')
+    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
   ]
 });
 
@@ -88,11 +88,11 @@ const map = new Map({
   title: 'Location-wise Distribution',
   subtitle: 'Geographic distribution of',
   tooltip: [
-    new FrequencyTip('Matters:', 'MatterID'),
-    new FrequencyTip('Cases:', 'CaseID'),
+    new FrequencyTip('Matters:', 'MatterID', true),
+    new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize')
+    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
   ]
 });
 

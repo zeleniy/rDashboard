@@ -1,11 +1,12 @@
 class Tip {
 
 
-  constructor(prefix, column, calculatePercent = false) {
+  constructor(prefix, column, calculatePercent = false, withUnit = false) {
 
     this._prefix = prefix;
     this._column = column;
     this._calculatePercent = calculatePercent;
+    this._withUnit = withUnit;
   }
 
 
