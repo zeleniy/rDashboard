@@ -42,27 +42,11 @@ class ScatterPlot extends Widget {
   }
 
 
-  /**
-   * @inheritdoc
-   * @override
-   */
   getData() {
-
-    const x = this._config.get('xAccessor');
-    const y = this._config.get('yAccessor');
-    const r = this._getRadiusKey();
-    const color = this._config.get('colorAccessor');
 
     return this._dashboard
       .getDataProvider()
-      .getFilteredData()
-      .map(d => ({
-        id: d['CaseID'],
-        x: d[x],
-        y: d[y],
-        r: d[r],
-        color: d[color]
-      }));
+      .getFilteredData();
   }
 
 
@@ -154,10 +138,15 @@ class ScatterPlot extends Widget {
 
     const data = this.getData();
 
+    const x = this._config.get('xAccessor');
+    const y = this._config.get('yAccessor');
+    const r = this._getRadiusKey();
+    const color = this._config.get('colorAccessor');
+
     const innerWidth = this.getInnerWidth();
     const innerHeight = this.getInnerHeight();
 
-    const yDomain = d3.extent(data, d => d.y);
+    const yDomain = d3.extent(data, d => d[y]);
     const yScale = d3.scaleLinear()
       .range([innerHeight, this._padding])
       .domain(yDomain);
@@ -177,15 +166,15 @@ class ScatterPlot extends Widget {
       .range([this._minR, this._maxR])
       .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
 
-    const xDomain = d3.extent(data, d => d.x);
+    const xDomain = d3.extent(data, d => d[x]);
     const xScale = d3.scaleTime()
       .range([0, this.getInnerWidth() - this._padding])
       .domain(xDomain);
 
     this._getTransition(animate, this._dots
-      .attr('cx', d => xScale(d.x) + this._padding)
-      .attr('cy', d => yScale(d.y) - this._padding))
-      .attr('r', d => rScale(d.r));
+      .attr('cx', d => xScale(d[x]) + this._padding)
+      .attr('cy', d => yScale(d[y]) - this._padding))
+      .attr('r', d => rScale(d[r]));
 
     const xAxis = d3.axisBottom(xScale);
 
@@ -230,9 +219,13 @@ class ScatterPlot extends Widget {
 
     const data = this.getData();
 
+    const x = this._config.get('xAccessor');
+    const y = this._config.get('yAccessor');
+    const color = this._config.get('colorAccessor');
+
     const update = this._canvas
       .selectAll('circle.dot')
-      .data(data, d => d.id);
+      .data(data, d => d['CaseID']);
 
     update.exit()
       .remove();
@@ -240,13 +233,13 @@ class ScatterPlot extends Widget {
     update.enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('fill', d => this._colorScale(d.color));
+      .attr('fill', d => this._colorScale(d[color]));
 
     this._dots = this._canvas
       .selectAll('circle.dot')
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d.color, d.y))
+          .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d[color], d))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {

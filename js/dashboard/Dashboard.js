@@ -36,7 +36,7 @@ class Dashboard {
   }
 
 
-  getDataKey() {
+  getDataKey(mode = this._mode) {
 
     const tile = this._charts
       .find(chart => chart.constructor.name == 'Tiles')
@@ -45,7 +45,7 @@ class Dashboard {
     if (tile) {
       return tile.getDataKey();
     } else {
-      return 'DataSource' + this._mode;
+      return 'DataSource' + mode;
     }
   }
 

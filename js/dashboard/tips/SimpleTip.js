@@ -1,8 +1,8 @@
 class SimpleTip extends Tip {
 
 
-  getData(accessor, groupBy, value) {
+  getData(accessor, groupBy, d) {
 
-    return [this._prefix, value];
+    return [this._prefix, d[this.getColumn()]];
   }
 }

@@ -153,7 +153,7 @@ class Map extends Widget {
       .data(data, d => d.name)
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(this.getTooltipContent(this._config.get('accessor'), d.name))
+          .setContent(this.getTooltipContent(this._config.get('accessor'), d.name, d))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {

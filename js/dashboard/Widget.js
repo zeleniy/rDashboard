@@ -67,10 +67,10 @@ class Widget {
   }
 
 
-  getTooltipContent(accessor, groupBy, value) {
+  getTooltipContent(accessor, groupBy, d) {
 
     return this._tips.map(function(tip) {
-      return tip.getData(accessor, groupBy, value);
+      return tip.getData(accessor, groupBy, d);
     })
   }
 

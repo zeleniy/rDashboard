@@ -154,7 +154,7 @@ class PieChart extends Widget {
       .selectAll('path')
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(this.getTooltipContent(this._config.get('accessor'), d.data.name))
+          .setContent(this.getTooltipContent(this._config.get('accessor'), d.data.name, d.data))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {

@@ -1,8 +1,8 @@
 class TitleTip extends Tip {
 
 
-  getData(accessor, groupBy, value) {
+  getData(accessor, groupBy, d) {
 
-    return [groupBy];
+    return [d[this._prefix]];
   }
 }
