@@ -151,6 +151,12 @@ class Tile extends Widget {
   }
 
 
+  getCountSubtitle() {
+
+    return this._config.get('name');
+  }
+
+
   getSizeValue() {
 
     const sizeKey = this.getDataKey('size');

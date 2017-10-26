@@ -2,8 +2,8 @@ const tiles = new Tiles({
   placeholder: '#tiles-placeholder',
   colorScheme: '#76acd4',
   tiles: [new CaseTile({
-    name: '',
-    accessor: 'IdentifiedDataSources'
+    name: 'caces',
+    accessor: 'CaseID'
   }), new SimpleTile({
     name: 'identified',
     accessor: 'IdentifiedDataSources'

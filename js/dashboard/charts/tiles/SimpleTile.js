@@ -30,10 +30,4 @@ class SimpleTile extends Tile {
 
     return 'data source(s)';
   }
-
-
-  getCountSubtitle() {
-
-    return this._config.get('name');
-  }
 }

@@ -19,14 +19,14 @@ class CaseTile extends Tile {
   }
 
 
-  getCountSubtitle() {
-
-    return 'cases';
-  }
-
-
   getCountValue() {
 
     return _(this._dashboard.getData()).map(d => d['CaseID']).uniq().value().length;
+  }
+
+
+  getDataKey() {
+
+    return 'DataSourceSize';
   }
 }
