@@ -89,7 +89,7 @@ class TreeMap extends Widget {
       }.bind(this))
       .each(function(d, i) {
         const persent = Math.round(d.value / total * 1000) / 10;
-        if (persent > 10) {
+        // if (persent > 10) {
           d3.select(this)
             .append('div')
             .attr('class', 'node-label')
@@ -97,7 +97,7 @@ class TreeMap extends Widget {
             .data([d.data.name, d.data.value + ' (' + persent + '%)'])
             .enter()
             .append('div');
-        }
+        // }
       });
 
     this._nodes = this._main
@@ -120,17 +120,17 @@ class TreeMap extends Widget {
       .data(chartData, d => d.data.name)
       .each(function(d, i) {
         const persent = Math.round(d.value / total * 1000) / 10;
-        if (persent > 10) {
+        // if (persent > 10) {
           d3.select(this)
             .selectAll('div')
             .data([d.data.name, d.data.value + ' (' + persent + '%)'])
             .text(String);
-        } else {
-          d3.select(this)
-            .selectAll('div')
-            .data(['', ''])
-            .text(String);
-        }
+        // } else {
+        //   d3.select(this)
+        //     .selectAll('div')
+        //     .data(['', ''])
+        //     .text(String);
+        // }
       });
 
     return this.resize(animate);
