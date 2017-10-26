@@ -107,16 +107,12 @@ class Tile extends Widget {
 
     this._countValue = row.append('td')
       .attr('class', 'tile-value');
-
-    if (this._config.get('name')) {
-      const td = row.append('td')
-        .attr('class', 'data-source-text')
-        .text('data source(s)');
-      td.append('div')
-        .attr('class', 'data-source')
-        .text(this._config.get('name'));
-    }
-
+    const td = row.append('td')
+      .attr('class', 'data-source-text')
+      .text(this.getCountTitle());
+    td.append('div')
+      .attr('class', 'data-source')
+      .text(this.getCountSubtitle());
     this._countPercent = leftSide
       .append('tr')
       .append('td')
@@ -144,24 +140,26 @@ class Tile extends Widget {
    */
   update() {
 
-    const data = this._dashboard.getData();
+    this._sizeValue.text(Math.round(this.getSizeValue()));
+    this._sizeUnit.html(this.getUnit());
+    this._sizePercent.html(this.getSizePercent());
 
-    const totalCount = d3.sum(data, d => d['IdentifiedDataSourcesCount']);
-    const totalSize  = d3.sum(data, d => d['DataSourceSize']);
-
-    const countKey = this.getDataKey('count');
-    const sizeKey  = this.getDataKey('size');
-
-    const count = d3.sum(data, d => d[countKey]);
-    const size  = d3.sum(data, d => d[sizeKey]);
-
-    this._sizeValue.text(Math.round(size));
-    this._sizeUnit.text(this.getUnit());
-    this._sizePercent.text(Math.round(size / totalSize * 100) + '% of Total');
-
-    this._countValue.text(Math.round(count));
-    this._countPercent.text(Math.round(count / totalCount * 100) + '% of Total');
+    this._countValue.html(Math.round(this.getCountValue()));
+    this._countPercent.html(this.getCountPercent());
 
     return this;
+  }
+
+
+  getSizeValue() {
+
+    const sizeKey = this.getDataKey('size');
+    return d3.sum(this._dashboard.getData(), d => d[sizeKey]);
+  }
+
+
+  getTotalSize() {
+
+    return d3.sum(this._dashboard.getData(), d => d['DataSourceSize']);
   }
 }
