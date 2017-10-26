@@ -58,6 +58,8 @@ class TreeMap extends Widget {
 
   update(animate = true) {
 
+    super.update();
+
     const width = this.getOuterWidth();
     const height = this.getOuterHeight();
     const margin = this.getMargin();

@@ -226,6 +226,8 @@ class ScatterPlot extends Widget {
    */
   update(animate = true) {
 
+    super.update();
+
     const data = this.getData();
 
     const update = this._canvas

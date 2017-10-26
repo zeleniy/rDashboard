@@ -27,6 +27,9 @@ class Widget {
       return tip.setChart(this);
     }.bind(this));
 
+    this._title = d3.select();
+    this._subtitle = d3.select();
+
     this._margin = {
       top: 0,
       right: 0,
@@ -170,6 +173,28 @@ class Widget {
   }
 
 
+  getTitle() {
+
+    const title = this._config.get('title', '');
+    if (_.isFunction(title)) {
+      return title(this);
+    } else {
+      return title;
+    }
+  }
+
+
+  getSubtitle() {
+
+    const subtitle = this._config.get('subtitle', '');
+    if (_.isFunction(subtitle)) {
+      return subtitle(this);
+    } else {
+      return subtitle;
+    }
+  }
+
+
   /**
    * Render widget.
    * @public
@@ -180,18 +205,18 @@ class Widget {
 
     const container = d3.select(this._config.get('placeholder'));
 
-    const title = this._config.get('title', '');
+    const title = this.getTitle();
     if (title != '') {
-      container
+      this._title = container
         .append('div')
         .attr('class', 'chart-title')
         .style('text-align', this._config.get('titleAlign', 'center'))
         .text(title);
     }
 
-    const subtitle = this._config.get('subtitle', '');
+    const subtitle = this.getSubtitle();
     if (subtitle != '') {
-      container
+      this._title = container
         .append('div')
         .attr('class', 'chart-subtitle')
         .style('text-align', this._config.get('titleAlign', 'center'))
@@ -257,7 +282,8 @@ class Widget {
    */
   update(animate = true) {
 
-    throw new Error('Method update() not implemented on ' + this.constructor.name);
+    this._title.text(this.getTitle());
+    this._subtitle.text(this.getSubtitle());
   }
 
 

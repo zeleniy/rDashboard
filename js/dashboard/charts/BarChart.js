@@ -107,6 +107,8 @@ class BarChart extends Widget {
 
   update(animate = true) {
 
+    super.update();
+
     const data = this.getData();
     /*
      * Render bars containers.

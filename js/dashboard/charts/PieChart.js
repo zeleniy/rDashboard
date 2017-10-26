@@ -109,6 +109,8 @@ class PieChart extends Widget {
 
   update(animate = true) {
 
+    super.update();
+
     const data = this.getData();
 
     var update = this._legend

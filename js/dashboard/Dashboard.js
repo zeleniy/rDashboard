@@ -12,7 +12,7 @@ class Dashboard {
     this._dataProvider = new DataProvider();
     this._tooltip = new Tooltip();
     this._charts = [];
-    this._mode = 'Count';
+    this._mode = 'Case';
 
     const self = this;
 
@@ -27,6 +27,12 @@ class Dashboard {
     d3.select(window).on('resize', function() {
       this.resize();
     }.bind(this))
+  }
+
+
+  getMode() {
+
+    return this._mode;
   }
 
 

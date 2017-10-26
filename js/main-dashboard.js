@@ -92,8 +92,20 @@ const treeMap = new TreeMap({
 const map = new Map({
   accessor: 'Country',
   placeholder: '#map-placeholder',
-  title: 'Location-wise Distribution',
-  subtitle: 'Geographic distribution of',
+  title: function(chart) {
+    if (chart.getDashboard().getMode() == 'Case') {
+      return 'Locationwise Cases Distribution';
+    } else {
+      return 'Locationwise Data Sources Distribution';
+    }
+  },
+  subtitle: function(chart) {
+    if (chart.getDashboard().getMode() == 'Case') {
+      return 'Geographic distribution of cases';
+    } else {
+      return 'Geographic distribution of data sources';
+    }
+  },
   tooltip: [
     new TitleTip(),
     new FrequencyTip('Matters:', 'MatterID', true),
