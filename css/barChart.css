@@ -3,9 +3,9 @@ svg.bar-chart .background-bar {
 }
 
 svg.bar-chart rect.background-bar {
-    fill: #f2f2f2;
+  fill: #f2f2f2;
 }
 
 svg.bar-chart text.value {
-    text-anchor: end;
+  text-anchor: end;
 }

@@ -9,3 +9,8 @@ svg.scatter-plot text.axis-label {
 svg.scatter-plot text.x-axis-label {
   text-anchor: end;
 }
+
+svg.scatter-plot line {
+  stroke: black;
+  stroke-width: 1;
+}

@@ -15,10 +15,13 @@ class ScatterPlot extends Widget {
     super(options);
 
     this._mode = 'Count';
+    this._maxR = 15;
+    this._minR = 3;
+    this._padding = this._maxR * 2;
 
     this._margin = {
-      top: 5,
-      right: 10,
+      top: this._maxR,
+      right: this._maxR,
       bottom: 20,
       left: 0
     };
@@ -125,6 +128,14 @@ class ScatterPlot extends Widget {
       .append('g')
       .attr('class', 'axis x-axis');
 
+    this._xAxisAppendix = this._canvas
+      .append('line')
+      .attr('class', 'axis-appendix');
+
+    this._yAxisAppendix = this._canvas
+      .append('line')
+      .attr('class', 'axis-appendix');
+
     return this.update(false);
   }
 
@@ -146,23 +157,14 @@ class ScatterPlot extends Widget {
     const innerWidth = this.getInnerWidth();
     const innerHeight = this.getInnerHeight();
 
-    const maxR = Math.min(innerWidth, innerHeight) / 10;
-
     const yDomain = d3.extent(data, d => d.y);
     const yScale = d3.scaleLinear()
-      .range([innerHeight, 0])
+      .range([innerHeight, this._padding])
       .domain(yDomain);
-   /*
-    * Calculate extra "space" to implement padding on Y axis.
-    */
-    const yExtra = yScale.invert(innerHeight - maxR) * 1.2;
-    /*
-     * Extend domain depending on extra "space".
-     */
-    yScale.domain([yDomain[0] - yExtra, yDomain[1] + yExtra])
 
     const yAxis = d3.axisLeft(yScale)
     this._yAxisContainer
+      .attr('transform', 'translate(' + [0, - this._padding] + ')')
       .call(yAxis);
 
     YTicks.getInstance(yAxis, this._yAxisContainer)
@@ -172,35 +174,23 @@ class ScatterPlot extends Widget {
 
     const rAccessor = this._getRadiusKey();
     const rScale = d3.scaleLinear()
-      .range([3, 15])
+      .range([this._minR, this._maxR])
       .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
 
     const xDomain = d3.extent(data, d => d.x);
     const xScale = d3.scaleTime()
-      .range([0, this.getInnerWidth()])
+      .range([0, this.getInnerWidth() - this._padding])
       .domain(xDomain);
 
-    /*
-     * Calculate extra "space" to implement padding on X axis.
-     */
-    const xExtra = - (xDomain[0].getTime() - xScale.invert(maxR).getTime())// * 1.2;
-    /*
-     * Extend domain depending on extra "space".
-     */
-    xScale.domain([
-      new Date(xDomain[0].getTime() - xExtra),
-      new Date(xDomain[1].getTime() + xExtra)
-    ]);
-
     this._getTransition(animate, this._dots
-      .attr('cx', d => xScale(d.x))
-      .attr('cy', d => yScale(d.y)))
+      .attr('cx', d => xScale(d.x) + this._padding)
+      .attr('cy', d => yScale(d.y) - this._padding))
       .attr('r', d => rScale(d.r));
 
     const xAxis = d3.axisBottom(xScale);
 
     this._xAxisContainer
-      .attr('transform', 'translate(0,' + this.getInnerHeight() + ')')
+      .attr('transform', 'translate(' + [this._padding, this.getInnerHeight()] + ')')
       .call(xAxis);
 
     this._yLabel
@@ -215,6 +205,18 @@ class ScatterPlot extends Widget {
 
     this._canvas
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+    this._xAxisAppendix
+      .attr('x1', 0)
+      .attr('y1', innerHeight + 0.5)
+      .attr('x2', this._padding)
+      .attr('y2', innerHeight + 0.5)
+
+    this._yAxisAppendix
+      .attr('x1', 0.5)
+      .attr('y1', innerHeight - this._padding)
+      .attr('x2', 0.5)
+      .attr('y2', innerHeight)
   }
 
 
