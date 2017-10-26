@@ -1,22 +1,25 @@
 const tiles = new Tiles({
   placeholder: '#tiles-placeholder',
   colorScheme: '#76acd4',
-  tiles: [{
+  tiles: [new CaseTile({
+    name: '',
+    accessor: 'IdentifiedDataSources'
+  }), new SimpleTile({
     name: 'identified',
     accessor: 'IdentifiedDataSources'
-  }, {
+  }), new SimpleTile({
     name: 'collected',
     accessor: 'CollectionDataSources'
-  }, {
+  }), new SimpleTile({
     name: 'processed',
     accessor: 'ProcessedVolumes'
-  }, {
+  }), new SimpleTile({
     name: 'hosted',
     accessor: 'HostedExportsets'
-  }, {
+  }), new SimpleTile({
     name: 'produced',
     accessor: 'ProducedDocuments'
-  }]
+  })]
 });
 
 const pieChart = new PieChart({

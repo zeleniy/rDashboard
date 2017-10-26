@@ -10,7 +10,7 @@ class Tiles extends Widget {
 
     super(options);
 
-    this._tiles = [];
+    this._tiles = this._config.get('tiles');
     this._clickedTile;
     this._mode = 'Count';
   }
@@ -108,18 +108,18 @@ class Tiles extends Widget {
       .attr('class', 'tiles')
       .node();
 
-    this._config.get('tiles').forEach(function(options, i) {
+    this._config.get('tiles').forEach(function(tile, i) {
 
-      options.backgroundColor = this._colorScale(i);
-      options.placeholder = container;
+      const config = tile.getConfig();
 
-      var tile = new Tile(options)
+      config.set('backgroundColor', this._colorScale(i));
+      config.set('placeholder', container);
+
+      tile
         .setManager(this)
         .setDashboard(this._dashboard)
         .onClick(this._clickHandler.bind(this))
         .render();
-
-      this._tiles.push(tile);
 
     }.bind(this));
   }

@@ -107,12 +107,16 @@ class Tile extends Widget {
 
     this._countValue = row.append('td')
       .attr('class', 'tile-value');
-    const td = row.append('td')
-      .attr('class', 'data-source-text')
-      .text('data source(s)');
-    td.append('div')
-      .attr('class', 'data-source')
-      .text(this._config.get('name'));
+
+    if (this._config.get('name')) {
+      const td = row.append('td')
+        .attr('class', 'data-source-text')
+        .text('data source(s)');
+      td.append('div')
+        .attr('class', 'data-source')
+        .text(this._config.get('name'));
+    }
+
     this._countPercent = leftSide
       .append('tr')
       .append('td')
