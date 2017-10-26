@@ -77,12 +77,22 @@ class DataProvider {
 
   _getSummaryFunction() {
 
+    var topLevelAccessor;
+
     if (this._mode == 'Case') {
       return function(input) {
         return input.length;
       }
+    } else if (this._mode == 'Count') {
+      topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
+      return function(input) {
+        return Math.round(d3.sum(input, d => d[topLevelAccessor]));
+      }
     } else {
-      const topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
+      topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
+      if (topLevelAccessor == 'IdentifiedDataSourcesSize') {
+        topLevelAccessor = 'DataSourceSize';
+      }
       return function(input) {
         return Math.round(d3.sum(input, d => d[topLevelAccessor]));
       }
