@@ -91,7 +91,7 @@ class Map extends Widget {
     const rData = dataProvider.getGroupedData(accessor, [], dataProvider.getData());
 
     const rScale = d3.scaleLinear()
-      .range([5, Math.min(width, height) / 10])
+      .range([3, 15])
       .domain([0, d3.max(rData, d => d.value)]);
 
     var centroids = {};
