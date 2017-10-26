@@ -86,15 +86,16 @@ class DataProvider {
     } else if (this._mode == 'Count') {
       topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
       return function(input) {
-        return Math.round(d3.sum(input, d => d[topLevelAccessor]));
+        return Math.round(d3.sum(input, d => d[topLevelAccessor]) * 10) / 10;
       }
     } else {
-      topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
+      topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
       if (topLevelAccessor == 'IdentifiedDataSourcesSize') {
         topLevelAccessor = 'DataSourceSize';
       }
+
       return function(input) {
-        return Math.round(d3.sum(input, d => d[topLevelAccessor]));
+        return Math.round(d3.sum(input, d => d[topLevelAccessor]) * 10) / 10;
       }
     }
   }
