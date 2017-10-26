@@ -66,9 +66,7 @@ const scatterPlot = new ScatterPlot({
   tooltip: [
     new TitleTip('CaseName'),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SimpleTip('Data Source Count:', function(chart) {
-      return chart.getDashboard().getDataKey(chart.getMode());
-    }),
+    new SimpleTip('Data Source Count:', 'DataSourceCount'),
     new SimpleTip('Total Size:', function(chart) {
       return chart.getDashboard().getDataKey('Size');
     })
