@@ -13,7 +13,7 @@ class SimpleTile extends Tile {
       this._dashboard.setDataFilter(
         'ValueColumn',
         () => true,
-        this.getDataKey(this.getConfig().get('accessor')),
+        this.getDataKey(),
         this._manager.toggle.bind(this._manager, this)
       );
     }
