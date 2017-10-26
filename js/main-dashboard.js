@@ -33,7 +33,7 @@ const pieChart = new PieChart({
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
+    new SummationTip('Data Volume:', 'DataSourceSize', true, true)
   ]
 });
 
@@ -49,7 +49,7 @@ const barChart = new BarChart({
     new FrequencyTip('Cases:', 'CaseID'),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
-    new SummationTip('Total Size:', 'IdentifiedDataSourcesSize')
+    new SummationTip('Total Size:', 'DataSourceSize')
   ]
 });
 
@@ -81,7 +81,7 @@ const treeMap = new TreeMap({
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
+    new SummationTip('Data Volume:', 'DataSourceSize', true, true)
   ]
 });
 
@@ -108,7 +108,7 @@ const map = new Map({
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
     new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
+    new SummationTip('Data Volume:', 'DataSourceSize', true, true)
   ]
 });
 

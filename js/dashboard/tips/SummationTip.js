@@ -14,24 +14,26 @@ class SummationTip extends Tip {
       .filter(d => d[accessor] == groupBy)
       .sumBy(column) * 10) / 10;
 
+    var unit = '';
     if (this._withUnit) {
       const unitColumn = column + 'Unit';
-      const unit = data.find(d => d[unitColumn])[unitColumn];
+      unit = data.find(d => d[unitColumn])[unitColumn];
       if (unit) {
-        result += ' ' + unit;
+        unit = ' ' + unit;
       }
     }
 
+    var percent = ''
     if (this._calculatePercent) {
       var total = Math.round(data.sumBy(column) * 10) / 10;
 
       if (result == 0 || total == 0) {
-        result += ' (0%)';
+        percent += ' (0%)';
       } else {
-        result += ' (' + Math.round(result / total * 1000) / 10 + '%)';
+        percent += ' (' + Math.round(result / total * 1000) / 10 + '%)';
       }
     }
 
-    return [this._prefix, result];
+    return [this._prefix, result + unit + percent];
   }
 }
