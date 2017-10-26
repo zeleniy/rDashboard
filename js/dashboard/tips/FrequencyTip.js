@@ -1,7 +1,7 @@
 class FrequencyTip extends Tip {
 
 
-  getData(accessor, value) {
+  getData(accessor, groupBy) {
 
     const column = this.getColumn();
 
@@ -11,7 +11,7 @@ class FrequencyTip extends Tip {
       .getFilteredData());
 
     var result = data
-      .filter(d => d[accessor] == value)
+      .filter(d => d[accessor] == groupBy)
       .map(d => d[column])
       .uniq()
       .value()

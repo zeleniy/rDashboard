@@ -27,7 +27,7 @@ class Tip {
   }
 
 
-  getData(accessor, value) {
+  getData(accessor, groupBy, value) {
 
     throw new Error('Method getData() not implemented on ' + this.constructor.name);
   }

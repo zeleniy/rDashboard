@@ -172,7 +172,7 @@ class ScatterPlot extends Widget {
 
     const rAccessor = this._getRadiusKey();
     const rScale = d3.scaleLinear()
-      .range([5, maxR])
+      .range([3, 15])
       .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
 
     const xDomain = d3.extent(data, d => d.x);
@@ -242,7 +242,7 @@ class ScatterPlot extends Widget {
       .selectAll('circle.dot')
       .on('mouseenter', function(d) {
         this.getTooltip()
-          .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d.color))
+          .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d.color, d.y))
           .show();
       }.bind(this))
       .on('mouseout', function(d) {

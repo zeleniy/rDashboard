@@ -1,7 +1,7 @@
 class SummationTip extends Tip {
 
 
-  getData(accessor, value) {
+  getData(accessor, groupBy) {
 
     const column = this.getColumn();
 
@@ -11,7 +11,7 @@ class SummationTip extends Tip {
       .getFilteredData());
 
     var result = Math.round(data
-      .filter(d => d[accessor] == value)
+      .filter(d => d[accessor] == groupBy)
       .sumBy(column) * 10) / 10;
 
     if (this._withUnit) {

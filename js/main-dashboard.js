@@ -60,7 +60,7 @@ const scatterPlot = new ScatterPlot({
   subtitle: 'Cases vs Data Sources plotted on Case Created Date',
   tooltip: [
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SummationTip('Data Source Count:', function(chart) {
+    new SimpleTip('Data Source Count:', function(chart) {
       return chart.getDashboard().getDataKey();
     }),
     new SummationTip('Total Size:', function(chart) {
