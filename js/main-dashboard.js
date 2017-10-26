@@ -69,8 +69,8 @@ const scatterPlot = new ScatterPlot({
     new SimpleTip('Data Source Count:', function(chart) {
       return chart.getDashboard().getDataKey(chart.getMode());
     }),
-    new SummationTip('Total Size:', function(chart) {
-      return 'DataSource' + chart.getMode();
+    new SimpleTip('Total Size:', function(chart) {
+      return chart.getDashboard().getDataKey('Size');
     })
   ]
 });
