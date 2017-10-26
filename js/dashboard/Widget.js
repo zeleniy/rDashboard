@@ -261,19 +261,6 @@ class Widget {
 
 
   /**
-   * Set click event handler.
-   * @public
-   * @param {Function} callback
-   * @returns {Widget}
-   */
-  onClick(callback) {
-
-    this._clickCallback = callback;
-    return this;
-  }
-
-
-  /**
    * Update widget.
    * @public
    * @abstract

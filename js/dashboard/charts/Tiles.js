@@ -41,26 +41,7 @@ class Tiles extends Widget {
   }
 
 
-  _clickHandler(clickedTile) {
-
-    const isSame = this._clickedTile == clickedTile;
-
-    this._toggle(clickedTile);
-
-    if (isSame) {
-      this._dashboard.resetDataFilter('ValueColumn', false);
-    } else {
-      this._dashboard.setDataFilter(
-        'ValueColumn',
-        () => true,
-        this.getDataKey(clickedTile.getConfig().get('accessor')),
-        this._toggle.bind(this, clickedTile)
-      );
-    }
-  }
-
-
-  _toggle(clickedTile) {
+  toggle(clickedTile) {
 
     const isSame = this._clickedTile == clickedTile;
 
@@ -118,7 +99,6 @@ class Tiles extends Widget {
       tile
         .setManager(this)
         .setDashboard(this._dashboard)
-        .onClick(this._clickHandler.bind(this))
         .render();
 
     }.bind(this));

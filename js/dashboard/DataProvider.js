@@ -49,7 +49,7 @@ class DataProvider {
 
   resetFilter(accessor, applyCallback = true) {
 
-    if (applyCallback && this._filters[accessor].callback) {
+    if (applyCallback && this._filters[accessor] && this._filters[accessor].callback) {
       this._filters[accessor].callback();
     }
 

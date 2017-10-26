@@ -90,11 +90,10 @@ class Tile extends Widget {
 
     this._table = this._container
       .append('table')
-      .attr('class', 'tile');
-    const table = this._table.style('background-color', this._config.get('backgroundColor'))
-      .on('click', function(d, i, selection) {
-        this._clickCallback(this);
-      }.bind(this))
+      .attr('class', 'tile')
+      .style('background-color', this._config.get('backgroundColor'))
+      .on('click', this.click.bind(this));
+    const table = this._table
       .append('tbody')
       .append('tr');
 

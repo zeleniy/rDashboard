@@ -1,6 +1,25 @@
 class SimpleTile extends Tile {
 
 
+  click() {
+
+    const isSame = this._manager.getActiveTile() == this;
+
+    this._manager.toggle(this);
+
+    if (isSame) {
+      this._dashboard.resetDataFilter('ValueColumn', false);
+    } else {
+      this._dashboard.setDataFilter(
+        'ValueColumn',
+        () => true,
+        this.getDataKey(this.getConfig().get('accessor')),
+        this._manager.toggle.bind(this._manager, this)
+      );
+    }
+  }
+
+
   getCountValue() {
 
     const sizeKey = this.getDataKey('count');
