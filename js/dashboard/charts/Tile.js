@@ -142,7 +142,7 @@ class Tile extends Widget {
 
     const data = this._dashboard.getData();
 
-    const totalCount = d3.sum(data, d => d['IdetifiedDataSourcesCount']);
+    const totalCount = d3.sum(data, d => d['IdentifiedDataSourcesCount']);
     const totalSize  = d3.sum(data, d => d['DataSourceSize']);
 
     const countKey = this.getDataKey('count');

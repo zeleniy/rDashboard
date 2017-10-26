@@ -3,7 +3,7 @@ const tiles = new Tiles({
   colorScheme: '#76acd4',
   tiles: [{
     name: 'identified',
-    accessor: 'IdetifiedDataSources'
+    accessor: 'IdentifiedDataSources'
   }, {
     name: 'collected',
     accessor: 'CollectionDataSources'
@@ -28,8 +28,8 @@ const pieChart = new PieChart({
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
+    new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
   ]
 });
 
@@ -43,8 +43,8 @@ const barChart = new BarChart({
     new FrequencyTip('Matters:', 'MatterID'),
     new FrequencyTip('Cases:', 'CaseID'),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Total Size:', 'IdetifiedDataSourcesSize')
+    new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+    new SummationTip('Total Size:', 'IdentifiedDataSourcesSize')
   ]
 });
 
@@ -77,8 +77,8 @@ const treeMap = new TreeMap({
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
+    new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
   ]
 });
 
@@ -91,8 +91,8 @@ const map = new Map({
     new FrequencyTip('Matters:', 'MatterID', true),
     new FrequencyTip('Cases:', 'CaseID', true),
     new SummationTip('Custodians:', 'ActiveCustodianCount'),
-    new SummationTip('Data Sources:', 'IdetifiedDataSourcesCount'),
-    new SummationTip('Data Volume:', 'IdetifiedDataSourcesSize', true, true)
+    new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+    new SummationTip('Data Volume:', 'IdentifiedDataSourcesSize', true, true)
   ]
 });
 
@@ -120,13 +120,13 @@ d3.tsv('data/CaseStatsSummary.tsv', function(error, data) {
     d['DataSourceCount'] = Number(d['DataSourceCount']);
     d['ActiveCustodianCount'] = Number(d['ActiveCustodianCount']);
     d['NonActiveCustodianCount'] = Number(d['NonActiveCustodianCount']);
-    d['IdetifiedDataSourcesCount'] = Number(d['IdetifiedDataSourcesCount']);
+    d['IdentifiedDataSourcesCount'] = Number(d['IdentifiedDataSourcesCount']);
     d['CollectionDataSourcesCount'] = Number(d['CollectionDataSourcesCount']);
     d['ProcessedVolumesCount'] = Number(d['ProcessedVolumesCount']);
     d['HostedExportsetsCount'] = Number(d['HostedExportsetsCount']);
     d['ProducedDocumentsCount'] = Number(d['ProducedDocumentsCount']);
     d['DataSourceSize'] = Number(d['DataSourceSize']);
-    d['IdetifiedDataSourcesSize'] = Number(d['IdetifiedDataSourcesSize']);
+    d['IdentifiedDataSourcesSize'] = Number(d['IdentifiedDataSourcesSize']);
     d['CollectionDataSourcesSize'] = Number(d['CollectionDataSourcesSize']);
     d['ProcessedVolumesSize'] = Number(d['ProcessedVolumesSize']);
     d['HostedExportsetSize'] = Number(d['HostedExportsetSize']);
