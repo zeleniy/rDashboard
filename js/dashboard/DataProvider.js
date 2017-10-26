@@ -34,7 +34,7 @@ class DataProvider {
 
   setData(data) {
 
-    this._data = this._mungeData(data);
+    this._data = data;
   }
 
 
@@ -66,40 +66,6 @@ class DataProvider {
   setAccessor(accessor) {
 
     this._accessor = accessor;
-  }
-
-
-  /**
-   * Munge data.
-   * @private
-   * @see https://en.wikipedia.org/wiki/Data_wrangling
-   */
-  _mungeData(data) {
-
-    return data.map(function(d) {
-
-      d['CaseCreatedOn'] = moment(d['CaseCreatedOn']).toDate();
-
-      d['DataSourceCount'] = Number(d['DataSourceCount']);
-
-      d['ActiveCustodianCount'] = Number(d['ActiveCustodianCount']);
-      d['NonActiveCustodianCount'] = Number(d['NonActiveCustodianCount']);
-      d['IdetifiedDataSourcesCount'] = Number(d['IdetifiedDataSourcesCount']);
-      d['CollectionDataSourcesCount'] = Number(d['CollectionDataSourcesCount']);
-      d['ProcessedVolumesCount'] = Number(d['ProcessedVolumesCount']);
-      d['HostedExportsetsCount'] = Number(d['HostedExportsetsCount']);
-      d['ProducedDocumentsCount'] = Number(d['ProducedDocumentsCount']);
-
-      d['DataSourceSize'] = Number(d['DataSourceSize']);
-
-      d['IdetifiedDataSourcesSize'] = Number(d['IdetifiedDataSourcesSize']);
-      d['CollectionDataSourcesSize'] = Number(d['CollectionDataSourcesSize']);
-      d['ProcessedVolumesSize'] = Number(d['ProcessedVolumesSize']);
-      d['HostedExportsetSize'] = Number(d['HostedExportsetSize']);
-      d['ProducedDocumentsSize'] = Number(d['ProducedDocumentsSize']);
-
-      return d;
-    });
   }
 
 
@@ -140,7 +106,6 @@ class DataProvider {
       .groupBy(function(d) {
         return d[accessor];
       }).transform(function(result, value, key) {
-        // console.log(value)
         result.push({
           name: key,
           value: summary(value)

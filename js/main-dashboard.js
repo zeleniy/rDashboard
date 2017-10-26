@@ -101,14 +101,42 @@ const timeLine = new TimeLine({
   placeholder: '#timeline-placeholder'
 });
 
-DataLoader.getInstance('data/CaseStatsSummary.tsv').onLoad(function(data) {
+const dashboardConfig = {
+  filters: {
+    placeholder: '#filters-placeholder',
+    list: ['EntityName', 'MatterType']
+  }
+};
 
-  new Dashboard({
-      filters: {
-        placeholder: '#filters-placeholder',
-        list: ['EntityName', 'MatterType']
-      }
-    }).setData(data)
+d3.tsv('data/CaseStatsSummary.tsv', function(error, data) {
+
+  if (error) {
+    return console.error(error);
+  }
+
+  data.map(function(d) {
+
+    d['CaseCreatedOn'] = moment(d['CaseCreatedOn']).toDate();
+    d['DataSourceCount'] = Number(d['DataSourceCount']);
+    d['ActiveCustodianCount'] = Number(d['ActiveCustodianCount']);
+    d['NonActiveCustodianCount'] = Number(d['NonActiveCustodianCount']);
+    d['IdetifiedDataSourcesCount'] = Number(d['IdetifiedDataSourcesCount']);
+    d['CollectionDataSourcesCount'] = Number(d['CollectionDataSourcesCount']);
+    d['ProcessedVolumesCount'] = Number(d['ProcessedVolumesCount']);
+    d['HostedExportsetsCount'] = Number(d['HostedExportsetsCount']);
+    d['ProducedDocumentsCount'] = Number(d['ProducedDocumentsCount']);
+    d['DataSourceSize'] = Number(d['DataSourceSize']);
+    d['IdetifiedDataSourcesSize'] = Number(d['IdetifiedDataSourcesSize']);
+    d['CollectionDataSourcesSize'] = Number(d['CollectionDataSourcesSize']);
+    d['ProcessedVolumesSize'] = Number(d['ProcessedVolumesSize']);
+    d['HostedExportsetSize'] = Number(d['HostedExportsetSize']);
+    d['ProducedDocumentsSize'] = Number(d['ProducedDocumentsSize']);
+
+    return d;
+  });
+
+  const dashboard = new Dashboard(dashboardConfig)
+    .setData(data)
     .addChart(tiles)
     .addChart(pieChart)
     .addChart(barChart)
