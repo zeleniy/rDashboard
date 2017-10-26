@@ -175,23 +175,13 @@ class Widget {
 
   getTitle() {
 
-    const title = this._config.get('title', '');
-    if (_.isFunction(title)) {
-      return title(this);
-    } else {
-      return title;
-    }
+    return this._config.get('title', '', [this]);
   }
 
 
   getSubtitle() {
 
-    const subtitle = this._config.get('subtitle', '');
-    if (_.isFunction(subtitle)) {
-      return subtitle(this);
-    } else {
-      return subtitle;
-    }
+    return this._config.get('subtitle', '', [this]);
   }
 
 

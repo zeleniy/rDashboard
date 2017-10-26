@@ -55,11 +55,23 @@ const barChart = new BarChart({
 
 const scatterPlot = new ScatterPlot({
   xAccessor: 'CaseCreatedOn',
-  yAccessor: 'DataSourceCount',
+  yAccessor: function(chart) {
+    if (chart.getMode() == 'Count') {
+      return 'DataSourceSize';
+    } else {
+      return 'DataSourceCount';
+    }
+  },
   radiusAccessor: 'DataSource',
   colorAccessor: 'MatterType',
   xLabel: 'Case Created Dates',
-  yLabel: 'Data Source Count',
+  yLabel: function(chart) {
+    if (chart.getMode() == 'Count') {
+      return 'Data Source Size';
+    } else {
+      return 'Data Source Count';
+    }
+  },
   placeholder: '#case-volume-placeholder',
   title: 'Case Population',
   subtitle: function(chart) {

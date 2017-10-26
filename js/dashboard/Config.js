@@ -57,7 +57,7 @@ class Config {
      * @param {Mixed} defaultValue
      * @return {Mixed}
      */
-    get(option, defaultValue) {
+    get(option, defaultValue, params) {
 
         var value = this._options;
         var parts = option.split(".");
@@ -71,7 +71,11 @@ class Config {
             }
         }
 
-        return value;
+        if (_.isFunction(value)) {
+          return value.apply(undefined, params);
+        } else {
+          return value;
+        }
     }
 
 

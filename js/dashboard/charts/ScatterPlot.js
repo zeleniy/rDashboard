@@ -123,26 +123,6 @@ class ScatterPlot extends Widget {
   }
 
 
-  _getYAccessor() {
-
-    if (this.getMode() == 'Count') {
-      return 'DataSourceSize';
-    } else {
-      return 'DataSourceCount';
-    }
-  }
-
-
-  _getYAxisLabel() {
-
-    if (this.getMode() == 'Count') {
-      return 'Data Source Size';
-    } else {
-      return 'Data Source Count';
-    }
-  }
-
-
   /**
    * @inheritdoc
    * @override
@@ -158,7 +138,7 @@ class ScatterPlot extends Widget {
     const data = this.getData();
 
     const x = this._config.get('xAccessor');
-    const y = this._getYAccessor();
+    const y = this._config.get('yAccessor', undefined, [this]);
     const r = this._getRadiusKey();
     const color = this._config.get('colorAccessor');
 
@@ -202,7 +182,7 @@ class ScatterPlot extends Widget {
       .call(xAxis);
 
     this._yLabel
-      .text(this._getYAxisLabel())
+      .text(this._config.get('yLabel', undefined, [this]))
       .attr('x', - this._yLabel.node().getBoundingClientRect().height)
 
     this._xLabel
@@ -239,8 +219,6 @@ class ScatterPlot extends Widget {
 
     const data = this.getData();
 
-    const x = this._config.get('xAccessor');
-    const y = this._config.get('yAccessor');
     const color = this._config.get('colorAccessor');
 
     const update = this._canvas
