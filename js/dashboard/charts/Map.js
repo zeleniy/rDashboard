@@ -136,17 +136,22 @@ class Map extends Widget {
       .exit()
       .remove();
 
+    var cc = clickcancel();
     update
       .enter()
       .append('circle')
       .attr('class', 'bubble clickable')
       .attr('fill', d => this._colorScale(d.name))
-      .on('click', function(d) {
-        const value = d.name;
-        this._dashboard.setDataFilter(this.getAccessor(), function(d) {
-          return d == value;
-        }, value);
-      }.bind(this));
+      .call(cc);
+    cc.on('click', function(d) {
+      const value = d.name;
+      this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+        return d == value;
+      }, value);
+    }.bind(this));
+    cc.on('dblclick', function(d) {
+      location.href = 'https://www.google.com';
+    });
 
     this._bubbles = this._dataLayer
       .selectAll('circle')

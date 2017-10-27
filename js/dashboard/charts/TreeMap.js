@@ -77,16 +77,12 @@ class TreeMap extends Widget {
       .selectAll('.node')
       .data(chartData, d => d.data.name);
     update.exit().remove();
+
+    var cc = clickcancel();
     update.enter()
       .append('div')
       .attr('class', 'node clickable')
       .style('background-color', d => this._colorScale(d.data.name))
-      .on('click', function(d) {
-        const value = d.data.name;
-        this._dashboard.setDataFilter(this.getAccessor(), function(d) {
-          return d == value;
-        }, value);
-      }.bind(this))
       .each(function(d, i) {
         const persent = Math.round(d.value / total * 1000) / 10;
         // if (persent > 10) {
@@ -98,7 +94,17 @@ class TreeMap extends Widget {
             .enter()
             .append('div');
         // }
-      });
+      }).call(cc);
+
+    cc.on('click', function(d) {
+      const value = d.data.name;
+      this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+        return d == value;
+      }, value);
+    }.bind(this));
+    cc.on('dblclick', function(d) {
+      location.href = 'https://www.google.com';
+    });
 
     this._nodes = this._main
       .selectAll('div.node')

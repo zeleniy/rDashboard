@@ -136,19 +136,25 @@ class PieChart extends Widget {
         this._current = _.clone(d);
         d.startAngle = d.endAngle;
       });
+
+    var cc = clickcancel();
     update.enter()
       .append('path')
       .attr('class', 'slice clickable')
       .attr('fill', d => this._colorScale(d.data.name))
-      .on('click', function(d) {
-        const value = d.data.name;
-        this._dashboard.setDataFilter(this.getAccessor(), function(d) {
-          return d == value;
-        }, value);
-      }.bind(this))
+      .call(cc)
       .each(function(d) {
         this._current = d;
       });
+    cc.on('click', function(d) {
+      const value = d.data.name;
+      this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+        return d == value;
+      }, value);
+    }.bind(this))
+    cc.on('dblclick', function(d) {
+      location.href = 'https://www.google.com';
+    });;
 
     this._slices = this._canvas
       .selectAll('path')

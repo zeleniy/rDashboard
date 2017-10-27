@@ -220,10 +220,15 @@ class ScatterPlot extends Widget {
     update.exit()
       .remove();
 
+    var cc = clickcancel();
     update.enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('fill', d => this._colorScale(d[color]));
+      .attr('fill', d => this._colorScale(d[color]))
+      .call(cc);
+    cc.on('dblclick', function(d) {
+      location.href = 'https://www.google.com';
+    });
 
     this._dots = this._canvas
       .selectAll('circle.dot')
