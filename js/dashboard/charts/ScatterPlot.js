@@ -58,14 +58,6 @@ class ScatterPlot extends Widget {
   }
 
 
-  _getRadiusKey() {
-
-    return this._config.get('radiusAccessor') +
-      this._mode[0].toUpperCase() +
-      this._mode.substring(1).toLowerCase();
-  }
-
-
   /**
    * @inheritdoc
    * @override
@@ -139,7 +131,7 @@ class ScatterPlot extends Widget {
 
     const x = this._config.get('xAccessor');
     const y = this._config.get('yAccessor', undefined, [this]);
-    const r = this._getRadiusKey();
+    const r = this._config.get('radiusAccessor');
     const color = this._config.get('colorAccessor');
 
     const innerWidth = this.getInnerWidth();
@@ -160,7 +152,7 @@ class ScatterPlot extends Widget {
 
     margin = this.getMargin();
 
-    const rAccessor = this._getRadiusKey();
+    const rAccessor = this._config.get('radiusAccessor');
     const rScale = d3.scaleLinear()
       .range([this._minR, this._maxR])
       .domain([0, d3.max(this._dashboard.getData(), d => d[rAccessor])]);
