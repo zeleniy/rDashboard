@@ -1,54 +1,51 @@
 /**
  * @public
  * @class
+ * @param {d3.axis} axis
+ * @param {d3.selection} container
  */
-class XTicks extends Ticks {
-  /**
-   * @public
-   * @constructor
-   * @param {d3.axis} axis
-   * @param {d3.selection} container
-   */
-  constructor(axis, container) {
+function XTicks(axis, container) {
 
-    super(axis, container);
-    this._distance = 10;
-  }
+  Ticks.call(this, axis, container);
+  this._distance = 10;
+}
 
 
-  /**
-   * @public
-   * @static
-   * @param {d3.axis} axis
-   * @param {d3.selection} container
-   * @returns {Ticks}
-   */
-  static getInstance(axis, container) {
-
-    return new XTicks(axis, container);
-  }
+XTicks.prototype = Object.create(Ticks.prototype);
 
 
-  /**
-   * @protected
-   * @override
-   * @returns {Integer}
-   */
-  _getIndex() {
+/**
+ * @public
+ * @static
+ * @param {d3.axis} axis
+ * @param {d3.selection} container
+ * @returns {Ticks}
+ */
+XTicks.getInstance = function(axis, container) {
 
-    return 0;
-  }
+  return new XTicks(axis, container);
+}
 
 
-  /**
-   * @protected
-   * @override
-   * @param {DOMRect} tick1
-   * @param {DOMRect} tick2
-   * @returns {Boolean}
-   */
-  _compare(tick1, tick2) {
+/**
+ * @protected
+ * @override
+ * @returns {Integer}
+ */
+XTicks.prototype._getIndex = function() {
 
-    return tick1.right + this._distance > tick2.left;
-  }
+  return 0;
+}
+
+
+/**
+ * @protected
+ * @override
+ * @param {DOMRect} tick1
+ * @param {DOMRect} tick2
+ * @returns {Boolean}
+ */
+XTicks.prototype._compare = function(tick1, tick2) {
+
+  return tick1.right + this._distance > tick2.left;
 }

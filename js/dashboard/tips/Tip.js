@@ -1,34 +1,30 @@
-class Tip {
+function Tip(prefix, column, calculatePercent, withUnit) {
+
+  this._prefix = prefix;
+  this._column = column;
+  this._calculatePercent = calculatePercent;
+  this._withUnit = withUnit;
+}
 
 
-  constructor(prefix, column, calculatePercent = false, withUnit = false) {
+Tip.prototype.getColumn = function() {
 
-    this._prefix = prefix;
-    this._column = column;
-    this._calculatePercent = calculatePercent;
-    this._withUnit = withUnit;
+  if (_.isFunction(this._column)) {
+    return this._column(this._chart);
+  } else {
+    return this._column;
   }
+}
 
 
-  getColumn() {
+Tip.prototype.setChart = function(chart) {
 
-    if (_.isFunction(this._column)) {
-      return this._column(this._chart);
-    } else {
-      return this._column;
-    }
-  }
+  this._chart = chart;
+  return this;
+}
 
 
-  setChart(chart) {
+Tip.prototype.getData = function(accessor, groupBy, value) {
 
-    this._chart = chart;
-    return this;
-  }
-
-
-  getData(accessor, groupBy, value) {
-
-    throw new Error('Method getData() not implemented on ' + this.constructor.name);
-  }
+  throw new Error('Method getData() not implemented on ' + this.constructor.name);
 }

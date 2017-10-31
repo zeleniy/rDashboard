@@ -3,104 +3,105 @@
  * @public
  * @class
  */
-class Tiles extends Widget {
+function Tiles(options) {
+
+  Widget.call(this, options);
+
+  this._tiles = this._config.get('tiles');
+  this._clickedTile;
+  this._mode = 'Count';
+}
 
 
-  constructor(options) {
+Tiles.prototype = Object.create(Widget.prototype);
 
-    super(options);
 
-    this._tiles = this._config.get('tiles');
-    this._clickedTile;
-    this._mode = 'Count';
+Tiles.prototype.getActiveTile = function() {
+
+  return this._clickedTile;
+}
+
+
+Tiles.prototype.getDataKey = function(accessor, mode) {
+
+  mode = mode || this._mode;
+  accessor = accessor || this._clickedTile.getAccessor();
+  return accessor + mode[0].toUpperCase() + mode.substring(1).toLowerCase();
+}
+
+
+Tiles.prototype.updateFilter = function() {
+
+  const span = d3.selectAll('.filters-list div.filter')
+    .filter(function(d) {
+      return d == 'ValueColumn';
+    }).select('span');
+
+  if (span.size()) {
+    span.text('ValueColumn = ' + this.getDataKey())
+  }
+}
+
+
+Tiles.prototype.toggle = function(clickedTile) {
+
+  const isSame = this._clickedTile == clickedTile;
+
+  if (! isSame) {
+    clickedTile.highlight(! isSame);
   }
 
+  this._tiles.filter(function(tile) {
+    return tile != clickedTile;
+  }).forEach(function(tile) {
+    tile.highlight(isSame);
+  });
 
-  getActiveTile() {
+  this._clickedTile = isSame ? undefined : clickedTile;
 
-    return this._clickedTile;
-  }
-
-
-  getDataKey(accessor, mode = this._mode) {
-
-    accessor = accessor || this._clickedTile.getAccessor();
-    return accessor + mode[0].toUpperCase() + mode.substring(1).toLowerCase();
-  }
+  this._dashboard.setAccessor(isSame ? undefined : clickedTile.getConfig().get('accessor'));
+}
 
 
-  updateFilter() {
+Tiles.prototype.update = function() {
 
-    const span = d3.selectAll('.filters-list div.filter')
-      .filter(d => d == 'ValueColumn')
-      .select('span');
-
-    if (span.size()) {
-      span.text('ValueColumn = ' + this.getDataKey())
-    }
-  }
+  this._tiles.forEach(function(tile) {
+    tile.update()
+  });
+}
 
 
-  toggle(clickedTile) {
+Tiles.prototype.resize = function() {
 
-    const isSame = this._clickedTile == clickedTile;
-
-    if (! isSame) {
-      clickedTile.highlight(! isSame);
-    }
-
-    this._tiles.filter(function(tile) {
-      return tile != clickedTile;
-    }).forEach(function(tile) {
-      tile.highlight(isSame);
-    });
-
-    this._clickedTile = isSame ? undefined : clickedTile;
-
-    this._dashboard.setAccessor(isSame ? undefined : clickedTile.getConfig().get('accessor'));
-  }
+}
 
 
-  update() {
+Tiles.prototype.getColorDomain = function() {
 
-    this._tiles.forEach(function(tile) {
-      tile.update()
-    });
-  }
+  return d3.range(this._config.get('tiles').length);
+}
 
 
-  resize() {
+Tiles.prototype.render = function() {
 
-  }
+  Widget.prototype.render.call(this);
 
+  const container = d3.select(this._config.get('placeholder'))
+    .append('div')
+    .attr('class', 'tiles')
+    .node();
 
-  getColorDomain() {
+  this._config.get('tiles').forEach(function(tile, i) {
 
-    return d3.range(this._config.get('tiles').length);
-  }
+    const config = tile.getConfig();
 
+    config.set('backgroundColor', this._colorScale(i));
+    config.set('placeholder', container);
 
-  render() {
+    tile
+      .setManager(this)
+      .setDashboard(this._dashboard)
+      .render();
 
-    super.render();
-
-    const container = d3.select(this._config.get('placeholder'))
-      .append('div')
-      .attr('class', 'tiles')
-      .node();
-
-    this._config.get('tiles').forEach(function(tile, i) {
-
-      const config = tile.getConfig();
-
-      config.set('backgroundColor', this._colorScale(i));
-      config.set('placeholder', container);
-
-      tile
-        .setManager(this)
-        .setDashboard(this._dashboard)
-        .render();
-
-    }.bind(this));
-  }
+  }.bind(this));
 }

@@ -1,42 +1,52 @@
-class CaseTile extends Tile {
+function CaseTile(options) {
+
+  Tile.call(this, options);
+}
 
 
-  click() {
-
-    const isSame = this._manager.getActiveTile() == this;
-
-    this._manager.toggle(this._manager.getActiveTile());
-
-    this._dashboard.resetDataFilter('ValueColumn', false);
-  }
+CaseTile.prototype = Object.create(Tile.prototype);
 
 
-  getCountPercent() {
+CaseTile.prototype.click = function() {
 
-    return '&nbsp;';
-  }
+  const isSame = this._manager.getActiveTile() == this;
 
+  this._manager.toggle(this._manager.getActiveTile());
 
-  getSizePercent() {
-
-    return '&nbsp;';
-  }
+  this._dashboard.resetDataFilter('ValueColumn', false);
+}
 
 
-  getCountTitle() {
+CaseTile.prototype.getCountPercent = function() {
 
-    return 'Total';
-  }
-
-
-  getCountValue() {
-
-    return _(this._dashboard.getData()).map(d => d['CaseID']).uniq().value().length;
-  }
+  return '&nbsp;';
+}
 
 
-  getDataKey() {
+CaseTile.prototype.getSizePercent = function() {
 
-    return 'DataSourceSize';
-  }
+  return '&nbsp;';
+}
+
+
+CaseTile.prototype.getCountTitle = function() {
+
+  return 'Total';
+}
+
+
+CaseTile.prototype.getCountValue = function() {
+
+  return _(this._dashboard.getData())
+    .map(function(d) {
+      return d['CaseID'];
+    }).uniq()
+    .value()
+    .length;
+}
+
+
+CaseTile.prototype.getDataKey = function() {
+
+  return 'DataSourceSize';
 }

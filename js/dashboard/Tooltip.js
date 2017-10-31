@@ -2,118 +2,111 @@
  * @public
  * @class
  */
-class Tooltip {
+function Tooltip() {
+
+  this._tip = d3.select('body')
+    .append('div')
+    .attr('class', 'dashboard-tooltip')
+    .style('display', 'none');
+  this._table = this._tip
+    .append('table')
+    .append('tbody');
+}
 
 
-  /**
-    * @public
-    * @constructor
-    */
-  constructor() {
+Tooltip.prototype.getContainer = function() {
 
-    this._tip = d3.select('body')
-      .append('div')
-      .attr('class', 'dashboard-tooltip')
-      .style('display', 'none');
-    this._table = this._tip
-      .append('table')
-      .append('tbody');
-  }
+  return this._tip;
+}
 
 
-  getContainer() {
+/**
+ * Remove tooltip container.
+ * @public
+ */
+Tooltip.prototype.remove = function() {
 
-    return this._tip;
-  }
-
-
-  /**
-   * Remove tooltip container.
-   * @public
-   */
-  remove() {
-
-    this._tip.remove();
-  }
+  this._tip.remove();
+}
 
 
-  /**
-   * @public
-   * @param {String} content
-   * @returns {Tooltip}
-   */
-  setContent(content) {
+/**
+ * @public
+ * @param {String} content
+ * @returns {Tooltip}
+ */
+Tooltip.prototype.setContent = function(content) {
 
-    this._content = content;
-    return this;
-  }
-
-
-  /**
-   * @public
-   * @param {Number[]} offset
-   * @returns {Tooltip}
-   */
-  setOffset(offset) {
-
-    this._offset = offset;
-    return this;
-  }
+  this._content = content;
+  return this;
+}
 
 
-  /**
-   * @public
-   */
-  show() {
+/**
+ * @public
+ * @param {Number[]} offset
+ * @returns {Tooltip}
+ */
+Tooltip.prototype.setOffset = function(offset) {
 
-    this._table
-      .selectAll('tr')
-      .remove();
-
-    this._table.selectAll('tr')
-      .data(this._content)
-      .enter()
-      .append('tr')
-      .selectAll('td')
-      .data(d => d)
-      .enter()
-      .append('td')
-      .attr('colspan', function(d, i, set) {
-        return 2 - set.length + 1;
-      }).text(String);
-
-    this._tip
-      .style('display', 'block');
-
-    this.move();
-
-    return this;
-  }
+  this._offset = offset;
+  return this;
+}
 
 
-  move() {
+/**
+ * @public
+ */
+Tooltip.prototype.show = function() {
 
-    const doc = document.documentElement;
+  this._table
+    .selectAll('tr')
+    .remove();
 
-    const xOffset = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-    const yOffset = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+  this._table.selectAll('tr')
+    .data(this._content)
+    .enter()
+    .append('tr')
+    .selectAll('td')
+    .data(function(d) {
+      return d;
+    }).enter()
+    .append('td')
+    .attr('colspan', function(d, i, set) {
+      return 2 - set.length + 1;
+    }).text(String);
 
-    const box = this._tip.node().getBoundingClientRect();
+  this._tip
+    .style('display', 'block');
 
-    const x = d3.event.clientX + xOffset - box.width / 2;
-    const y = d3.event.clientY + yOffset - box.height - 5;
+  this.move();
 
-    this._tip
-      .style('left', x + 'px')
-      .style('top', y + 'px');
-  }
+  return this;
+}
 
 
-  /**
-   * @public
-   */
-  hide() {
+Tooltip.prototype.move = function() {
 
-      this._tip.style('display', 'none');
-  }
+  const doc = document.documentElement;
+
+  const xOffset = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+  const yOffset = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+
+  const box = this._tip.node().getBoundingClientRect();
+
+  const x = d3.event.clientX + xOffset - box.width / 2;
+  const y = d3.event.clientY + yOffset - box.height - 5;
+
+  this._tip
+    .style('left', x + 'px')
+    .style('top', y + 'px');
+}
+
+
+/**
+ * @public
+ */
+Tooltip.prototype.hide = function() {
+
+    this._tip.style('display', 'none');
 }

@@ -1,301 +1,298 @@
 /**
- * Widget/chart basic class.
+ * Widget/chart base class.
  * @public
  * @abstract
  * @class
+ * @param {Object} [options={}]
  */
-class Widget {
+function Widget(options) {
 
+  this._config = new Config(options || {});
 
-  /**
-   * @public
-   * @constructor
-   * @param {Object} options
-   */
-  constructor(options = {}) {
-
-    this._config = new Config(options);
-
-    this._colorSet = this._config.get('colorScheme', d3.schemeCategory10);
-    if (! Array.isArray(this._colorSet)) {
-      this._colorSet = [this._colorSet];
-    }
-
-    this._duration = 1000;
-
-    this._tips = this._config.get('tooltip', []).map(function(tip) {
-      return tip.setChart(this);
-    }.bind(this));
-
-    this._title = d3.select();
-    this._subtitle = d3.select();
-
-    this._margin = {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    };
+  this._colorSet = this._config.get('colorScheme', d3.schemeCategory10);
+  if (! Array.isArray(this._colorSet)) {
+    this._colorSet = [this._colorSet];
   }
 
+  this._duration = 1000;
 
-  getMode() {
+  this._tips = this._config.get('tooltip', []).map(function(tip) {
+    return tip.setChart(this);
+  }.bind(this));
 
-    return this._mode;
+  this._title = d3.select();
+  this._subtitle = d3.select();
+
+  this._margin = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  };
+}
+
+
+Widget.prototype.getMode = function() {
+
+  return this._mode;
+}
+
+
+Widget.prototype.getDashboard = function() {
+
+  return this._dashboard;
+}
+
+
+Widget.prototype._getTransition = function(animate, selection) {
+
+  if (animate) {
+    return selection.transition().duration(this._duration);
+  } else {
+    return selection;
   }
+}
 
 
-  getDashboard() {
+Widget.prototype.getTooltip = function() {
 
-    return this._dashboard;
-  }
-
-
-  _getTransition(animate, selection) {
-
-    if (animate) {
-      return selection.transition().duration(this._duration);
-    } else {
-      return selection;
-    }
-  }
+  return this._dashboard.getTooltip();
+}
 
 
-  getTooltip() {
+Widget.prototype.getTooltipContent = function(accessor, groupBy, d) {
 
-    return this._dashboard.getTooltip();
-  }
-
-
-  getTooltipContent(accessor, groupBy, d) {
-
-    return this._tips.map(function(tip) {
-      return tip.getData(accessor, groupBy, d);
-    })
-  }
+  return this._tips.map(function(tip) {
+    return tip.getData(accessor, groupBy, d);
+  })
+}
 
 
-  getConfig() {
+Widget.prototype.getConfig = function() {
 
-    return this._config;
-  }
-
-
-  setMode(mode) {
-
-    this._mode = mode;
-  }
+  return this._config;
+}
 
 
-  getAccessor() {
+Widget.prototype.setMode = function(mode) {
 
-    return this._config.get('accessor');
-  }
-
-
-  /**
-   * Get chart margin.
-   * @public
-   * @returns {Object}
-   */
-  getMargin() {
-
-    return this._margin;
-  }
+  this._mode = mode;
+}
 
 
-  /**
-   * Set parent dashboard.
-   * @public
-   * @param {Dashboard} dashboard
-   * @returns {Widget}
-   */
-  setDashboard(dashboard) {
+Widget.prototype.getAccessor = function() {
 
-    this._dashboard = dashboard;
-    return this;
-  }
+  return this._config.get('accessor');
+}
 
 
-  /**
-   * Get chart outer width.
-   * @returns {Number}
-   */
-  getOuterWidth() {
+/**
+ * Get chart margin.
+ * @public
+ * @returns {Object}
+ */
+Widget.prototype.getMargin = function() {
 
-    return this._container
-      .node()
-      .getBoundingClientRect()
-      .width;
-  }
+  return this._margin;
+}
 
 
-  /**
-   * Get chart inner width.
-   * @returns {Number}
-   */
-  getInnerWidth() {
+/**
+ * Set parent dashboard.
+ * @public
+ * @param {Dashboard} dashboard
+ * @returns {Widget}
+ */
+Widget.prototype.setDashboard = function(dashboard) {
 
-    const margin = this.getMargin();
-
-    return this._container
-      .node()
-      .getBoundingClientRect()
-      .width - margin.left - margin.right;
-  }
+  this._dashboard = dashboard;
+  return this;
+}
 
 
-  /**
-   * Get chart outer height.
-   * @returns {Number}
-   */
-  getOuterHeight() {
+/**
+ * Get chart outer width.
+ * @returns {Number}
+ */
+Widget.prototype.getOuterWidth = function() {
 
-    return this._container
-      .node()
-      .getBoundingClientRect()
-      .height;
-  }
-
-
-  /**
-   * Get chart inner height.
-   * @returns {Number}
-   */
-  getInnerHeight() {
-
-    const margin = this.getMargin();
-
-    return this._container
-      .node()
-      .getBoundingClientRect()
-      .height - margin.top - margin.bottom;
-  }
+  return this._container
+    .node()
+    .getBoundingClientRect()
+    .width;
+}
 
 
-  getTitle() {
+/**
+ * Get chart inner width.
+ * @returns {Number}
+ */
+Widget.prototype.getInnerWidth = function() {
 
-    return this._config.get('title', '', [this]);
-  }
+  const margin = this.getMargin();
+
+  return this._container
+    .node()
+    .getBoundingClientRect()
+    .width - margin.left - margin.right;
+}
 
 
-  getSubtitle() {
+/**
+ * Get chart outer height.
+ * @returns {Number}
+ */
+Widget.prototype.getOuterHeight = function() {
 
-    return this._config.get('subtitle', '', [this]);
-  }
+  return this._container
+    .node()
+    .getBoundingClientRect()
+    .height;
+}
 
 
-  /**
-   * Render widget.
-   * @public
-   * @abstract
-   * @returns {Widget}
-   */
-  render() {
+/**
+ * Get chart inner height.
+ * @returns {Number}
+ */
+Widget.prototype.getInnerHeight = function() {
 
-    const container = d3.select(this._config.get('placeholder'));
+  const margin = this.getMargin();
 
-    const title = this.getTitle();
-    if (title != '') {
-      this._title = container
-        .append('div')
-        .attr('class', 'chart-title')
-        .style('text-align', this._config.get('titleAlign', 'center'));
-    }
+  return this._container
+    .node()
+    .getBoundingClientRect()
+    .height - margin.top - margin.bottom;
+}
 
-    const subtitle = this.getSubtitle();
-    if (subtitle != '') {
-      this._subtitle = container
-        .append('div')
-        .attr('class', 'chart-subtitle')
-        .style('text-align', this._config.get('titleAlign', 'center'));
-    }
 
-    this._container = container
+Widget.prototype.getTitle = function() {
+
+  return this._config.get('title', '', [this]);
+}
+
+
+Widget.prototype.getSubtitle = function() {
+
+  return this._config.get('subtitle', '', [this]);
+}
+
+
+/**
+ * Render widget.
+ * @public
+ * @abstract
+ * @returns {Widget}
+ */
+Widget.prototype.render = function() {
+
+  const container = d3.select(this._config.get('placeholder'));
+
+  const title = this.getTitle();
+  if (title != '') {
+    this._title = container
       .append('div')
-      .attr('class', 'chart-container');
-
-    this._colorScale = d3.scaleOrdinal()
-      .domain(this.getColorDomain())
-      .range(this.getColorRange());
+      .attr('class', 'chart-title')
+      .style('text-align', this._config.get('titleAlign', 'center'));
   }
 
-
-  /**
-   * @inheritdoc
-   * @override
-   */
-  getColorKey() {
-
-    return this._config.get('accessor');
+  const subtitle = this.getSubtitle();
+  if (subtitle != '') {
+    this._subtitle = container
+      .append('div')
+      .attr('class', 'chart-subtitle')
+      .style('text-align', this._config.get('titleAlign', 'center'));
   }
 
+  this._container = container
+    .append('div')
+    .attr('class', 'chart-container');
 
-  getColorDomain() {
-
-    const accessor = this.getColorKey();
-    return _(this._dashboard.getData())
-      .map(d => d[accessor])
-      .uniq()
-      .sort()
-      .value();
-  }
+  this._colorScale = d3.scaleOrdinal()
+    .domain(this.getColorDomain())
+    .range(this.getColorRange());
+}
 
 
-  getColorRange() {
+/**
+ * @inheritdoc
+ * @override
+ */
+Widget.prototype.getColorKey = function() {
 
-    return this.getColorDomain().map((d, i) => this._colorSet[i % this._colorSet.length]);
-  }
-
-
-  /**
-   * Update widget.
-   * @public
-   * @abstract
-   * @param {Boolean} [animate=true]
-   * @returns {Widget}
-   */
-  update(animate = true) {
-
-    this._title.text(this.getTitle());
-    this._subtitle.text(this.getSubtitle());
-  }
+  return this._config.get('accessor');
+}
 
 
-  /**
-   * Update widget.
-   * @public
-   * @abstract
-   * @param {Boolean} [animate=false]
-   * @returns {Widget}
-   */
-  resize(animate = false) {
+Widget.prototype.getColorDomain = function() {
 
-    throw new Error('Method resize() not implemented on ' + this.constructor.name);
-  }
-
-
-  /**
-   * Get data key.
-   * @public
-   * @returns {String}
-   */
-  getDataKey() {
-
-    return this._config.get('accessor');
-  }
+  const accessor = this.getColorKey();
+  return _(this._dashboard.getData())
+    .map(function(d) {
+      return d[accessor];
+    }).uniq()
+    .sort()
+    .value();
+}
 
 
-  /**
-   * Get chart grouped data.
-   * @public
-   * @param {String[]} excludeList - list of filters to exclude
-   * @returns {Mixed[]}
-   */
-  getData(excludeList) {
+Widget.prototype.getColorRange = function() {
 
-    return this._dashboard
-      .getDataProvider()
-      .getGroupedData(this.getDataKey(), excludeList);
-  }
+  var self = this;
+
+  return this.getColorDomain().map(function(d, i) {
+    return self._colorSet[i % self._colorSet.length];
+  });
+}
+
+
+/**
+ * Update widget.
+ * @public
+ * @abstract
+ * @param {Boolean} [animate=true]
+ * @returns {Widget}
+ */
+Widget.prototype.update = function(animate = true) {
+
+  this._title.text(this.getTitle());
+  this._subtitle.text(this.getSubtitle());
+}
+
+
+/**
+ * Update widget.
+ * @public
+ * @abstract
+ * @param {Boolean} [animate=false]
+ * @returns {Widget}
+ */
+Widget.prototype.resize = function(animate = false) {
+
+  throw new Error('Method resize() not implemented on ' + this.constructor.name);
+}
+
+
+/**
+ * Get data key.
+ * @public
+ * @returns {String}
+ */
+Widget.prototype.getDataKey = function() {
+
+  return this._config.get('accessor');
+}
+
+
+/**
+ * Get chart grouped data.
+ * @public
+ * @param {String[]} excludeList - list of filters to exclude
+ * @returns {Mixed[]}
+ */
+Widget.prototype.getData = function(excludeList) {
+
+  return this._dashboard
+    .getDataProvider()
+    .getGroupedData(this.getDataKey(), excludeList);
 }

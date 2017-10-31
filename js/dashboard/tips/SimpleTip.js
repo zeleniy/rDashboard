@@ -1,8 +1,13 @@
-class SimpleTip extends Tip {
+function SimpleTip(prefix, column, calculatePercent, withUnit) {
+
+  Tip.call(this, prefix, column, calculatePercent, withUnit);
+}
 
 
-  getData(accessor, groupBy, d) {
+SimpleTip.prototype = Object.create(Tip.prototype);
 
-    return [this._prefix, d[this.getColumn()]];
-  }
+
+SimpleTip.prototype.getData = function(accessor, groupBy, d) {
+
+  return [this._prefix, d[this.getColumn()]];
 }

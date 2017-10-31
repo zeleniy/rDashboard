@@ -1,8 +1,13 @@
-class TitleTip extends Tip {
+function TitleTip(prefix, column, calculatePercent, withUnit) {
+
+  Tip.call(this, prefix, column, calculatePercent, withUnit);
+}
 
 
-  getData(accessor, groupBy, d) {
+TitleTip.prototype = Object.create(Tip.prototype);
 
-    return [d[this._prefix]];
-  }
+
+TitleTip.prototype.getData = function(accessor, groupBy, d) {
+
+  return [d[this._prefix]];
 }
