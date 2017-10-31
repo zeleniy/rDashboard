@@ -9,9 +9,9 @@ FrequencyTip.prototype = Object.create(Tip.prototype);
 
 FrequencyTip.prototype.getData = function(accessor, groupBy) {
 
-  const column = this.getColumn();
+  var column = this.getColumn();
 
-  const data = _(this._chart
+  var data = _(this._chart
     .getDashboard()
     .getDataProvider()
     .getFilteredData());

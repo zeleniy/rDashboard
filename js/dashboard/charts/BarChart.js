@@ -42,8 +42,8 @@ BarChart.prototype.resize = function(animate = false) {
   this._canvas
     .attr('transform', 'translate(' + this._margin.left + ', ' + this._margin.top + ')');
 
-  const data = this.getData();
-  const index = _(data)
+  var data = this.getData();
+  var index = _(data)
     .sort(function(a, b) {
       return b.value - a.value;
     }).transform(function(result, value, index) {
@@ -119,7 +119,7 @@ BarChart.prototype.update = function(animate = true) {
 
   var self = this;
 
-  const data = this.getData();
+  var data = this.getData();
   /*
    * Render bars containers.
    */
@@ -151,7 +151,7 @@ BarChart.prototype.update = function(animate = true) {
     })
     .call(cc);
   cc.on('click', function(d) {
-    const value = d.name;
+    var value = d.name;
     self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
@@ -194,7 +194,7 @@ BarChart.prototype.update = function(animate = true) {
       self.getTooltip().move();
     });
 
-  const total = d3.sum(data, function(d) {
+  var total = d3.sum(data, function(d) {
     return d.value;
   });
 

@@ -30,7 +30,7 @@ ScatterPlot.prototype = Object.create(Widget.prototype);
  */
 ScatterPlot.prototype.getMargin = function() {
 
-  const margin = _.clone(Widget.prototype.getMargin.call(this));
+  var margin = _.clone(Widget.prototype.getMargin.call(this));
 
   margin.left += this._yAxisContainer.node().getBoundingClientRect().width;
 
@@ -117,7 +117,7 @@ ScatterPlot.prototype.render = function() {
  */
 ScatterPlot.prototype.resize = function(animate = false) {
 
-  const self = this;
+  var self = this;
 
   this._svg
     .attr('width', this.getOuterWidth())
@@ -125,25 +125,25 @@ ScatterPlot.prototype.resize = function(animate = false) {
 
   var margin = this.getMargin();
 
-  const data = this.getData();
+  var data = this.getData();
 
-  const x = this._config.get('xAccessor');
-  const y = this._config.get('yAccessor', undefined, [this]);
-  const r = this._config.get('radiusAccessor');
-  const color = this._config.get('colorAccessor');
+  var x = this._config.get('xAccessor');
+  var y = this._config.get('yAccessor', undefined, [this]);
+  var r = this._config.get('radiusAccessor');
+  var color = this._config.get('colorAccessor');
 
-  const innerWidth = this.getInnerWidth();
-  const innerHeight = this.getInnerHeight();
+  var innerWidth = this.getInnerWidth();
+  var innerHeight = this.getInnerHeight();
 
-  const yDomain = d3.extent(data, function(d) {
+  var yDomain = d3.extent(data, function(d) {
     return d[y];
   });
 
-  const yScale = d3.scaleLinear()
+  var yScale = d3.scaleLinear()
     .range([innerHeight, this._padding])
     .domain(yDomain);
 
-  const yAxis = d3.axisLeft(yScale)
+  var yAxis = d3.axisLeft(yScale)
   this._yAxisContainer
     .attr('transform', 'translate(' + [0, - this._padding] + ')')
     .call(yAxis);
@@ -153,20 +153,20 @@ ScatterPlot.prototype.resize = function(animate = false) {
 
   margin = this.getMargin();
 
-  const rAccessor = this._config.get('radiusAccessor');
-  const rMax = d3.max(this._dashboard.getData(), function(d) {
+  var rAccessor = this._config.get('radiusAccessor');
+  var rMax = d3.max(this._dashboard.getData(), function(d) {
     return d[rAccessor];
   })
 
-  const rScale = d3.scaleLinear()
+  var rScale = d3.scaleLinear()
     .range([this._minR, this._maxR])
     .domain([0, rMax]);
 
-  const xDomain = d3.extent(data, function(d) {
+  var xDomain = d3.extent(data, function(d) {
     return d[x];
   });
 
-  const xScale = d3.scaleTime()
+  var xScale = d3.scaleTime()
     .range([0, this.getInnerWidth() - this._padding])
     .domain(xDomain);
 
@@ -179,7 +179,7 @@ ScatterPlot.prototype.resize = function(animate = false) {
       return rScale(d[r]);
     });
 
-  const xAxis = d3.axisBottom(xScale);
+  var xAxis = d3.axisBottom(xScale);
 
   this._xAxisContainer
     .attr('transform', 'translate(' + [this._padding, this.getInnerHeight()] + ')')
@@ -222,13 +222,13 @@ ScatterPlot.prototype.update = function(animate) {
   animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this, animate);
 
-  const self = this;
+  var self = this;
 
-  const data = this.getData();
+  var data = this.getData();
 
-  const color = this._config.get('colorAccessor');
+  var color = this._config.get('colorAccessor');
 
-  const update = this._canvas
+  var update = this._canvas
     .selectAll('circle.dot')
     .data(data, function(d) {
       return d['CaseID'];

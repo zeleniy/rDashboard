@@ -78,9 +78,9 @@ TimeLine.prototype.resize = function() {
 
   var self = this;
 
-  const width = this.getInnerWidth();
-  const height = this._height;
-  const margin = this.getMargin();
+  var width = this.getInnerWidth();
+  var height = this._height;
+  var margin = this.getMargin();
 
   this._svg
     .attr('width', this.getOuterWidth())
@@ -92,7 +92,7 @@ TimeLine.prototype.resize = function() {
   this._xScale
     .range([0, width]);
 
-  const xAxis = d3.axisBottom(this._xScale);
+  var xAxis = d3.axisBottom(this._xScale);
 
   this._xAxisContainer
     .attr('transform', 'translate(0,' + (height - margin.bottom) + ')')
@@ -101,7 +101,7 @@ TimeLine.prototype.resize = function() {
   this._brush
     .extent([[0, 0], [width, height]]);
 
-  const extent = (this._extent || this._xScale.domain()).map(this._xScale);
+  var extent = (this._extent || this._xScale.domain()).map(this._xScale);
   this._ignoreMoveEvent = true;
 
   this._brushContainer
@@ -122,7 +122,7 @@ TimeLine.prototype.resize = function() {
 
 TimeLine.prototype._getHandlePathString = function(d) {
 
-  const height = this._height;
+  var height = this._height;
 
   var e = Number(d.type == 'e');
   var x = e ? 1 : -1;
@@ -136,8 +136,8 @@ TimeLine.prototype._brushMoveEventHandler = function() {
 
   this._extent = d3.event.selection.map(this._xScale.invert);
 
-  const height = this._height;
-  const x = this._xScale;
+  var height = this._height;
+  var x = this._xScale;
 
   var s = d3.event.selection;
   if (s == null) {
@@ -155,10 +155,10 @@ TimeLine.prototype._brushEndEventHandler = function() {
     return this._ignoreMoveEvent = false;
   }
 
-  const min = this._extent[0];
-  const max = this._extent[1];
+  var min = this._extent[0];
+  var max = this._extent[1];
 
-  const format = 'D/M/YYYY HH:mm:ss';
+  var format = 'D/M/YYYY HH:mm:ss';
 
   this._dashboard.setDataFilter(this.getAccessor(), function(d) {
     return d >= min && d <= max;
@@ -172,20 +172,20 @@ TimeLine.prototype._brushEndEventHandler = function() {
  */
 TimeLine.prototype.update = function() {
 
-  const accessor = this.getDataKey();
-  const dataProvider = this._dashboard.getDataProvider();
+  var accessor = this.getDataKey();
+  var dataProvider = this._dashboard.getDataProvider();
 
-  const defaultExtent = d3.extent(dataProvider.getData(), function(d) {
+  var defaultExtent = d3.extent(dataProvider.getData(), function(d) {
     return d[accessor];
   });
 
-  const currentExtent = d3.extent(dataProvider.getFilteredData(), function(d) {
+  var currentExtent = d3.extent(dataProvider.getFilteredData(), function(d) {
     return d[accessor];
   });
 
   this._xScale.domain(defaultExtent);
 
-  const isResetRequest = defaultExtent[0] == currentExtent[0] &&
+  var isResetRequest = defaultExtent[0] == currentExtent[0] &&
     defaultExtent[1] == currentExtent[1] &&
     this._ignoreMoveEvent == false;
 

@@ -40,21 +40,21 @@ TreeMap.prototype.render = function() {
 
 TreeMap.prototype.resize = function(animate = false) {
 
-  const width = this.getOuterWidth();
-  const height = this.getOuterHeight();
-  const margin = this.getMargin();
+  var width = this.getOuterWidth();
+  var height = this.getOuterHeight();
+  var margin = this.getMargin();
 
-  const data = this.getData();
+  var data = this.getData();
 
-  const treemap = d3.treemap().size([width, height]);
-  const root = d3.hierarchy(data, function(d) {
+  var treemap = d3.treemap().size([width, height]);
+  var root = d3.hierarchy(data, function(d) {
     return d.children;
   }).sum(function(d) {
     return d.value;
   });
 
-  const tree = treemap(root);
-  const chartData = data.children.length ? tree.leaves() : [];
+  var tree = treemap(root);
+  var chartData = data.children.length ? tree.leaves() : [];
 
   this._getTransition(animate, this._nodes
     .data(chartData))
@@ -79,26 +79,26 @@ TreeMap.prototype.update = function(animate) {
 
   var self = this;
 
-  const width = this.getOuterWidth();
-  const height = this.getOuterHeight();
-  const margin = this.getMargin();
+  var width = this.getOuterWidth();
+  var height = this.getOuterHeight();
+  var margin = this.getMargin();
 
-  const data = this.getData();
-  const total = d3.sum(data.children, function(d) {
+  var data = this.getData();
+  var total = d3.sum(data.children, function(d) {
     return d.value;
   });
 
-  const treemap = d3.treemap().size([width, height]);
-  const root = d3.hierarchy(data, function(d) {
+  var treemap = d3.treemap().size([width, height]);
+  var root = d3.hierarchy(data, function(d) {
     return d.children;
   }).sum(function(d) {
     return d.value;
   });
 
-  const tree = treemap(root);
-  const chartData = data.children.length ? tree.leaves() : [];
+  var tree = treemap(root);
+  var chartData = data.children.length ? tree.leaves() : [];
 
-  const update = this._main
+  var update = this._main
     .datum(root)
     .selectAll('.node')
     .data(chartData, function(d) {
@@ -114,7 +114,7 @@ TreeMap.prototype.update = function(animate) {
       return self._colorScale(d.data.name);
     })
     .each(function(d, i) {
-      const persent = Math.round(d.value / total * 1000) / 10;
+      var persent = Math.round(d.value / total * 1000) / 10;
       // if (persent > 10) {
         d3.select(this)
           .append('div')
@@ -127,7 +127,7 @@ TreeMap.prototype.update = function(animate) {
     }).call(cc);
 
   cc.on('click', function(d) {
-    const value = d.data.name;
+    var value = d.data.name;
     self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
@@ -157,7 +157,7 @@ TreeMap.prototype.update = function(animate) {
     .data(chartData, function(d) {
       return d.data.name;
     }).each(function(d, i) {
-      const persent = Math.round(d.value / total * 1000) / 10;
+      var persent = Math.round(d.value / total * 1000) / 10;
       // if (persent > 10) {
         d3.select(this)
           .selectAll('div')

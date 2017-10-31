@@ -61,7 +61,7 @@ Ticks.prototype.rarefyLabels = function() {
   /*
    * Get ticks values.
    */
-  const ticksValues = this._getTicksValues();
+  var ticksValues = this._getTicksValues();
   /*
    * Compute rarefied ticks array.
    */

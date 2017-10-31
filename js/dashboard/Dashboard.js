@@ -11,7 +11,7 @@ function Dashboard(options) {
   this._charts = [];
   this._mode = 'Case';
 
-  const self = this;
+  var self = this;
 
   d3.selectAll('.tiles-mode-filter input')
     .on('change', function() {
@@ -39,7 +39,7 @@ Dashboard.prototype.getDataKey = function(mode) {
 
   mode = mode || this._mode;
 
-  const tile = this._charts
+  var tile = this._charts
     .find(function(chart) {
       return chart instanceof Tiles;
     }).getActiveTile();
@@ -91,15 +91,15 @@ Dashboard.prototype.render = function() {
  */
 Dashboard.prototype._renderFilters = function() {
 
-  const self = this;
+  var self = this;
 
-  const container = d3.select(this._config.get('filters.placeholder'));
+  var container = d3.select(this._config.get('filters.placeholder'));
 
   this._config.get('filters.list').forEach(function(accessor) {
     /*
      * Get filter values.
      */
-    const values = _(this.getData())
+    var values = _(this.getData())
       .map(function(d) {
         return d[accessor];
       }).uniq()
@@ -137,7 +137,7 @@ Dashboard.prototype._filterChangedEventHandler = function(select, accessor) {
   /*
    * Get select value.
    */
-  const value = select.value;
+  var value = select.value;
   /*
    * If value is empty we should remove button and reset filter.
    */
@@ -313,7 +313,7 @@ Dashboard.prototype.setDataFilter = function(accessor, comparator, value, callba
   /*
    * Render new filter button.
    */
-  const button = d3.select('.filters-list')
+  var button = d3.select('.filters-list')
     .append('div')
     .datum(accessor)
     .attr('class', 'filter');

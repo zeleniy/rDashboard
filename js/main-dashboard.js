@@ -1,4 +1,4 @@
-const tiles = new Tiles({
+var tiles = new Tiles({
   placeholder: '#tiles-placeholder',
   colorScheme: '#76acd4',
   tiles: [new CaseTile({
@@ -22,7 +22,7 @@ const tiles = new Tiles({
   })]
 });
 
-const pieChart = new PieChart({
+var pieChart = new PieChart({
   accessor: 'CaseType',
   placeholder: '#case-by-type-placeholder',
   title: 'Case Type Distribution',
@@ -37,7 +37,7 @@ const pieChart = new PieChart({
   ]
 });
 
-const barChart = new BarChart({
+var barChart = new BarChart({
   accessor: 'EntityName',
   placeholder: '#cases-by-entity-placeholder',
   title: 'Entity-wise distribution',
@@ -53,7 +53,7 @@ const barChart = new BarChart({
   ]
 });
 
-const scatterPlot = new ScatterPlot({
+var scatterPlot = new ScatterPlot({
   xAccessor: 'CaseCreatedOn',
   yAccessor: 'DataSourceCount',
   radiusAccessor: 'DataSourceSize',
@@ -77,7 +77,7 @@ const scatterPlot = new ScatterPlot({
   ]
 });
 
-const treeMap = new TreeMap({
+var treeMap = new TreeMap({
   accessor: 'MatterType',
   placeholder: '#matter-type-placeholder',
   title: 'Matter Type Distribution',
@@ -91,7 +91,7 @@ const treeMap = new TreeMap({
   ]
 });
 
-const map = new Map({
+var map = new Map({
   accessor: 'Country',
   placeholder: '#map-placeholder',
   title: function(chart) {
@@ -118,12 +118,12 @@ const map = new Map({
   ]
 });
 
-const timeLine = new TimeLine({
+var timeLine = new TimeLine({
   accessor: 'CaseCreatedOn',
   placeholder: '#timeline-placeholder'
 });
 
-const dashboardConfig = {
+var dashboardConfig = {
   filters: {
     placeholder: '#filters-placeholder',
     list: ['EntityName', 'MatterType']
@@ -157,7 +157,7 @@ d3.tsv('data/CaseStatsSummary.tsv', function(error, data) {
     return d;
   });
 
-  const dashboard = new Dashboard(dashboardConfig)
+  var dashboard = new Dashboard(dashboardConfig)
     .setData(data)
     .addChart(tiles)
     .addChart(pieChart)

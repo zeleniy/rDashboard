@@ -44,14 +44,14 @@ Tile.prototype.getDataKey = function(mode) {
  */
 Tile.prototype.getUnit = function() {
 
-  const key = this.getDataKey('size') + 'Unit';
-  const data = this._dashboard.getData();
+  var key = this.getDataKey('size') + 'Unit';
+  var data = this._dashboard.getData();
 
   if (data.length == 0) {
     return '';
   }
 
-  const unitString = data.find(function(d) {
+  var unitString = data.find(function(d) {
     return d[key];
   });
 
@@ -70,7 +70,7 @@ Tile.prototype.getUnit = function() {
  */
 Tile.prototype.highlight = function(select) {
 
-  const opacity = select ? 1 : 0.5;
+  var opacity = select ? 1 : 0.5;
 
   var bgColor = d3.color(this._config.get('backgroundColor'));
   bgColor.opacity = opacity;
@@ -97,20 +97,20 @@ Tile.prototype.render = function() {
     .on('click', function() {
       self.click();
     });
-  const table = this._table
+  var table = this._table
     .append('tbody')
     .append('tr');
 
-  const leftSide = table.append('td')
+  var leftSide = table.append('td')
     .attr('class', 'tile-right')
     .append('table')
     .append('tbody');
 
-  const row = leftSide.append('tr');
+  var row = leftSide.append('tr');
 
   this._countValue = row.append('td')
     .attr('class', 'tile-value');
-  const td = row.append('td')
+  var td = row.append('td')
     .attr('class', 'data-source-text')
     .text(this.getCountTitle());
   td.append('div')
@@ -122,7 +122,7 @@ Tile.prototype.render = function() {
     .attr('class', 'summary')
     .attr('colspan', 2);
 
-  const rightSide = table.append('td')
+  var rightSide = table.append('td')
     .attr('class', 'tile-left');
 
   var div = rightSide.append('div')
@@ -162,7 +162,7 @@ Tile.prototype.getCountSubtitle = function() {
 
 Tile.prototype.getSizeValue = function() {
 
-  const sizeKey = this.getDataKey('size');
+  var sizeKey = this.getDataKey('size');
   return d3.sum(this._dashboard.getData(), function(d) {
     return d[sizeKey];
   });

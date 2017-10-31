@@ -87,15 +87,15 @@ Tooltip.prototype.show = function() {
 
 Tooltip.prototype.move = function() {
 
-  const doc = document.documentElement;
+  var doc = document.documentElement;
 
-  const xOffset = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-  const yOffset = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+  var xOffset = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+  var yOffset = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
 
-  const box = this._tip.node().getBoundingClientRect();
+  var box = this._tip.node().getBoundingClientRect();
 
-  const x = d3.event.clientX + xOffset - box.width / 2;
-  const y = d3.event.clientY + yOffset - box.height - 5;
+  var x = d3.event.clientX + xOffset - box.width / 2;
+  var y = d3.event.clientY + yOffset - box.height - 5;
 
   this._tip
     .style('left', x + 'px')

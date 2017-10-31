@@ -45,8 +45,8 @@ PieChart.prototype.getInnerHeight = function() {
 
 PieChart.prototype.resize = function(animate = true) {
 
-  const outerWidth = this.getOuterWidth();
-  const outerHeight = this.getOuterHeight();
+  var outerWidth = this.getOuterWidth();
+  var outerHeight = this.getOuterHeight();
 
   this._svg
     .attr('width', outerWidth)
@@ -67,21 +67,21 @@ PieChart.prototype.resize = function(animate = true) {
   this._legend.selectAll('text')
     .attr('x', this._legendBoxSize + this._legendBoxGap);
 
-  const box = this._legend.node().getBoundingClientRect();
-  const offset = [(outerWidth - box.width) / 2, outerHeight - box.height - this._legendBottomOffset];
+  var box = this._legend.node().getBoundingClientRect();
+  var offset = [(outerWidth - box.width) / 2, outerHeight - box.height - this._legendBottomOffset];
 
   this._legend
     .attr('transform', function() {
       return 'translate(' + offset + ')'
     });
 
-  const innerWidth = this.getInnerWidth();
-  const innerHeight = this.getInnerHeight();
+  var innerWidth = this.getInnerWidth();
+  var innerHeight = this.getInnerHeight();
 
   this._canvas
     .attr('transform', 'translate(' + [innerWidth / 2, innerHeight / 2] + ')');
 
-  const radius = Math.min(innerWidth, innerHeight) / 2;
+  var radius = Math.min(innerWidth, innerHeight) / 2;
 
   var arc = d3.arc()
     .outerRadius(radius * 0.9)
@@ -114,7 +114,7 @@ PieChart.prototype.update = function(animate) {
 
   var self = this;
 
-  const data = this.getData();
+  var data = this.getData();
 
   var update = this._legend
     .selectAll('g')
@@ -133,7 +133,7 @@ PieChart.prototype.update = function(animate) {
   rows.append('text')
     .attr('dy', '0.9em');
 
-  const chartData = this._pie(data);
+  var chartData = this._pie(data);
 
   update = this._canvas
     .selectAll('path')
@@ -157,7 +157,7 @@ PieChart.prototype.update = function(animate) {
       this._current = d;
     });
   cc.on('click', function(d) {
-    const value = d.data.name;
+    var value = d.data.name;
     self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
@@ -180,7 +180,7 @@ PieChart.prototype.update = function(animate) {
       self.getTooltip().move();
     });
 
-  const total = d3.sum(data, function(d) {
+  var total = d3.sum(data, function(d) {
     return d.value;
   });
 

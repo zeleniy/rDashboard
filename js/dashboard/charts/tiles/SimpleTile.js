@@ -11,7 +11,7 @@ SimpleTile.prototype.click = function() {
 
   var self = this;
 
-  const isSame = this._manager.getActiveTile() == this;
+  var isSame = this._manager.getActiveTile() == this;
 
   this._manager.toggle(this);
 
@@ -34,7 +34,7 @@ SimpleTile.prototype.click = function() {
 
 SimpleTile.prototype.getCountValue = function() {
 
-  const sizeKey = this.getDataKey('count');
+  var sizeKey = this.getDataKey('count');
   return d3.sum(this._dashboard.getData(), function(d) {
     return d[sizeKey];
   });

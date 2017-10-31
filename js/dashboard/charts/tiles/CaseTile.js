@@ -9,7 +9,7 @@ CaseTile.prototype = Object.create(Tile.prototype);
 
 CaseTile.prototype.click = function() {
 
-  const isSame = this._manager.getActiveTile() == this;
+  var isSame = this._manager.getActiveTile() == this;
 
   this._manager.toggle(this._manager.getActiveTile());
 

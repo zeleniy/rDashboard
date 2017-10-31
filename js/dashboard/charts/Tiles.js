@@ -32,7 +32,7 @@ Tiles.prototype.getDataKey = function(accessor, mode) {
 
 Tiles.prototype.updateFilter = function() {
 
-  const span = d3.selectAll('.filters-list div.filter')
+  var span = d3.selectAll('.filters-list div.filter')
     .filter(function(d) {
       return d == 'ValueColumn';
     }).select('span');
@@ -45,7 +45,7 @@ Tiles.prototype.updateFilter = function() {
 
 Tiles.prototype.toggle = function(clickedTile) {
 
-  const isSame = this._clickedTile == clickedTile;
+  var isSame = this._clickedTile == clickedTile;
 
   if (! isSame) {
     clickedTile.highlight(! isSame);
@@ -86,7 +86,7 @@ Tiles.prototype.render = function() {
 
   Widget.prototype.render.call(this);
 
-  const container = d3.select(this._config.get('placeholder'))
+  var container = d3.select(this._config.get('placeholder'))
     .append('div')
     .attr('class', 'tiles')
     .node();
@@ -94,7 +94,7 @@ Tiles.prototype.render = function() {
   var self = this;
   this._config.get('tiles').forEach(function(tile, i) {
 
-    const config = tile.getConfig();
+    var config = tile.getConfig();
 
     config.set('backgroundColor', self._colorScale(i));
     config.set('placeholder', container);

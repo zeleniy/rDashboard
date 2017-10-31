@@ -70,8 +70,8 @@ Map.prototype.resize = function(animate = false) {
 
   var self = this;
 
-  const width = this.getOuterWidth();
-  const height = this.getOuterHeight();
+  var width = this.getOuterWidth();
+  var height = this.getOuterHeight();
 
   this._svg
     .attr('width', width)
@@ -82,7 +82,7 @@ Map.prototype.resize = function(animate = false) {
    * d3.select('svg.map .canvas').node().getBoundingClientRect()
    * 673.7666625976562 / 436.2166748046875 = 1.5445687923308522
    */
-  // const size = Math.max(width, height);
+  // var size = Math.max(width, height);
   var projection = d3.geoMercator()
     .rotate([-180, 0])
     .fitSize([width, height], this._mapData);
@@ -96,15 +96,15 @@ Map.prototype.resize = function(animate = false) {
   this._countries
     .attr('d', path);
 
-  const accessor = this._config.get('accessor');
-  const dataProvider = this._dashboard.getDataProvider();
-  const rData = dataProvider.getGroupedData(accessor, [], dataProvider.getData());
+  var accessor = this._config.get('accessor');
+  var dataProvider = this._dashboard.getDataProvider();
+  var rData = dataProvider.getGroupedData(accessor, [], dataProvider.getData());
 
-  const rMax = d3.max(rData, function(d) {
+  var rMax = d3.max(rData, function(d) {
     return d.value;
   });
 
-  const rScale = d3.scaleLinear()
+  var rScale = d3.scaleLinear()
     .range([3, 15])
     .domain([0, rMax]);
 
@@ -145,9 +145,9 @@ Map.prototype.update = function(animate = true) {
 
   var self = this;
 
-  const data = this.getData();
+  var data = this.getData();
 
-  const update = this._dataLayer
+  var update = this._dataLayer
     .selectAll('circle')
     .data(data, function(d) {
       return d.name;
@@ -167,7 +167,7 @@ Map.prototype.update = function(animate = true) {
     })
     .call(cc);
   cc.on('click', function(d) {
-    const value = d.name;
+    var value = d.name;
     self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);

@@ -130,7 +130,7 @@ Widget.prototype.getOuterWidth = function() {
  */
 Widget.prototype.getInnerWidth = function() {
 
-  const margin = this.getMargin();
+  var margin = this.getMargin();
 
   return this._container
     .node()
@@ -158,7 +158,7 @@ Widget.prototype.getOuterHeight = function() {
  */
 Widget.prototype.getInnerHeight = function() {
 
-  const margin = this.getMargin();
+  var margin = this.getMargin();
 
   return this._container
     .node()
@@ -187,9 +187,9 @@ Widget.prototype.getSubtitle = function() {
  */
 Widget.prototype.render = function() {
 
-  const container = d3.select(this._config.get('placeholder'));
+  var container = d3.select(this._config.get('placeholder'));
 
-  const title = this.getTitle();
+  var title = this.getTitle();
   if (title != '') {
     this._title = container
       .append('div')
@@ -197,7 +197,7 @@ Widget.prototype.render = function() {
       .style('text-align', this._config.get('titleAlign', 'center'));
   }
 
-  const subtitle = this.getSubtitle();
+  var subtitle = this.getSubtitle();
   if (subtitle != '') {
     this._subtitle = container
       .append('div')
@@ -227,7 +227,7 @@ Widget.prototype.getColorKey = function() {
 
 Widget.prototype.getColorDomain = function() {
 
-  const accessor = this.getColorKey();
+  var accessor = this.getColorKey();
   return _(this._dashboard.getData())
     .map(function(d) {
       return d[accessor];

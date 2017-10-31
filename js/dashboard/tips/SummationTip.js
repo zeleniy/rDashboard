@@ -9,9 +9,9 @@ SummationTip.prototype = Object.create(Tip.prototype);
 
 SummationTip.prototype.getData = function(accessor, groupBy) {
 
-  const column = this.getColumn();
+  var column = this.getColumn();
 
-  const data = _(this._chart
+  var data = _(this._chart
     .getDashboard()
     .getDataProvider()
     .getFilteredData());
@@ -23,7 +23,7 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
 
   var unit = '';
   if (this._withUnit) {
-    const unitColumn = column + 'Unit';
+    var unitColumn = column + 'Unit';
     unit = data.find(function(d) {
       return d[unitColumn];
     })[unitColumn];
