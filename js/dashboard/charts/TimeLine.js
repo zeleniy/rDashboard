@@ -9,9 +9,13 @@ function TimeLine(options) {
 
   this._xScale = d3.scaleTime();
 
+  var self = this;
   this._brush = d3.brushX()
-    .on('brush', this._brushMoveEventHandler.bind(this))
-    .on('end', this._brushEndEventHandler.bind(this));
+    .on('brush', function() {
+      return self._brushMoveEventHandler();
+    }).on('end', function() {
+      return self._brushEndEventHandler();
+    });
 
   this._ignoreMoveEvent = true;
   this._height = 50;
@@ -72,6 +76,8 @@ TimeLine.prototype.render = function() {
  */
 TimeLine.prototype.resize = function() {
 
+  var self = this;
+
   const width = this.getInnerWidth();
   const height = this._height;
   const margin = this.getMargin();
@@ -103,7 +109,9 @@ TimeLine.prototype.resize = function() {
     .call(this._brush.move, extent);
 
   this._handle
-    .attr('d', this._getHandlePathString.bind(this));
+    .attr('d', function(d) {
+      return self._getHandlePathString(d);
+    });
 
   XTicks.getInstance(xAxis, this._xAxisContainer)
     .rarefy();

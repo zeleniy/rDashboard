@@ -91,17 +91,18 @@ Tiles.prototype.render = function() {
     .attr('class', 'tiles')
     .node();
 
+  var self = this;
   this._config.get('tiles').forEach(function(tile, i) {
 
     const config = tile.getConfig();
 
-    config.set('backgroundColor', this._colorScale(i));
+    config.set('backgroundColor', self._colorScale(i));
     config.set('placeholder', container);
 
     tile
-      .setManager(this)
-      .setDashboard(this._dashboard)
+      .setManager(self)
+      .setDashboard(self._dashboard)
       .render();
 
-  }.bind(this));
+  });
 }

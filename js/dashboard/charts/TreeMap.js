@@ -128,10 +128,10 @@ TreeMap.prototype.update = function(animate) {
 
   cc.on('click', function(d) {
     const value = d.data.name;
-    this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
-  }.bind(this));
+  });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';
   });
@@ -141,16 +141,16 @@ TreeMap.prototype.update = function(animate) {
     .data(chartData, function(d) {
       return d.data.name;
     }).on('mouseenter', function(d) {
-      this.getTooltip()
-        .setContent(this.getTooltipContent(this._config.get('accessor'), d.data.name, d.data))
+      self.getTooltip()
+        .setContent(self.getTooltipContent(self._config.get('accessor'), d.data.name, d.data))
         .show();
-    }.bind(this))
+    })
     .on('mouseout', function(d) {
-      this.getTooltip().hide();
-    }.bind(this))
+      self.getTooltip().hide();
+    })
     .on('mousemove', function(d) {
-      this.getTooltip().move();
-    }.bind(this));
+      self.getTooltip().move();
+    });
 
   this._nodes
     .selectAll('.node-label')

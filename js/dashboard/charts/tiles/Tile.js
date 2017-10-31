@@ -86,13 +86,17 @@ Tile.prototype.highlight = function(select) {
  */
 Tile.prototype.render = function() {
 
+  var self = this;
+
   this._container = d3.select(this._config.get('placeholder'));
 
   this._table = this._container
     .append('table')
     .attr('class', 'tile')
     .style('background-color', this._config.get('backgroundColor'))
-    .on('click', this.click.bind(this));
+    .on('click', function() {
+      self.click();
+    });
   const table = this._table
     .append('tbody')
     .append('tr');

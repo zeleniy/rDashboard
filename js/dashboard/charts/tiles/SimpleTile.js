@@ -9,6 +9,8 @@ SimpleTile.prototype = Object.create(Tile.prototype);
 
 SimpleTile.prototype.click = function() {
 
+  var self = this;
+
   const isSame = this._manager.getActiveTile() == this;
 
   this._manager.toggle(this);
@@ -22,7 +24,9 @@ SimpleTile.prototype.click = function() {
         return true;
       },
       this.getDataKey(),
-      this._manager.toggle.bind(this._manager, this)
+      function() {
+        self._manager.toggle(self)
+      }
     );
   }
 }

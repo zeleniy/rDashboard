@@ -36,27 +36,27 @@ Map.prototype.render = function() {
     .append('g')
     .attr('class', 'data-layer');
 
+  var self = this;
   d3.json('data/world_countries.json', function(error, data) {
 
     if (error) {
       console.error(error);
     }
 
-    this._mapData = data;
-    this._mapData.features = data.features.filter(function(d) {
+    self._mapData = data;
+    self._mapData.features = data.features.filter(function(d) {
       return d.id != 'ATA';
     });
 
-    this._countries = this._countryLayer
+    self._countries = self._countryLayer
       .selectAll('path')
-      .data(this._mapData.features)
+      .data(self._mapData.features)
       .enter()
       .append('path')
       .attr('class', 'country');
 
-    this.update(false);
-
-  }.bind(this));
+    self.update(false);
+  });
 
   return this;
 }
@@ -67,6 +67,8 @@ Map.prototype.render = function() {
  * @override
  */
 Map.prototype.resize = function(animate = false) {
+
+  var self = this;
 
   const width = this.getOuterWidth();
   const height = this.getOuterHeight();
@@ -101,6 +103,7 @@ Map.prototype.resize = function(animate = false) {
   const rMax = d3.max(rData, function(d) {
     return d.value;
   });
+
   const rScale = d3.scaleLinear()
     .range([3, 15])
     .domain([0, rMax]);
@@ -109,7 +112,7 @@ Map.prototype.resize = function(animate = false) {
 
   this.getData().forEach(function(d) {
 
-    var centroid = path.centroid(this._mapData.features.find(function(country) {
+    var centroid = path.centroid(self._mapData.features.find(function(country) {
       return d.name == country.properties.name;
     }));
 
@@ -117,7 +120,7 @@ Map.prototype.resize = function(animate = false) {
       x: centroid[0],
       y: centroid[1]
     };
-  }.bind(this));
+  });
 
   this._getTransition(animate, this._bubbles
     .attr('cx', function(d) {
@@ -140,6 +143,8 @@ Map.prototype.update = function(animate = true) {
 
   Widget.prototype.update.call(this);
 
+  var self = this;
+
   const data = this.getData();
 
   const update = this._dataLayer
@@ -158,15 +163,15 @@ Map.prototype.update = function(animate = true) {
     .append('circle')
     .attr('class', 'bubble clickable')
     .attr('fill', function(d) {
-      return this._colorScale(d.name);
-    }.bind(this))
+      return self._colorScale(d.name);
+    })
     .call(cc);
   cc.on('click', function(d) {
     const value = d.name;
-    this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
-  }.bind(this));
+  });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';
   });
@@ -176,16 +181,16 @@ Map.prototype.update = function(animate = true) {
     .data(data, function(d) {
       return d.name;
     }).on('mouseenter', function(d) {
-      this.getTooltip()
-        .setContent(this.getTooltipContent(this._config.get('accessor'), d.name, d))
+      self.getTooltip()
+        .setContent(self.getTooltipContent(self._config.get('accessor'), d.name, d))
         .show();
-    }.bind(this))
+    })
     .on('mouseout', function(d) {
-      this.getTooltip().hide();
-    }.bind(this))
+      self.getTooltip().hide();
+    })
     .on('mousemove', function(d) {
-      this.getTooltip().move();
-    }.bind(this));
+      self.getTooltip().move();
+    });
 
   return this.resize(animate);
 }

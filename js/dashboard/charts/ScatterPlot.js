@@ -251,16 +251,16 @@ ScatterPlot.prototype.update = function(animate) {
   this._dots = this._canvas
     .selectAll('circle.dot')
     .on('mouseenter', function(d) {
-      this.getTooltip()
-        .setContent(this.getTooltipContent(this._config.get('colorAccessor'), d[color], d))
+      self.getTooltip()
+        .setContent(self.getTooltipContent(self._config.get('colorAccessor'), d[color], d))
         .show();
-    }.bind(this))
+    })
     .on('mouseout', function(d) {
-      this.getTooltip().hide();
-    }.bind(this))
+      self.getTooltip().hide();
+    })
     .on('mousemove', function(d) {
-      this.getTooltip().move();
-    }.bind(this));
+      self.getTooltip().move();
+    });
 
   return this.resize(animate);
 }

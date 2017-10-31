@@ -16,9 +16,10 @@ function Widget(options) {
 
   this._duration = 1000;
 
+  var self = this;
   this._tips = this._config.get('tooltip', []).map(function(tip) {
-    return tip.setChart(this);
-  }.bind(this));
+    return tip.setChart(self);
+  });
 
   this._title = d3.select();
   this._subtitle = d3.select();

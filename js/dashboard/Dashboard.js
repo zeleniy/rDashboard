@@ -19,11 +19,13 @@ function Dashboard(options) {
     });
 
   d3.selectAll('.reset-button')
-    .on('click', this.resetAllFilters.bind(this));
+    .on('click', function() {
+      self.resetAllFilters();
+    });
 
   d3.select(window).on('resize', function() {
-    this.resize();
-  }.bind(this))
+    self.resize();
+  })
 }
 
 
@@ -232,9 +234,11 @@ Dashboard.prototype.resetDataFilter = function(accessor, applyCallback) {
  */
 Dashboard.prototype.resetAllFilters = function() {
 
+  var self = this;
+
   _(this._dataProvider.getFilters()).each(function(filter, accessor) {
-    this._resetFilterButton(accessor);
-  }.bind(this));
+    self._resetFilterButton(accessor);
+  });
 
   return this;
 }
@@ -298,6 +302,8 @@ Dashboard.prototype.setData = function(data) {
  * @retuns {Dashboard}
  */
 Dashboard.prototype.setDataFilter = function(accessor, comparator, value, callback) {
+
+  var self = this;
   /*
    * Remove filter button if any.
    */
@@ -317,7 +323,9 @@ Dashboard.prototype.setDataFilter = function(accessor, comparator, value, callba
   button.append('span')
     .attr('class', 'filter-remove')
     .text('x')
-    .on('click', this._resetFilterButton.bind(this, accessor));
+    .on('click', function() {
+      self._resetFilterButton(accessor);
+    });
 
   this.update();
 }

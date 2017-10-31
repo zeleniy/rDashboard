@@ -33,6 +33,8 @@ BarChart.prototype.render = function() {
 
 BarChart.prototype.resize = function(animate = false) {
 
+  var self = this;
+
   this._svg
     .attr('width', this.getOuterWidth())
     .attr('height', this.getOuterHeight());
@@ -67,8 +69,8 @@ BarChart.prototype.resize = function(animate = false) {
    */
   this._getTransition(animate, this._barsContainers)
     .attr('transform', function(d) {
-      return 'translate(0, ' + (index[d.name] * this._blockHeight) + ')';
-    }.bind(this));
+      return 'translate(0, ' + (index[d.name] * self._blockHeight) + ')';
+    });
   /**
    *
    */
@@ -80,8 +82,8 @@ BarChart.prototype.resize = function(animate = false) {
     .selectAll('rect.background-bar')
     .attr('transform', 'translate(0, ' + this._yOffset + ')')
     .attr('width', function() {
-      return this._xScale(this._xMax);
-    }.bind(this))
+      return self._xScale(this._xMax);
+    })
     .attr('height', this._thickness);
   /*
    * Render bars.
@@ -90,8 +92,8 @@ BarChart.prototype.resize = function(animate = false) {
     .selectAll('rect.bar')
     .attr('transform', 'translate(0, ' + this._yOffset + ')'))
     .attr('width', function(d) {
-      return this._xScale(d.value);
-    }.bind(this))
+      return self._xScale(d.value);
+    })
     .attr('height', this._thickness);
   /*
    * Append labels.
@@ -114,6 +116,8 @@ BarChart.prototype.resize = function(animate = false) {
 BarChart.prototype.update = function(animate = true) {
 
   Widget.prototype.update.call(this);
+
+  var self = this;
 
   const data = this.getData();
   /*
@@ -143,15 +147,15 @@ BarChart.prototype.update = function(animate = true) {
     .append('rect')
     .attr('class', 'bar clickable')
     .style('fill', function(d) {
-      return this._colorScale(d.name);
-    }.bind(this))
+      return self._colorScale(d.name);
+    })
     .call(cc);
   cc.on('click', function(d) {
     const value = d.name;
-    this._dashboard.setDataFilter(this.getAccessor(), function(d) {
+    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
-  }.bind(this));
+  });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';
   });
@@ -179,16 +183,16 @@ BarChart.prototype.update = function(animate = true) {
     .data(data, function(d) {
       return d.name;
     }).on('mouseenter', function(d) {
-      this.getTooltip()
-        .setContent(this.getTooltipContent(this._config.get('accessor'), d.name, d))
+      self.getTooltip()
+        .setContent(self.getTooltipContent(self._config.get('accessor'), d.name, d))
         .show();
-    }.bind(this))
+    })
     .on('mouseout', function(d) {
-      this.getTooltip().hide();
-    }.bind(this))
+      self.getTooltip().hide();
+    })
     .on('mousemove', function(d) {
-      this.getTooltip().move();
-    }.bind(this));
+      self.getTooltip().move();
+    });
 
   const total = d3.sum(data, function(d) {
     return d.value;
