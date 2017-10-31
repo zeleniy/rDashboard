@@ -82,7 +82,7 @@ BarChart.prototype.resize = function(animate = false) {
     .selectAll('rect.background-bar')
     .attr('transform', 'translate(0, ' + this._yOffset + ')')
     .attr('width', function() {
-      return self._xScale(this._xMax);
+      return self._xScale(self._xMax);
     })
     .attr('height', this._thickness);
   /*
