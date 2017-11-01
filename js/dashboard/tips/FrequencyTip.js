@@ -36,4 +36,4 @@ FrequencyTip.prototype.getData = function(accessor, groupBy) {
   }
 
   return [this._prefix, result];
-}
+};

@@ -33,7 +33,7 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
     }
   }
 
-  var percent = ''
+  var percent = '';
   if (this._calculatePercent) {
     var total = Math.round(data.sumBy(column) * 10) / 10;
 
@@ -45,4 +45,4 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
   }
 
   return [this._prefix, result + unit + percent];
-}
+};

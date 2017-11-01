@@ -8,7 +8,7 @@ function Tiles(options) {
   Widget.call(this, options);
 
   this._tiles = this._config.get('tiles');
-  this._clickedTile;
+  this._clickedTile = undefined;
   this._mode = 'Count';
 }
 
@@ -19,7 +19,7 @@ Tiles.prototype = Object.create(Widget.prototype);
 Tiles.prototype.getActiveTile = function() {
 
   return this._clickedTile;
-}
+};
 
 
 Tiles.prototype.getDataKey = function(accessor, mode) {
@@ -27,7 +27,7 @@ Tiles.prototype.getDataKey = function(accessor, mode) {
   mode = mode || this._mode;
   accessor = accessor || this._clickedTile.getAccessor();
   return accessor + mode[0].toUpperCase() + mode.substring(1).toLowerCase();
-}
+};
 
 
 Tiles.prototype.updateFilter = function() {
@@ -38,9 +38,9 @@ Tiles.prototype.updateFilter = function() {
     }).select('span');
 
   if (span.size()) {
-    span.text('ValueColumn = ' + this.getDataKey())
+    span.text('ValueColumn = ' + this.getDataKey());
   }
-}
+};
 
 
 Tiles.prototype.toggle = function(clickedTile) {
@@ -60,26 +60,26 @@ Tiles.prototype.toggle = function(clickedTile) {
   this._clickedTile = isSame ? undefined : clickedTile;
 
   this._dashboard.setAccessor(isSame ? undefined : clickedTile.getConfig().get('accessor'));
-}
+};
 
 
 Tiles.prototype.update = function() {
 
   this._tiles.forEach(function(tile) {
-    tile.update()
+    tile.update();
   });
-}
+};
 
 
 Tiles.prototype.resize = function() {
 
-}
+};
 
 
 Tiles.prototype.getColorDomain = function() {
 
   return d3.range(this._config.get('tiles').length);
-}
+};
 
 
 Tiles.prototype.render = function() {
@@ -91,18 +91,16 @@ Tiles.prototype.render = function() {
     .attr('class', 'tiles')
     .node();
 
-  var self = this;
   this._config.get('tiles').forEach(function(tile, i) {
 
     var config = tile.getConfig();
 
-    config.set('backgroundColor', self._colorScale(i));
+    config.set('backgroundColor', this._colorScale(i));
     config.set('placeholder', container);
 
     tile
-      .setManager(self)
-      .setDashboard(self._dashboard)
+      .setManager(this)
+      .setDashboard(this._dashboard)
       .render();
-
-  });
-}
+  }, this);
+};

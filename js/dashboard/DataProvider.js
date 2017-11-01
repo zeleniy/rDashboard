@@ -14,25 +14,25 @@ function DataProvider(data, filters, mode) {
 DataProvider.prototype.setMode = function(mode) {
 
   this._mode = mode;
-}
+};
 
 
 DataProvider.prototype.getMode = function() {
 
   return this._mode;
-}
+};
 
 
 DataProvider.prototype.getAccessor = function() {
 
   return this._accessor;
-}
+};
 
 
 DataProvider.prototype.setData = function(data) {
 
   this._data = data;
-}
+};
 
 
 DataProvider.prototype.setFilter = function(accessor, comparator, callback) {
@@ -41,35 +41,37 @@ DataProvider.prototype.setFilter = function(accessor, comparator, callback) {
     comparator: comparator,
     callback: callback
   };
-}
+};
 
 
-DataProvider.prototype.resetFilter = function(accessor, applyCallback = true) {
+DataProvider.prototype.resetFilter = function(accessor, applyCallback) {
+
+  applyCallback = applyCallback === undefined ? true : applyCallback;
 
   if (applyCallback && this._filters[accessor] && this._filters[accessor].callback) {
     this._filters[accessor].callback();
   }
 
   delete this._filters[accessor];
-}
+};
 
 
 DataProvider.prototype.getFilters = function() {
 
   return this._filters;
-}
+};
 
 
 DataProvider.prototype.setAccessor = function(accessor) {
 
   this._accessor = accessor;
-}
+};
 
 
 DataProvider.prototype.getData = function() {
 
   return this._data;
-}
+};
 
 
 DataProvider.prototype._getSummaryFunction = function() {
@@ -79,14 +81,14 @@ DataProvider.prototype._getSummaryFunction = function() {
   if (this._mode == 'Case') {
     return function(input) {
       return input.length;
-    }
+    };
   } else if (this._mode == 'Count') {
     topLevelAccessor = this._accessor ? this._accessor + this._mode : 'IdentifiedDataSources' + this._mode;
     return function(input) {
       return d3.sum(input, function(d) {
         return d[topLevelAccessor];
       });
-    }
+    };
   } else {
     topLevelAccessor = this._accessor ? this._accessor + this._mode : 'DataSource' + this._mode;
     if (topLevelAccessor == 'IdentifiedDataSourcesSize') {
@@ -97,9 +99,9 @@ DataProvider.prototype._getSummaryFunction = function() {
       return Math.round(d3.sum(input, function(d) {
         return d[topLevelAccessor];
       }) * 10) / 10;
-    }
+    };
   }
-}
+};
 
 
 /**
@@ -110,7 +112,7 @@ DataProvider.prototype._getSummaryFunction = function() {
  * @param {Object[]} [data] - data to group
  * @returns {Object[]}
  */
-DataProvider.prototype.getGroupedData = function(accessor, excludeList = [], data) {
+DataProvider.prototype.getGroupedData = function(accessor, excludeList, data) {
 
   var summary = this._getSummaryFunction();
 
@@ -129,7 +131,7 @@ DataProvider.prototype.getGroupedData = function(accessor, excludeList = [], dat
     .sort(function(a, b) {
       return b.value - a.value;
     });
-}
+};
 
 
 /**
@@ -138,7 +140,7 @@ DataProvider.prototype.getGroupedData = function(accessor, excludeList = [], dat
  * @param {String[]} excludeList - list of filters names to exclude
  * @returns {Object[]}
  */
-DataProvider.prototype.getFilteredData = function(excludeList = []) {
+DataProvider.prototype.getFilteredData = function(excludeList) {
 
   if (_.size(this._filters) == 0) {
     return this._data;
@@ -158,8 +160,8 @@ DataProvider.prototype.getFilteredData = function(excludeList = []) {
 
     data = data.filter(function(d) {
       return filter.comparator(d[accessor]);
-    })
-  })
+    });
+  });
 
   return data;
-}
+};

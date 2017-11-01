@@ -21,8 +21,8 @@ TreeMap.prototype.getData = function() {
   return {
     'name': 'flare',
     'children': Widget.prototype.getData.call(this)
-  }
-}
+  };
+};
 
 
 TreeMap.prototype.render = function() {
@@ -35,10 +35,10 @@ TreeMap.prototype.render = function() {
     .style('position', 'relative');
 
   return this.update(false);
-}
+};
 
 
-TreeMap.prototype.resize = function(animate = false) {
+TreeMap.prototype.resize = function(animate) {
 
   var width = this.getOuterWidth();
   var height = this.getOuterHeight();
@@ -65,11 +65,11 @@ TreeMap.prototype.resize = function(animate = false) {
     }).style('width', function(d) {
       return Math.max(0, d.x1 - d.x0 - 1) + 'px';
     }).style('height', function(d) {
-      return Math.max(0, d.y1 - d.y0  - 1) + 'px'
-    })
+      return Math.max(0, d.y1 - d.y0  - 1) + 'px';
+    });
 
   return this;
-}
+};
 
 
 TreeMap.prototype.update = function(animate) {
@@ -172,4 +172,4 @@ TreeMap.prototype.update = function(animate) {
     });
 
   return this.resize(animate);
-}
+};

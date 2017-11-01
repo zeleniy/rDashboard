@@ -25,14 +25,14 @@ function Dashboard(options) {
 
   d3.select(window).on('resize', function() {
     self.resize();
-  })
+  });
 }
 
 
 Dashboard.prototype.getMode = function() {
 
   return this._mode;
-}
+};
 
 
 Dashboard.prototype.getDataKey = function(mode) {
@@ -49,19 +49,19 @@ Dashboard.prototype.getDataKey = function(mode) {
   } else {
     return 'DataSource' + mode;
   }
-}
+};
 
 
 Dashboard.prototype.getDataProvider = function() {
 
   return this._dataProvider;
-}
+};
 
 
 Dashboard.prototype.getTooltip = function() {
 
   return this._tooltip;
-}
+};
 
 
 /**
@@ -82,7 +82,7 @@ Dashboard.prototype.render = function() {
   });
 
   return this;
-}
+};
 
 
 /**
@@ -124,7 +124,7 @@ Dashboard.prototype._renderFilters = function() {
       .attr('value', String)
       .text(String);
   }, this);
-}
+};
 
 
 /**
@@ -150,7 +150,7 @@ Dashboard.prototype._filterChangedEventHandler = function(select, accessor) {
   this.setDataFilter(accessor, function(d) {
     return d == value;
   }, value);
-}
+};
 
 
 /**
@@ -166,7 +166,7 @@ Dashboard.prototype._removeFilterButton = function(accessor) {
     .filter(function(d) {
       return d == accessor;
     }).remove();
-}
+};
 
 
 /**
@@ -196,8 +196,8 @@ Dashboard.prototype._resetFilterButton = function(accessor, resetSelect) {
     }).selectAll('option')
     .filter(function(d, i) {
       return i == 0;
-    }).property('selected', 'selected')
-}
+    }).property('selected', 'selected');
+};
 
 
 /**
@@ -224,7 +224,7 @@ Dashboard.prototype.resetDataFilter = function(accessor, applyCallback) {
   this.update();
 
   return this;
-}
+};
 
 
 /**
@@ -241,7 +241,7 @@ Dashboard.prototype.resetAllFilters = function() {
   });
 
   return this;
-}
+};
 
 
 Dashboard.prototype.resize = function() {
@@ -249,19 +249,19 @@ Dashboard.prototype.resize = function() {
   this._charts.forEach(function(chart) {
     chart.resize();
   });
-}
+};
 
 
 Dashboard.prototype.setAccessor = function(accessor) {
 
   this._dataProvider.setAccessor(accessor);
   this.update();
-}
+};
 
 
 Dashboard.prototype._modeChangeEventHandler = function(node) {
 
-  this._mode = node.value[0].toUpperCase() + node.value.substring(1).toLowerCase()
+  this._mode = node.value[0].toUpperCase() + node.value.substring(1).toLowerCase();
 
   this._dataProvider.setMode(this._mode);
 
@@ -275,21 +275,21 @@ Dashboard.prototype._modeChangeEventHandler = function(node) {
     }).updateFilter();
 
   this.update();
-}
+};
 
 
 Dashboard.prototype.addChart = function(chart) {
 
   this._charts.push(chart.setDashboard(this));
   return this;
-}
+};
 
 
 Dashboard.prototype.setData = function(data) {
 
   this._dataProvider.setData(data);
   return this;
-}
+};
 
 
 /**
@@ -328,7 +328,7 @@ Dashboard.prototype.setDataFilter = function(accessor, comparator, value, callba
     });
 
   this.update();
-}
+};
 
 
 Dashboard.prototype.update = function() {
@@ -336,10 +336,10 @@ Dashboard.prototype.update = function() {
   this._charts.forEach(function(chart) {
     chart.update();
   });
-}
+};
 
 
 Dashboard.prototype.getData = function() {
 
   return this._dataProvider.getData();
-}
+};

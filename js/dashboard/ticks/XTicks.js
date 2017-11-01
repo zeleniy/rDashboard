@@ -24,7 +24,7 @@ XTicks.prototype = Object.create(Ticks.prototype);
 XTicks.getInstance = function(axis, container) {
 
   return new XTicks(axis, container);
-}
+};
 
 
 /**
@@ -35,7 +35,7 @@ XTicks.getInstance = function(axis, container) {
 XTicks.prototype._getIndex = function() {
 
   return 0;
-}
+};
 
 
 /**
@@ -48,4 +48,4 @@ XTicks.prototype._getIndex = function() {
 XTicks.prototype._compare = function(tick1, tick2) {
 
   return tick1.right + this._distance > tick2.left;
-}
+};

@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 /**
  * Tile chart.
  * @public
@@ -22,7 +25,7 @@ Tile.prototype.setManager = function(tiles) {
 
   this._manager = tiles;
   return this;
-}
+};
 
 
 /**
@@ -34,7 +37,7 @@ Tile.prototype.setManager = function(tiles) {
 Tile.prototype.getDataKey = function(mode) {
 
   return this._manager.getDataKey(this._config.get('accessor'), mode);
-}
+};
 
 
 /**
@@ -60,7 +63,7 @@ Tile.prototype.getUnit = function() {
   }
 
   return '';
-}
+};
 
 
 /**
@@ -78,7 +81,7 @@ Tile.prototype.highlight = function(select) {
   this._table
     .style('opacity', opacity)
     .style('background-color', bgColor);
-}
+};
 
 
 /**
@@ -125,7 +128,7 @@ Tile.prototype.render = function() {
   var rightSide = table.append('td')
     .attr('class', 'tile-left');
 
-  var div = rightSide.append('div')
+  var div = rightSide.append('div');
   this._sizeValue = div.append('span')
     .attr('class', 'tile-value');
   this._sizeUnit = div.append('span')
@@ -133,9 +136,8 @@ Tile.prototype.render = function() {
   this._sizePercent = rightSide.append('div')
     .attr('class', 'summary');
 
-
   return this.update();
-}
+};
 
 
 /**
@@ -151,13 +153,13 @@ Tile.prototype.update = function() {
   this._countPercent.html(this.getCountPercent());
 
   return this;
-}
+};
 
 
 Tile.prototype.getCountSubtitle = function() {
 
   return this._config.get('name');
-}
+};
 
 
 Tile.prototype.getSizeValue = function() {
@@ -166,7 +168,7 @@ Tile.prototype.getSizeValue = function() {
   return d3.sum(this._dashboard.getData(), function(d) {
     return d[sizeKey];
   });
-}
+};
 
 
 Tile.prototype.getTotalSize = function() {
@@ -174,4 +176,4 @@ Tile.prototype.getTotalSize = function() {
   return d3.sum(this._dashboard.getData(), function(d) {
     return d['DataSourceSize'];
   });
-}
+};

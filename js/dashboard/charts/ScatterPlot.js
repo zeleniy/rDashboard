@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 /**
  * Scatter plot.
  * @public
@@ -35,7 +38,7 @@ ScatterPlot.prototype.getMargin = function() {
   margin.left += this._yAxisContainer.node().getBoundingClientRect().width;
 
   return margin;
-}
+};
 
 
 ScatterPlot.prototype.getData = function() {
@@ -43,7 +46,7 @@ ScatterPlot.prototype.getData = function() {
   return this._dashboard
     .getDataProvider()
     .getFilteredData();
-}
+};
 
 
 ScatterPlot.prototype.setMode = function(mode) {
@@ -51,7 +54,7 @@ ScatterPlot.prototype.setMode = function(mode) {
   if (mode.toLowerCase() != 'case') {
     Widget.prototype.setMode.call(this, mode);
   }
-}
+};
 
 
 /**
@@ -61,7 +64,7 @@ ScatterPlot.prototype.setMode = function(mode) {
 ScatterPlot.prototype.getColorKey = function() {
 
   return this._config.get('colorAccessor');
-}
+};
 
 
 /**
@@ -108,14 +111,14 @@ ScatterPlot.prototype.render = function() {
     .attr('class', 'axis-appendix');
 
   return this.update(false);
-}
+};
 
 
 /**
  * @inheritdoc
  * @override
  */
-ScatterPlot.prototype.resize = function(animate = false) {
+ScatterPlot.prototype.resize = function(animate) {
 
   var self = this;
 
@@ -143,7 +146,7 @@ ScatterPlot.prototype.resize = function(animate = false) {
     .range([innerHeight, this._padding])
     .domain(yDomain);
 
-  var yAxis = d3.axisLeft(yScale)
+  var yAxis = d3.axisLeft(yScale);
   this._yAxisContainer
     .attr('transform', 'translate(' + [0, - this._padding] + ')')
     .call(yAxis);
@@ -156,7 +159,7 @@ ScatterPlot.prototype.resize = function(animate = false) {
   var rAccessor = this._config.get('radiusAccessor');
   var rMax = d3.max(this._dashboard.getData(), function(d) {
     return d[rAccessor];
-  })
+  });
 
   var rScale = d3.scaleLinear()
     .range([this._minR, this._maxR])
@@ -187,7 +190,7 @@ ScatterPlot.prototype.resize = function(animate = false) {
 
   this._yLabel
     .text(this._config.get('yLabel', undefined, [this]))
-    .attr('x', - this._yLabel.node().getBoundingClientRect().height)
+    .attr('x', - this._yLabel.node().getBoundingClientRect().height);
 
   this._xLabel
     .attr('x', this.getInnerWidth())
@@ -203,14 +206,14 @@ ScatterPlot.prototype.resize = function(animate = false) {
     .attr('x1', 0)
     .attr('y1', innerHeight + 0.5)
     .attr('x2', this._padding)
-    .attr('y2', innerHeight + 0.5)
+    .attr('y2', innerHeight + 0.5);
 
   this._yAxisAppendix
     .attr('x1', 0.5)
     .attr('y1', innerHeight - this._padding)
     .attr('x2', 0.5)
-    .attr('y2', innerHeight)
-}
+    .attr('y2', innerHeight);
+};
 
 
 /**
@@ -263,4 +266,4 @@ ScatterPlot.prototype.update = function(animate) {
     });
 
   return this.resize(animate);
-}
+};

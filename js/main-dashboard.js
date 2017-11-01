@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 var tiles = new Tiles({
   placeholder: '#tiles-placeholder',
   colorScheme: '#76acd4',

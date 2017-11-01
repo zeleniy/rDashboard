@@ -28,10 +28,10 @@ BarChart.prototype.render = function() {
     .attr('class', 'canvas');
 
   return this.update(false);
-}
+};
 
 
-BarChart.prototype.resize = function(animate = false) {
+BarChart.prototype.resize = function(animate) {
 
   var self = this;
 
@@ -47,7 +47,7 @@ BarChart.prototype.resize = function(animate = false) {
     .sort(function(a, b) {
       return b.value - a.value;
     }).transform(function(result, value, index) {
-      return result[value.name] = index;
+      result[value.name] = index; return result;
     }, {}).value();
   /*
    * Get max value.
@@ -100,7 +100,7 @@ BarChart.prototype.resize = function(animate = false) {
    */
   this._barsContainers
     .selectAll('text.label')
-    .attr('dy', this._yOffset - this._gap)
+    .attr('dy', this._yOffset - this._gap);
   /*
    * Append value labels.
    */
@@ -110,11 +110,12 @@ BarChart.prototype.resize = function(animate = false) {
     .attr('dy', this._yOffset - this._gap);
 
   return this;
-}
+};
 
 
-BarChart.prototype.update = function(animate = true) {
+BarChart.prototype.update = function(animate) {
 
+  animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this);
 
   var self = this;
@@ -207,4 +208,4 @@ BarChart.prototype.update = function(animate = true) {
     });
 
   return this.resize(animate);
-}
+};

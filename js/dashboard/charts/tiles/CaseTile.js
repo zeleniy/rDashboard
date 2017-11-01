@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 function CaseTile(options) {
 
   Tile.call(this, options);
@@ -14,25 +17,25 @@ CaseTile.prototype.click = function() {
   this._manager.toggle(this._manager.getActiveTile());
 
   this._dashboard.resetDataFilter('ValueColumn', false);
-}
+};
 
 
 CaseTile.prototype.getCountPercent = function() {
 
   return '&nbsp;';
-}
+};
 
 
 CaseTile.prototype.getSizePercent = function() {
 
   return '&nbsp;';
-}
+};
 
 
 CaseTile.prototype.getCountTitle = function() {
 
   return 'Total';
-}
+};
 
 
 CaseTile.prototype.getCountValue = function() {
@@ -43,10 +46,10 @@ CaseTile.prototype.getCountValue = function() {
     }).uniq()
     .value()
     .length;
-}
+};
 
 
 CaseTile.prototype.getDataKey = function() {
 
   return 'DataSourceSize';
-}
+};

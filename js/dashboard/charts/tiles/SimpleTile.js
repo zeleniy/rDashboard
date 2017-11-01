@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 function SimpleTile(options) {
 
   Tile.call(this, options);
@@ -25,11 +28,11 @@ SimpleTile.prototype.click = function() {
       },
       this.getDataKey(),
       function() {
-        self._manager.toggle(self)
+        self._manager.toggle(self);
       }
     );
   }
-}
+};
 
 
 SimpleTile.prototype.getCountValue = function() {
@@ -38,19 +41,19 @@ SimpleTile.prototype.getCountValue = function() {
   return d3.sum(this._dashboard.getData(), function(d) {
     return d[sizeKey];
   });
-}
+};
 
 
 SimpleTile.prototype.getCountPercent = function() {
 
-  return Math.round(this.getCountValue() / this.getTotalCount() * 100) + '% of Total'
-}
+  return Math.round(this.getCountValue() / this.getTotalCount() * 100) + '% of Total';
+};
 
 
 SimpleTile.prototype.getSizePercent = function() {
 
   return Math.round(this.getSizeValue() / this.getTotalSize() * 100) + '% of Total';
-}
+};
 
 
 SimpleTile.prototype.getTotalCount = function() {
@@ -58,10 +61,10 @@ SimpleTile.prototype.getTotalCount = function() {
   return d3.sum(this._dashboard.getData(), function(d) {
     return d['IdentifiedDataSourcesCount'];
   });
-}
+};
 
 
 SimpleTile.prototype.getCountTitle = function() {
 
   return 'data source(s)';
-}
+};

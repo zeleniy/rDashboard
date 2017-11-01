@@ -24,7 +24,7 @@ YTicks.prototype = Object.create(Ticks.prototype);
 YTicks.getInstance = function(axis, container) {
 
   return new YTicks(axis, container);
-}
+};
 
 
 /**
@@ -35,7 +35,7 @@ YTicks.getInstance = function(axis, container) {
 YTicks.prototype._getIndex = function() {
 
   return 1;
-}
+};
 
 
 /**
@@ -48,4 +48,4 @@ YTicks.prototype._getIndex = function() {
 YTicks.prototype._compare = function(tick1, tick2) {
 
   return tick1.top + this._distance < tick2.bottom;
-}
+};

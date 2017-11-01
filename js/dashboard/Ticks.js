@@ -23,7 +23,7 @@ Ticks.prototype.setDistance = function(distance) {
 
   this._distance = distance;
   return this;
-}
+};
 
 
 /**
@@ -33,7 +33,7 @@ Ticks.prototype.rarefy = function() {
 
   this.rarefyLabels();
   this._rarefyTicks();
-}
+};
 
 
 /**
@@ -49,7 +49,7 @@ Ticks.prototype._getTicksValues = function() {
     .map(function(node) {
       return node.innerHTML;
     });
-}
+};
 
 
 /**
@@ -84,7 +84,12 @@ Ticks.prototype.rarefyLabels = function() {
       return self._tickValues[i];
     }));
   }
-}
+};
+
+
+Ticks.prototype._filter = function() {
+
+};
 
 
 /**
@@ -112,7 +117,7 @@ Ticks.prototype._hasOverlaps = function() {
   }
 
   return false;
-}
+};
 
 
 /**
@@ -126,8 +131,8 @@ Ticks.prototype._rarefyTicks = function() {
     .selectAll('g > line')
     .style('opacity', function(d, i) {
       return self._tickValues[i] === null ? 0.2 : 1;
-    })
-}
+    });
+};
 
 
 /**
@@ -140,4 +145,4 @@ Ticks.prototype._rarefyTicks = function() {
 Ticks.prototype._compare = function(tick1, tick2) {
 
   throw new Error('Method _compare() not implemented in ' + this.constructor.name);
-}
+};

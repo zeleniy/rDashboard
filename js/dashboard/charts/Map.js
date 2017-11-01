@@ -59,14 +59,14 @@ Map.prototype.render = function() {
   });
 
   return this;
-}
+};
 
 
 /**
  * @inheritdoc
  * @override
  */
-Map.prototype.resize = function(animate = false) {
+Map.prototype.resize = function(animate) {
 
   var self = this;
 
@@ -129,19 +129,20 @@ Map.prototype.resize = function(animate = false) {
       return centroids[d.name].y;
     })).attr('r', function(d) {
       return rScale(d.value);
-    })
+    });
 
   return this;
-}
+};
 
 
 /**
  * @inheritdoc
  * @override
  */
-Map.prototype.update = function(animate = true) {
+Map.prototype.update = function(animate) {
 
-  Widget.prototype.update.call(this);
+  animate = animate === undefined ? true : false;
+  Widget.prototype.update.call(this, animate);
 
   var self = this;
 
@@ -193,4 +194,4 @@ Map.prototype.update = function(animate = true) {
     });
 
   return this.resize(animate);
-}
+};

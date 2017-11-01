@@ -14,17 +14,17 @@ Tip.prototype.getColumn = function() {
   } else {
     return this._column;
   }
-}
+};
 
 
 Tip.prototype.setChart = function(chart) {
 
   this._chart = chart;
   return this;
-}
+};
 
 
 Tip.prototype.getData = function(accessor, groupBy, value) {
 
   throw new Error('Method getData() not implemented on ' + this.constructor.name);
-}
+};

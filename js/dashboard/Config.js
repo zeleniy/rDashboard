@@ -42,7 +42,7 @@ Config.prototype.set = function(option, optionValue) {
       options = options[part];
     }
   }
-}
+};
 
 
 /**
@@ -71,7 +71,7 @@ Config.prototype.get = function(option, defaultValue, params) {
   } else {
     return value;
   }
-}
+};
 
 
 /**
@@ -95,7 +95,7 @@ Config.prototype.has = function(option) {
   }
 
   return true;
-}
+};
 
 
 /**
@@ -108,4 +108,4 @@ Config.prototype.has = function(option) {
 Config.prototype.is = function(option, value) {
 
   return this.get(option) == value;
-}
+};

@@ -34,16 +34,16 @@ PieChart.prototype.render = function() {
     .attr('class', 'legend');
 
   return this.update(false);
-}
+};
 
 
 PieChart.prototype.getInnerHeight = function() {
 
   return Widget.prototype.getInnerHeight.call(this) - this._legend.node().getBoundingClientRect().height - this._legendBottomOffset;
-}
+};
 
 
-PieChart.prototype.resize = function(animate = true) {
+PieChart.prototype.resize = function(animate) {
 
   var outerWidth = this.getOuterWidth();
   var outerHeight = this.getOuterHeight();
@@ -53,7 +53,7 @@ PieChart.prototype.resize = function(animate = true) {
     .attr('height', outerHeight);
 
   var labelMaxLength = this._legend.selectAll('text').nodes().reduce(function(maxLength, node) {
-      return Math.max(maxLength, node.getBoundingClientRect().width)
+      return Math.max(maxLength, node.getBoundingClientRect().width);
   }, 0);
 
   var columnLength = labelMaxLength + this._legendBoxSize * 1.5 + this._legendBoxGap;
@@ -72,7 +72,7 @@ PieChart.prototype.resize = function(animate = true) {
 
   this._legend
     .attr('transform', function() {
-      return 'translate(' + offset + ')'
+      return 'translate(' + offset + ')';
     });
 
   var innerWidth = this.getInnerWidth();
@@ -96,7 +96,7 @@ PieChart.prototype.resize = function(animate = true) {
         this._current = i(0);
         return function(t) {
           return arc(i(t));
-        }
+        };
       });
   } else {
     this._slices
@@ -104,7 +104,7 @@ PieChart.prototype.resize = function(animate = true) {
   }
 
   return this;
-}
+};
 
 
 PieChart.prototype.update = function(animate) {
@@ -161,10 +161,10 @@ PieChart.prototype.update = function(animate) {
     self._dashboard.setDataFilter(self.getAccessor(), function(d) {
       return d == value;
     }, value);
-  })
+  });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';
-  });;
+  });
 
   this._slices = this._canvas
     .selectAll('path')
@@ -192,10 +192,10 @@ PieChart.prototype.update = function(animate) {
     });
 
   return this.resize(animate);
-}
+};
 
 
 PieChart.prototype._getMidAngle = function(d) {
 
   return d.startAngle + (d.endAngle - d.startAngle) / 2;
-}
+};

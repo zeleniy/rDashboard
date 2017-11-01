@@ -10,4 +10,4 @@ SimpleTip.prototype = Object.create(Tip.prototype);
 SimpleTip.prototype.getData = function(accessor, groupBy, d) {
 
   return [this._prefix, d[this.getColumn()]];
-}
+};

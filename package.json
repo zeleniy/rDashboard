@@ -1,0 +1,32 @@
+{
+  "name": "rdashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.4",
+    "jshint": "^2.9.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeleniy/rDashboard.git"
+  },
+  "author": {
+    "name": "Zelenin Alexandr",
+    "email": "zeleniy.spb@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeleniy/rDashboard/issues"
+  },
+  "homepage": "https://github.com/zeleniy/rDashboard#readme"
+}

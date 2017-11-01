@@ -17,7 +17,7 @@ function Tooltip() {
 Tooltip.prototype.getContainer = function() {
 
   return this._tip;
-}
+};
 
 
 /**
@@ -27,7 +27,7 @@ Tooltip.prototype.getContainer = function() {
 Tooltip.prototype.remove = function() {
 
   this._tip.remove();
-}
+};
 
 
 /**
@@ -39,7 +39,7 @@ Tooltip.prototype.setContent = function(content) {
 
   this._content = content;
   return this;
-}
+};
 
 
 /**
@@ -51,7 +51,7 @@ Tooltip.prototype.setOffset = function(offset) {
 
   this._offset = offset;
   return this;
-}
+};
 
 
 /**
@@ -82,7 +82,7 @@ Tooltip.prototype.show = function() {
   this.move();
 
   return this;
-}
+};
 
 
 Tooltip.prototype.move = function() {
@@ -100,7 +100,7 @@ Tooltip.prototype.move = function() {
   this._tip
     .style('left', x + 'px')
     .style('top', y + 'px');
-}
+};
 
 
 /**
@@ -109,4 +109,4 @@ Tooltip.prototype.move = function() {
 Tooltip.prototype.hide = function() {
 
     this._tip.style('display', 'none');
-}
+};
