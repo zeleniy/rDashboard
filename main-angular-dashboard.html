@@ -11,10 +11,12 @@
     <script src="lib/lodash/lodash.min.js"></script>
     <script src="lib/moment/moment.min.js"></script>
     <script src="lib/colorbrewer/colorbrewer.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
     <script src="dist/dashboard.min.js"></script>
+    <script src="js/main-angular-dashboard.js"></script>
 </head>
-<body>
-  <main class="container">
+<body ng-app="dashboardApp">
+  <main class="container" ng-controller="MainDashboardController">
     <div class="row">
       <div class="col-md-12 column">
         <div id="filters-placeholder" class="filters">
@@ -56,6 +58,5 @@
       </div>
     </div>
   </main>
-  <script src="js/main-dashboard.js"></script>
 </body>
 </html>
