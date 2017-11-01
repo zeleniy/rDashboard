@@ -40,7 +40,7 @@ CaseTile.prototype.getCountTitle = function() {
 
 CaseTile.prototype.getCountValue = function() {
 
-  return _(this._dashboard.getData())
+  return _.chain(this._dashboard.getData())
     .map(function(d) {
       return d['CaseID'];
     }).uniq()

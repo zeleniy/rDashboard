@@ -11,7 +11,7 @@ FrequencyTip.prototype.getData = function(accessor, groupBy) {
 
   var column = this.getColumn();
 
-  var data = _(this._chart
+  var data = _.chain(this._chart
     .getDashboard()
     .getDataProvider()
     .getFilteredData());

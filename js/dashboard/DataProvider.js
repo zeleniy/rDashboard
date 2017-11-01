@@ -116,16 +116,15 @@ DataProvider.prototype.getGroupedData = function(accessor, excludeList, data) {
 
   var summary = this._getSummaryFunction();
 
-  return _(data || this.getFilteredData(excludeList))
+  return _.chain(data || this.getFilteredData(excludeList))
     .groupBy(function(d) {
       return d[accessor];
-    }).transform(function(result, value, key) {
-      result.push({
+    }).map(function(value, key) {
+      return {
         name: key,
         value: summary(value)
-      });
-    }, [])
-    .filter(function(d) {
+      };
+    }).filter(function(d) {
       return d.value > 0;
     }).value()
     .sort(function(a, b) {

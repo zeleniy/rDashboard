@@ -99,7 +99,7 @@ Dashboard.prototype._renderFilters = function() {
     /*
      * Get filter values.
      */
-    var values = _(this.getData())
+    var values = _.chain(this.getData())
       .map(function(d) {
         return d[accessor];
       }).uniq()

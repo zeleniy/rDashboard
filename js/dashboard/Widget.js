@@ -228,7 +228,7 @@ Widget.prototype.getColorKey = function() {
 Widget.prototype.getColorDomain = function() {
 
   var accessor = this.getColorKey();
-  return _(this._dashboard.getData())
+  return _.chain(this._dashboard.getData())
     .map(function(d) {
       return d[accessor];
     }).uniq()

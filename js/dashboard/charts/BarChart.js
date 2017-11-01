@@ -43,10 +43,10 @@ BarChart.prototype.resize = function(animate) {
     .attr('transform', 'translate(' + this._margin.left + ', ' + this._margin.top + ')');
 
   var data = this.getData();
-  var index = _(data)
+  var index = _.chain(data)
     .sort(function(a, b) {
       return b.value - a.value;
-    }).transform(function(result, value, index) {
+    }).reduce(function(result, value, index) {
       result[value.name] = index; return result;
     }, {}).value();
   /*
