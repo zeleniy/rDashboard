@@ -95,6 +95,7 @@ dashboardApp.controller('MainDashboardController', function MainDashboardControl
       var scatterPlot = new ScatterPlot({
         xAccessor: 'CaseCreatedOn',
         yAccessor: 'DataSourceCount',
+        yScale: 'scaleLog', // scaleLog, scaleLinear
         radiusAccessor: 'DataSourceSize',
         colorAccessor: 'MatterType',
         xLabel: 'Case Created Dates',

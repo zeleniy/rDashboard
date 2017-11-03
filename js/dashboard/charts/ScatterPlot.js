@@ -142,7 +142,7 @@ ScatterPlot.prototype.resize = function(animate) {
     return d[y];
   });
 
-  var yScale = d3.scaleLinear()
+  var yScale = d3[this._config.get('yScale')]()
     .range([innerHeight, this._padding])
     .domain(yDomain);
 

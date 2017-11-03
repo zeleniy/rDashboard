@@ -92,6 +92,7 @@ d3.tsv('data/CaseStatsSummary.tsv', function(error, data) {
     var scatterPlot = new ScatterPlot({
       xAccessor: 'CaseCreatedOn',
       yAccessor: 'DataSourceCount',
+      yScale: 'scaleLinear', // scaleLog, scaleLinear
       radiusAccessor: 'DataSourceSize',
       colorAccessor: 'MatterType',
       xLabel: 'Case Created Dates',
