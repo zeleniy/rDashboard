@@ -54,7 +54,7 @@ Tile.prototype.getUnit = function() {
     return '';
   }
 
-  var unitString = data.find(function(d) {
+  var unitString = _.find(data, function(d) {
     return d[key];
   });
 

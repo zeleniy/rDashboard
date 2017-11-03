@@ -112,7 +112,7 @@ Map.prototype.resize = function(animate) {
 
   this.getData().forEach(function(d) {
 
-    var centroid = path.centroid(self._mapData.features.find(function(country) {
+    var centroid = path.centroid(_.find(self._mapData.features, function(country) {
       return d.name == country.properties.name;
     }));
 

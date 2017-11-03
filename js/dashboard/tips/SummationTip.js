@@ -29,7 +29,7 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
   var unit = '';
   if (this._withUnit) {
     var unitColumn = column + 'Unit';
-    unit = data.find(function(d) {
+    unit = _.find(data, function(d) {
       return d[unitColumn];
     })[unitColumn];
 

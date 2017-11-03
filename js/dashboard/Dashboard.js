@@ -35,23 +35,6 @@ Dashboard.prototype.getMode = function() {
 };
 
 
-Dashboard.prototype.getDataKey = function(mode) {
-
-  mode = mode || this._mode;
-
-  var tile = this._charts
-    .find(function(chart) {
-      return chart instanceof Tiles;
-    }).getActiveTile();
-
-  if (tile) {
-    return tile.getDataKey();
-  } else {
-    return 'DataSource' + mode;
-  }
-};
-
-
 Dashboard.prototype.getDataProvider = function() {
 
   return this._dataProvider;
@@ -269,10 +252,9 @@ Dashboard.prototype._modeChangeEventHandler = function(node) {
     chart.setMode(this._mode);
   }, this);
 
-  this._charts
-    .find(function(chart) {
-      return chart instanceof Tiles;
-    }).updateFilter();
+  _.find(this._charts, function(chart) {
+    return chart instanceof Tiles;
+  }).updateFilter();
 
   this.update();
 };
