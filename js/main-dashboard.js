@@ -97,6 +97,7 @@ var treeMap = new TreeMap({
 var map = new Map({
   accessor: 'Country',
   placeholder: '#map-placeholder',
+  urlBase: '',
   title: function(chart) {
     if (chart.getDashboard().getMode() == 'Case') {
       return 'Locationwise Cases Distribution';
