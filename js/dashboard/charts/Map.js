@@ -36,29 +36,20 @@ Map.prototype.render = function() {
     .append('g')
     .attr('class', 'data-layer');
 
-  var self = this;
-  d3.json(this._config.get('urlBase') + 'data/world_countries.json', function(error, data) {
+  this._mapData = this._config.get('world');
 
-    if (error) {
-      console.error(error);
-    }
-
-    self._mapData = data;
-    self._mapData.features = _.filter(data.features, function(d) {
-      return d.id != 'ATA';
-    });
-
-    self._countries = self._countryLayer
-      .selectAll('path')
-      .data(self._mapData.features)
-      .enter()
-      .append('path')
-      .attr('class', 'country');
-
-    self.update(false);
+  this._mapData.features = _.filter(this._mapData.features, function(d) {
+    return d.id != 'ATA';
   });
 
-  return this;
+  this._countries = this._countryLayer
+    .selectAll('path')
+    .data(this._mapData.features)
+    .enter()
+    .append('path')
+    .attr('class', 'country');
+
+  return this.update(false);
 };
 
 
