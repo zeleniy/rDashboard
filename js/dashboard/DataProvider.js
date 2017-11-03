@@ -157,7 +157,7 @@ DataProvider.prototype.getFilteredData = function(excludeList) {
       return;
     }
 
-    data = data.filter(function(d) {
+    data = _.filter(data, function(d) {
       return filter.comparator(d[accessor]);
     });
   });

@@ -44,7 +44,7 @@ Map.prototype.render = function() {
     }
 
     self._mapData = data;
-    self._mapData.features = data.features.filter(function(d) {
+    self._mapData.features = _.filter(data.features, function(d) {
       return d.id != 'ATA';
     });
 

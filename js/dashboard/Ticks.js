@@ -101,10 +101,7 @@ Ticks.prototype._hasOverlaps = function() {
 
   var self = this;
 
-  var dimensions = this._container
-    .selectAll('text')
-    .nodes()
-    .filter(function(node, i) {
+  var dimensions = _.filter(this._container.selectAll('text').nodes(), function(node, i) {
       return self._tickValues[i] !== null;
     }).map(function(node) {
       return node.getBoundingClientRect();

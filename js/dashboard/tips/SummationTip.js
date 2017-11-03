@@ -16,7 +16,7 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
     .getDataProvider()
     .getFilteredData();
 
-  var result = data.filter(function(d) {
+  var result = _.filter(data, function(d) {
     return d[accessor] == groupBy;
   });
 

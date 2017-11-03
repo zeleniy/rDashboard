@@ -51,7 +51,7 @@ Tiles.prototype.toggle = function(clickedTile) {
     clickedTile.highlight(! isSame);
   }
 
-  this._tiles.filter(function(tile) {
+  _.filter(this._tiles, function(tile) {
     return tile != clickedTile;
   }).forEach(function(tile) {
     tile.highlight(isSame);
