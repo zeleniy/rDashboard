@@ -41,14 +41,11 @@ dashboardApp.component('treeMap', {
        */
       if (this._chart && ('data' in changesObj || 'mode' in changesObj)) {
 
-        const data = dataProvider
+        dataProvider
           .setMode(this.mode)
-//          .setAccessor(this._config.get('accessor'))
-          .setData(this.data)
-          .getGroupedData(this._config.get('accessor'), []);
+          .setData(this.data);
 
         this._chart
-          .setData(data, this.data)
           .setDataProvider(dataProvider)
           .update(this._useAnimation());
       }

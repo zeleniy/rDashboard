@@ -39,12 +39,6 @@ Widget.prototype.getMode = function() {
 };
 
 
-//Widget.prototype.getDashboard = function() {
-//
-//  return this._dashboard;
-//};
-
-
 Widget.prototype._getTransition = function(animate, selection) {
 
   if (animate) {
@@ -105,19 +99,6 @@ Widget.prototype.getMargin = function() {
 
   return this._margin;
 };
-
-
-///**
-// * Set parent dashboard.
-// * @public
-// * @param {Dashboard} dashboard
-// * @returns {Widget}
-// */
-//Widget.prototype.setDashboard = function(dashboard) {
-//
-//  this._dashboard = dashboard;
-//  return this;
-//};
 
 
 /**
@@ -234,7 +215,7 @@ Widget.prototype.getColorKey = function() {
 Widget.prototype.getColorDomain = function() {
 
   var accessor = this.getColorKey();
-  return _.chain(this._dashboardData)
+  return _.chain(this._dataProvider.getData())
     .map(function(d) {
       return d[accessor];
     }).uniq()
@@ -291,22 +272,14 @@ Widget.prototype.getDataKey = function() {
 };
 
 
-Widget.prototype.setData = function(chartData, dashboardData) {
+Widget.prototype.setDataProvider = function(dataProvider) {
 
-  this._chartData = chartData;
-  this._dashboardData = dashboardData;
+  this._dataProvider = dataProvider;
 
   this._colorScale = d3.scaleOrdinal()
     .domain(this.getColorDomain())
     .range(this.getColorRange());
 
-  return this;
-};
-
-
-Widget.prototype.setDataProvider = function(dataProvider) {
-
-  this._dataProvider = dataProvider;
   return this;
 };
 
@@ -319,8 +292,5 @@ Widget.prototype.setDataProvider = function(dataProvider) {
  */
 Widget.prototype.getData = function(excludeList) {
 
-//  return this._dashboard
-//    .getDataProvider()
-//    .getGroupedData(this.getDataKey(), excludeList);
-  return this._chartData;
+  return this._dataProvider.getGroupedData(this._config.get('accessor'), []);
 };
