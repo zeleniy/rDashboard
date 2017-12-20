@@ -39,6 +39,20 @@ dashboardApp.component('dashboard', {
       ]
      };
 
+    $ctrl.treeMapConfig = {
+      accessor: 'MatterType',
+      placeholder: '#matter-type-placeholder',
+      title: 'Matter Type Distribution',
+      tooltip: [
+        new TitleTip('name'),
+        new FrequencyTip('Matters:', 'MatterID', true),
+        new FrequencyTip('Cases:', 'CaseID', true),
+        new SummationTip('Custodians:', 'ActiveCustodianCount'),
+        new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+        new SummationTip('Data Volume:', 'DataSourceSize', true, true)
+      ]
+    }
+
 
     /**
      *

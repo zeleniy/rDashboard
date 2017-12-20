@@ -25,16 +25,17 @@ TreeMap.prototype.getData = function() {
 };
 
 
-TreeMap.prototype.render = function() {
+TreeMap.prototype.renderTo = function(element) {
 
-  Widget.prototype.render.call(this);
+  Widget.prototype.render.call(this, element);
 
   this._main = this._container
     .append('div')
     .attr('class', 'treemap')
     .style('position', 'relative');
 
-  return this.update(false);
+//return this.update(false);
+  return this;
 };
 
 
@@ -74,7 +75,7 @@ TreeMap.prototype.resize = function(animate) {
 
 TreeMap.prototype.update = function(animate) {
 
-  animate = animate === undefined ? true : false;
+//  animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this, animate);
 
   var self = this;
