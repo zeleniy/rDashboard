@@ -4,13 +4,13 @@
       <div class="filter reset-button clickable">Reset filters</div>
       <div class="filter tiles-mode-filter">
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="case" ng-checked="$ctrl.mode == 'case'">Cases
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Case" ng-checked="$ctrl.mode == 'Case'">Cases
         </label>
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="count" ng-checked="$ctrl.mode == 'count'">Data Sources Count
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Count" ng-checked="$ctrl.mode == 'Count'">Data Sources Count
         </label>
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="size" ng-checked="$ctrl.mode == 'size'">Data Sources Size
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Size" ng-checked="$ctrl.mode == 'Size'">Data Sources Size
         </label>
       </div>
     </div>
@@ -38,7 +38,7 @@
 </div>
 <div class="row">
   <div class="col-md-7 column">
-    <div id="map-placeholder" class="chart"></div>
+    <map config="$ctrl.mapConfig" data="$ctrl.data" mode="$ctrl.mode"></map>
   </div>
   <div class="col-md-5 column">
     <tree-map config="$ctrl.treeMapConfig" data="$ctrl.data" mode="$ctrl.mode"></tree-map>

@@ -8,7 +8,7 @@ dashboardApp.component('dashboard', {
 
 
     $ctrl.data = [];
-    $ctrl.mode = 'case';
+    $ctrl.mode = 'Case';
 
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
@@ -41,8 +41,34 @@ dashboardApp.component('dashboard', {
 
     $ctrl.treeMapConfig = {
       accessor: 'MatterType',
-      placeholder: '#matter-type-placeholder',
       title: 'Matter Type Distribution',
+      tooltip: [
+        new TitleTip('name'),
+        new FrequencyTip('Matters:', 'MatterID', true),
+        new FrequencyTip('Cases:', 'CaseID', true),
+        new SummationTip('Custodians:', 'ActiveCustodianCount'),
+        new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+        new SummationTip('Data Volume:', 'DataSourceSize', true, true)
+      ]
+    }
+
+    $ctrl.mapConfig = {
+      accessor: 'Country',
+//      world: world,
+      title: function(chart) {
+        if ($ctrl.mode == 'Case') {
+          return 'Locationwise Cases Distribution';
+        } else {
+          return 'Locationwise Data Sources Distribution';
+        }
+      },
+      subtitle: function(chart) {
+        if ($ctrl.mode == 'Case') {
+          return 'Geographic distribution of cases';
+        } else {
+          return 'Geographic distribution of data sources';
+        }
+      },
       tooltip: [
         new TitleTip('name'),
         new FrequencyTip('Matters:', 'MatterID', true),

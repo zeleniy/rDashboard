@@ -178,13 +178,13 @@ Widget.prototype.getInnerHeight = function() {
 
 Widget.prototype.getTitle = function() {
 
-  return this._config.get('title', '', [this]);
+  return this._config.get('title', '');
 };
 
 
 Widget.prototype.getSubtitle = function() {
 
-  return this._config.get('subtitle', '', [this]);
+  return this._config.get('subtitle', '');
 };
 
 

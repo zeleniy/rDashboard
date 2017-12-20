@@ -52,7 +52,7 @@ Config.prototype.set = function(option, optionValue) {
  * @param {Mixed} defaultValue
  * @return {Mixed}
  */
-Config.prototype.get = function(option, defaultValue, params) {
+Config.prototype.get = function(option, defaultValue) {
 
   var value = this._options;
   var parts = option.split(".");
@@ -67,7 +67,7 @@ Config.prototype.get = function(option, defaultValue, params) {
   }
 
   if (_.isFunction(value)) {
-    return value.apply(undefined, params);
+    return value();
   } else {
     return value;
   }
