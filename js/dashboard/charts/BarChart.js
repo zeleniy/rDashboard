@@ -15,9 +15,9 @@ function BarChart(options) {
 BarChart.prototype = Object.create(Widget.prototype);
 
 
-BarChart.prototype.render = function() {
+BarChart.prototype.renderTo = function(element) {
 
-  Widget.prototype.render.call(this);
+  Widget.prototype.render.call(this, element);
 
   this._svg = this._container
     .append('svg')
@@ -27,7 +27,8 @@ BarChart.prototype.render = function() {
     .append('g')
     .attr('class', 'canvas');
 
-  return this.update(false);
+//  return this.update(false);
+  return this;
 };
 
 
@@ -115,7 +116,7 @@ BarChart.prototype.resize = function(animate) {
 
 BarChart.prototype.update = function(animate) {
 
-  animate = animate === undefined ? true : false;
+//  animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this);
 
   var self = this;

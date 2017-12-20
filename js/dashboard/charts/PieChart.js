@@ -110,7 +110,7 @@ PieChart.prototype.resize = function(animate) {
 
 PieChart.prototype.update = function(animate) {
 
-  animate = animate === undefined ? true : false;
+//  animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this, animate);
 
   var self = this;

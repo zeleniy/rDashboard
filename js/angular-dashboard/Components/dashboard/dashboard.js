@@ -9,6 +9,7 @@ dashboardApp.component('dashboard', {
 
     $ctrl.data = [];
     $ctrl.mode = 'case';
+
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
       title: 'Case Type Distribution',
@@ -22,6 +23,21 @@ dashboardApp.component('dashboard', {
         new SummationTip('Data Volume:', 'DataSourceSize', true, true)
       ]
     };
+
+    $ctrl.barChartConfig = {
+      accessor: 'EntityName',
+      title: 'Entity-wise distribution',
+      titleAlign: 'left',
+      colorScheme: colorbrewer['Dark2'][8],
+      tooltip: [
+        new TitleTip('name'),
+        new FrequencyTip('Matters:', 'MatterID'),
+        new FrequencyTip('Cases:', 'CaseID'),
+        new SummationTip('Custodians:', 'ActiveCustodianCount'),
+        new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
+        new SummationTip('Total Size:', 'DataSourceSize')
+      ]
+     };
 
 
     /**

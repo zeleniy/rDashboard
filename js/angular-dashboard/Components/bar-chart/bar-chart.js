@@ -1,4 +1,4 @@
-dashboardApp.component('pieChart', {
+dashboardApp.component('barChart', {
   bindings: {
     config: '<',
     data: '<',
@@ -30,7 +30,7 @@ dashboardApp.component('pieChart', {
        */
       if (! this._chart && 'config' in changesObj) {
 
-        this._chart = new PieChart(this.config)
+        this._chart = new BarChart(this.config)
           .renderTo($element.find('div')[0]);
 
         this._config = this._chart.getConfig()
