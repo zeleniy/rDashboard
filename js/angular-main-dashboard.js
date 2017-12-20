@@ -2,9 +2,12 @@
 
 var dashboardApp = angular
   .module('dashboardApp', [])
-  .factory('dataProvider', ['$window', function (window) {
+  .factory('dataProvider', function () {
     return new DataProvider();
-  }]);
+  })
+  .factory('tooltip', function () {
+    return new Tooltip();
+  });
 
 
 //const tiles = new Tiles({

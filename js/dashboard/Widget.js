@@ -39,10 +39,10 @@ Widget.prototype.getMode = function() {
 };
 
 
-Widget.prototype.getDashboard = function() {
-
-  return this._dashboard;
-};
+//Widget.prototype.getDashboard = function() {
+//
+//  return this._dashboard;
+//};
 
 
 Widget.prototype._getTransition = function(animate, selection) {
@@ -55,17 +55,26 @@ Widget.prototype._getTransition = function(animate, selection) {
 };
 
 
+Widget.prototype.setTooltip = function(tooltip) {
+
+  this._tooltip = tooltip;
+  return this;
+};
+
+
 Widget.prototype.getTooltip = function() {
 
-  return this._dashboard.getTooltip();
+  return this._tooltip;
 };
 
 
 Widget.prototype.getTooltipContent = function(accessor, groupBy, d) {
 
   return this._tips.map(function(tip) {
-    return tip.getData(accessor, groupBy, d);
-  });
+    return tip
+      .setDataProvider(this._dataProvider)
+      .getData(accessor, groupBy, d);
+  }, this);
 };
 
 
@@ -98,17 +107,17 @@ Widget.prototype.getMargin = function() {
 };
 
 
-/**
- * Set parent dashboard.
- * @public
- * @param {Dashboard} dashboard
- * @returns {Widget}
- */
-Widget.prototype.setDashboard = function(dashboard) {
-
-  this._dashboard = dashboard;
-  return this;
-};
+///**
+// * Set parent dashboard.
+// * @public
+// * @param {Dashboard} dashboard
+// * @returns {Widget}
+// */
+//Widget.prototype.setDashboard = function(dashboard) {
+//
+//  this._dashboard = dashboard;
+//  return this;
+//};
 
 
 /**
@@ -292,7 +301,14 @@ Widget.prototype.setData = function(chartData, dashboardData) {
     .range(this.getColorRange());
 
   return this;
-}
+};
+
+
+Widget.prototype.setDataProvider = function(dataProvider) {
+
+  this._dataProvider = dataProvider;
+  return this;
+};
 
 
 /**

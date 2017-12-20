@@ -11,10 +11,7 @@ SummationTip.prototype.getData = function(accessor, groupBy) {
 
   var column = this.getColumn();
 
-  var data = this._chart
-    .getDashboard()
-    .getDataProvider()
-    .getFilteredData();
+  var data = this._dataProvider.getFilteredData();
 
   var result = _.filter(data, function(d) {
     return d[accessor] == groupBy;

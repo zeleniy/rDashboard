@@ -24,6 +24,13 @@ Tip.prototype.setChart = function(chart) {
 };
 
 
+Tip.prototype.setDataProvider = function(dataProvider) {
+
+  this._dataProvider = dataProvider;
+  return this;
+};
+
+
 Tip.prototype.getData = function(accessor, groupBy, value) {
 
   throw new Error('Method getData() not implemented on ' + this.constructor.name);

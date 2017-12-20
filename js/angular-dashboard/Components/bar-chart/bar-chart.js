@@ -5,7 +5,7 @@ dashboardApp.component('barChart', {
     mode: '<'
   },
   template: '<div class="chart"></div>',
-  controller: function($element, dataProvider) {
+  controller: function($element, dataProvider, tooltip) {
 
 
     this._updateNumber = 0;
@@ -31,6 +31,7 @@ dashboardApp.component('barChart', {
       if (! this._chart && 'config' in changesObj) {
 
         this._chart = new BarChart(this.config)
+          .setTooltip(tooltip)
           .renderTo($element.find('div')[0]);
 
         this._config = this._chart.getConfig()
@@ -46,7 +47,9 @@ dashboardApp.component('barChart', {
           .setData(this.data)
           .getGroupedData(this._config.get('accessor'), []);
 
-        this._chart.setData(data, this.data)
+        this._chart
+          .setData(data, this.data)
+          .setDataProvider(dataProvider)
           .update(this._useAnimation());
       }
     }
