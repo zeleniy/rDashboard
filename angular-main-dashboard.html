@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Main dashboard</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main-dashboard-layout.css" rel="stylesheet">
+    <link href="dist/dashboard.min.css" rel="stylesheet">
+    <script src="lib/d3/d3.min.js"></script>
+    <script src="lib/d3/d3.clickcancel.js"></script>
+    <!-- script src="lib/lodash/lodash.min.js"></script -->
+    <script src="lib/underscore/underscore-min.js"></script>
+    <script src="lib/moment/moment.min.js"></script>
+    <script src="lib/colorbrewer/colorbrewer.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <!-- script src="dist/dashboard.min.js"></script -->
+    <script src="js/dashboard/Dashboard.js"></script>
+    <script src="js/dashboard/DataProvider.js"></script>
+    <script src="js/dashboard/tips/Tip.js"></script>
+    <script src="js/dashboard/tips/TitleTip.js"></script>
+    <script src="js/dashboard/tips/SimpleTip.js"></script>
+    <script src="js/dashboard/tips/FrequencyTip.js"></script>
+    <script src="js/dashboard/tips/SummationTip.js"></script>
+    <script src="js/dashboard/Config.js"></script>
+    <script src="js/dashboard/Tooltip.js"></script>
+    <script src="js/dashboard/Ticks.js"></script>
+    <script src="js/dashboard/ticks/XTicks.js"></script>
+    <script src="js/dashboard/ticks/YTicks.js"></script>
+    <script src="js/dashboard/Widget.js"></script>
+    <script src="js/dashboard/charts/Tiles.js"></script>
+    <script src="js/dashboard/charts/tiles/Tile.js"></script>
+    <script src="js/dashboard/charts/tiles/SimpleTile.js"></script>
+    <script src="js/dashboard/charts/tiles/CaseTile.js"></script>
+    <script src="js/dashboard/charts/PieChart.js"></script>
+    <script src="js/dashboard/charts/BarChart.js"></script>
+    <script src="js/dashboard/charts/ScatterPlot.js"></script>
+    <script src="js/dashboard/charts/TreeMap.js"></script>
+    <script src="js/dashboard/charts/Map.js"></script>
+    <script src="js/dashboard/charts/TimeLine.js"></script>
+    <script src="js/angular-main-dashboard.js"></script>
+</head>
+<body>
+  <main class="container" ng-app="dashboardApp">
+    <dashboard></dashboard>
+  </main>
+  <script src="js/angular-main-dashboard.js"></script>
+  <script src="js/angular-dashboard/Components/dashboard/dashboard.js"></script>
+  <script src="js/angular-dashboard/Components/pie-chart/pie-chart.js"></script>
+</body>
+</html>

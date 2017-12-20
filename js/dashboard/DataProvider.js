@@ -13,7 +13,8 @@ function DataProvider(data, filters, mode) {
 
 DataProvider.prototype.setMode = function(mode) {
 
-  this._mode = mode;
+  this._mode = mode.substr(0, 1).toUpperCase() + mode.substr(1).toLowerCase();
+  return this;
 };
 
 
@@ -32,6 +33,7 @@ DataProvider.prototype.getAccessor = function() {
 DataProvider.prototype.setData = function(data) {
 
   this._data = data;
+  return this;
 };
 
 
@@ -65,6 +67,7 @@ DataProvider.prototype.getFilters = function() {
 DataProvider.prototype.setAccessor = function(accessor) {
 
   this._accessor = accessor;
+  return this;
 };
 
 

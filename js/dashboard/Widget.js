@@ -183,11 +183,12 @@ Widget.prototype.getSubtitle = function() {
  * Render widget.
  * @public
  * @abstract
+ * @param {HTMLElement} element
  * @returns {Widget}
  */
-Widget.prototype.render = function() {
+Widget.prototype.render = function(element) {
 
-  var container = d3.select(this._config.get('placeholder'));
+  var container = d3.select(element);
 
   var title = this.getTitle();
   if (title != '') {
@@ -208,10 +209,6 @@ Widget.prototype.render = function() {
   this._container = container
     .append('div')
     .attr('class', 'chart-container');
-
-  this._colorScale = d3.scaleOrdinal()
-    .domain(this.getColorDomain())
-    .range(this.getColorRange());
 };
 
 
@@ -228,7 +225,7 @@ Widget.prototype.getColorKey = function() {
 Widget.prototype.getColorDomain = function() {
 
   var accessor = this.getColorKey();
-  return _.chain(this._dashboard.getData())
+  return _.chain(this._dashboardData)
     .map(function(d) {
       return d[accessor];
     }).uniq()
@@ -285,6 +282,19 @@ Widget.prototype.getDataKey = function() {
 };
 
 
+Widget.prototype.setData = function(chartData, dashboardData) {
+
+  this._chartData = chartData;
+  this._dashboardData = dashboardData;
+
+  this._colorScale = d3.scaleOrdinal()
+    .domain(this.getColorDomain())
+    .range(this.getColorRange());
+
+  return this;
+}
+
+
 /**
  * Get chart grouped data.
  * @public
@@ -293,7 +303,8 @@ Widget.prototype.getDataKey = function() {
  */
 Widget.prototype.getData = function(excludeList) {
 
-  return this._dashboard
-    .getDataProvider()
-    .getGroupedData(this.getDataKey(), excludeList);
+//  return this._dashboard
+//    .getDataProvider()
+//    .getGroupedData(this.getDataKey(), excludeList);
+  return this._chartData;
 };

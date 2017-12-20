@@ -17,9 +17,9 @@ function PieChart(options) {
 PieChart.prototype = Object.create(Widget.prototype);
 
 
-PieChart.prototype.render = function() {
+PieChart.prototype.renderTo = function(element) {
 
-  Widget.prototype.render.call(this);
+  Widget.prototype.render.call(this, element);
 
   this._svg = this._container
     .append('svg')
@@ -33,7 +33,8 @@ PieChart.prototype.render = function() {
     .append('g')
     .attr('class', 'legend');
 
-  return this.update(false);
+//  return this.update(false);
+  return this;
 };
 
 
@@ -122,7 +123,8 @@ PieChart.prototype.update = function(animate) {
       return d.name;
     });
   update.exit().remove();
-  var rows = update.enter()
+  var rows = update
+    .enter()
     .append('g');
   rows.append('rect')
     .attr('width', this._legendBoxSize)

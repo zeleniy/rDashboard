@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12 column">
+    <div id="filters-placeholder" class="filters">
+      <div class="filter reset-button clickable">Reset filters</div>
+      <div class="filter tiles-mode-filter">
+        <label class="radio-inline">
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="case" ng-checked="$ctrl.mode == 'case'">Cases
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="count" ng-checked="$ctrl.mode == 'count'">Data Sources Count
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="size" ng-checked="$ctrl.mode == 'size'">Data Sources Size
+        </label>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="filters-list"><div class="filter applied-filters">Applied Filters: </div></div>
+    <div class="clear"></div>
+    <div id="tiles-placeholder"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 column">
+    <div id="timeline-placeholder"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 column">
+    <div id="cases-by-entity-placeholder" class="chart"></div>
+  </div>
+  <div class="col-md-6 column">
+    <div id="case-volume-placeholder" class="chart"></div>
+  </div>
+  <div class="col-md-3 column">
+    <pie-chart config="$ctrl.pieChartConfig" data="$ctrl.data" mode="$ctrl.mode"></pie-chart>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7 column">
+    <div id="map-placeholder" class="chart"></div>
+  </div>
+  <div class="col-md-5 column">
+    <div id="matter-type-placeholder" class="chart"></div>
+  </div>
+</div>
