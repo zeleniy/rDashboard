@@ -37,11 +37,13 @@ DataProvider.prototype.setData = function(data) {
 };
 
 
-DataProvider.prototype.setFilter = function(accessor, comparator, callback) {
+DataProvider.prototype.setFilter = function(accessor, comparator, callback, value) {
 
   this._filters[accessor] = {
+    accessor: accessor,
     comparator: comparator,
-    callback: callback
+    callback: callback,
+    value: value
   };
 };
 

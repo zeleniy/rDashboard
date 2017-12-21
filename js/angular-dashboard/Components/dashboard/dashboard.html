@@ -15,7 +15,10 @@
       </div>
     </div>
     <div class="clear"></div>
-    <div class="filters-list"><div class="filter applied-filters">Applied Filters: </div></div>
+    <div class="filters-list">
+      <div class="filter applied-filters">Applied Filters: </div>
+      <filter ng-repeat="filter in $ctrl.filters" accessor="filter.accessor" value="filter.value" on-click="$ctrl.filterClickedEventHandler(accessor)"></filter>
+    </div>
     <div class="clear"></div>
     <div class="tiles">
       <case-tile config="$ctrl.caseTileConfig" data="$ctrl.data"></case-tile>
@@ -34,20 +37,20 @@
 </div>
 <div class="row">
   <div class="col-md-3 column">
-    <bar-chart config="$ctrl.barChartConfig" data="$ctrl.data" trigger="$ctrl.trigger" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></bar-chart>
+    <bar-chart config="$ctrl.barChartConfig" data="$ctrl.data" filters="$ctrl.filters" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></bar-chart>
   </div>
   <div class="col-md-6 column">
     <scatter-plot config="$ctrl.scatterPlotConfig" data="$ctrl.data" mode="$ctrl.mode"></scatter-plot>
   </div>
   <div class="col-md-3 column">
-    <pie-chart config="$ctrl.pieChartConfig" data="$ctrl.data" trigger="$ctrl.trigger" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></pie-chart>
+    <pie-chart config="$ctrl.pieChartConfig" data="$ctrl.data" filters="$ctrl.filters" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></pie-chart>
   </div>
 </div>
 <div class="row">
   <div class="col-md-7 column">
-    <map config="$ctrl.mapConfig" data="$ctrl.data" trigger="$ctrl.trigger" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></map>
+    <map config="$ctrl.mapConfig" data="$ctrl.data" filters="$ctrl.filters" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></map>
   </div>
   <div class="col-md-5 column">
-    <tree-map config="$ctrl.treeMapConfig" data="$ctrl.data" trigger="$ctrl.trigger" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></tree-map>
+    <tree-map config="$ctrl.treeMapConfig" data="$ctrl.data" filters="$ctrl.filters" mode="$ctrl.mode" on-click="$ctrl.chartClickedEventHandler(value, accessor)"></tree-map>
   </div>
 </div>

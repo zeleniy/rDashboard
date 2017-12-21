@@ -3,7 +3,7 @@ dashboardApp.component('pieChart', {
     config: '<',
     data: '<',
     mode: '<',
-    trigger: '<',
+    filters: '<',
     onClick: '&'
   },
   template: '<div class="chart"></div>',

@@ -9,8 +9,7 @@ dashboardApp.component('dashboard', {
 
     $ctrl.data = [];
     $ctrl.mode = 'Case';
-    $ctrl.filters = [];
-    $ctrl.trigger = Math.random();
+    $ctrl.filters = {};
 
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
@@ -178,13 +177,21 @@ dashboardApp.component('dashboard', {
     }
 
 
+    $ctrl.filterClickedEventHandler = function(accessor) {
+
+      dataProvider.resetFilter(accessor);
+      $ctrl.filters = _.assign({}, dataProvider.getFilters());
+    }
+
+
     $ctrl.chartClickedEventHandler = function(value, accessor) {
 
       dataProvider.setFilter(accessor, function(d) {
         return d == value;
-      });
+      }, undefined, value);
 
-      $ctrl.trigger = Math.random();
+      $ctrl.filters = _.assign({}, dataProvider.getFilters());
+
       $scope.$digest();
     }
   }
