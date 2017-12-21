@@ -43,9 +43,7 @@ ScatterPlot.prototype.getMargin = function() {
 
 ScatterPlot.prototype.getData = function() {
 
-  return this._dashboard
-    .getDataProvider()
-    .getFilteredData();
+  return this._dataProvider.getFilteredData();
 };
 
 
@@ -71,9 +69,9 @@ ScatterPlot.prototype.getColorKey = function() {
  * @inheritdoc
  * @override
  */
-ScatterPlot.prototype.render = function() {
+ScatterPlot.prototype.renderTo = function(element) {
 
-  Widget.prototype.render.call(this);
+  Widget.prototype.render.call(this, element);
 
   this._svg = this._container
     .append('svg')
@@ -110,7 +108,8 @@ ScatterPlot.prototype.render = function() {
     .append('line')
     .attr('class', 'axis-appendix');
 
-  return this.update(false);
+//  return this.update(false);
+  return this;
 };
 
 
@@ -157,7 +156,7 @@ ScatterPlot.prototype.resize = function(animate) {
   margin = this.getMargin();
 
   var rAccessor = this._config.get('radiusAccessor');
-  var rMax = d3.max(this._dashboard.getData(), function(d) {
+  var rMax = d3.max(this._dataProvider.getData(), function(d) {
     return d[rAccessor];
   });
 
@@ -222,7 +221,7 @@ ScatterPlot.prototype.resize = function(animate) {
  */
 ScatterPlot.prototype.update = function(animate) {
 
-  animate = animate === undefined ? true : false;
+//  animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this, animate);
 
   var self = this;

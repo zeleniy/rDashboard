@@ -79,6 +79,30 @@ dashboardApp.component('dashboard', {
       ]
     }
 
+    $ctrl.scatterPlotConfig = {
+      xAccessor: 'CaseCreatedOn',
+      yAccessor: 'DataSourceCount',
+      yScale: 'scaleLinear', // scaleLog, scaleLinear
+      radiusAccessor: 'DataSourceSize',
+      colorAccessor: 'MatterType',
+      xLabel: 'Case Created Dates',
+      yLabel: 'Data Source Count',
+      title: 'Case Population',
+      subtitle: function() {
+        if ($ctrl.mode == 'Count') {
+          return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Count)';
+        } else {
+          return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Size)';
+        }
+      },
+      tooltip: [
+        new TitleTip('CaseName'),
+        new SummationTip('Custodians:', 'ActiveCustodianCount'),
+        new SimpleTip('Data Source Count:', 'DataSourceCount'),
+        new SimpleTip('Total Size:', 'DataSourceSize')
+      ]
+    }
+
 
     /**
      *
