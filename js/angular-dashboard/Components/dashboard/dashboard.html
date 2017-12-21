@@ -17,7 +17,14 @@
     <div class="clear"></div>
     <div class="filters-list"><div class="filter applied-filters">Applied Filters: </div></div>
     <div class="clear"></div>
-    <div id="tiles-placeholder"></div>
+    <div class="tiles">
+      <case-tile config="$ctrl.caseTileConfig" data="$ctrl.data"></case-tile>
+      <simple-tile config="$ctrl.identifiedTileConfig" data="$ctrl.data"></simple-tile>
+      <simple-tile config="$ctrl.collectedTileConfig" data="$ctrl.data"></simple-tile>
+      <simple-tile config="$ctrl.processedTileConfig" data="$ctrl.data"></simple-tile>
+      <simple-tile config="$ctrl.hostedTileConfig" data="$ctrl.data"></simple-tile>
+      <simple-tile config="$ctrl.producedTileConfig" data="$ctrl.data"></simple-tile>
+    </div>
   </div>
 </div>
 <div class="row">

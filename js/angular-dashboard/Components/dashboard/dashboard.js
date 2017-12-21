@@ -103,6 +103,35 @@ dashboardApp.component('dashboard', {
       ]
     }
 
+    $ctrl.caseTileConfig = {
+      name: 'caces',
+      accessor: 'CaseID'
+    }
+
+    $ctrl.identifiedTileConfig = {
+      name: 'identified',
+      accessor: 'IdentifiedDataSources'
+    }
+
+    $ctrl.collectedTileConfig = {
+      name: 'collected',
+      accessor: 'CollectionDataSources'
+    }
+
+    $ctrl.processedTileConfig = {
+      name: 'processed',
+      accessor: 'ProcessedVolumes'
+    }
+
+    $ctrl.hostedTileConfig = {
+      name: 'hosted',
+      accessor: 'HostedExportsets'
+    }
+
+    $ctrl.producedTileConfig = {
+      name: 'produced',
+      accessor: 'ProducedDocuments'
+    }
 
     /**
      *

@@ -5,8 +5,7 @@
   margin: 0 3px 3px 0;
 }
 
-.tiles .tile {
-  /*min-width: 210px;*/
+.tiles > * {
   flex: 1;
   cursor: pointer;
   display: block;
