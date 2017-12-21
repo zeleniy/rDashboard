@@ -9,6 +9,7 @@ dashboardApp.component('dashboard', {
 
     $ctrl.data = [];
     $ctrl.mode = 'Case';
+    $ctrl.accessor = undefined;
     $ctrl.filters = {};
 
     $ctrl.pieChartConfig = {
@@ -177,18 +178,94 @@ dashboardApp.component('dashboard', {
     }
 
 
-    $ctrl.filterClickedEventHandler = function(accessor) {
+    /**
+     * 
+     */
+    $ctrl.resetAllFilters = function() {
 
-      dataProvider.resetFilter(accessor);
+      for (var accessor in dataProvider.getFilters()) {
+
+        dataProvider.resetFilter(accessor);
+
+        if (accessor == 'ValueColumn') {
+          $ctrl.accessor = undefined;
+          dataProvider.setAccessor(undefined);
+        }
+      }
+
+      $ctrl.filters = {};
+    }
+
+
+    /**
+     * 
+     */
+    $ctrl.caseTileClickedEventHandler = function() {
+
+      if (! ('ValueColumn' in dataProvider.getFilters())) {
+        return;
+      }
+
+      $ctrl.accessor = undefined;
+
+      dataProvider
+        .setAccessor(undefined)
+        .resetFilter('ValueColumn');
+
       $ctrl.filters = _.assign({}, dataProvider.getFilters());
     }
 
 
+    /**
+     * @param {String} accessor
+     */
+    $ctrl.valueTileClickedEventHandler = function(accessor) {
+
+      const tmpAccessor = $ctrl.accessor;
+      const filters = dataProvider.getFilters();
+
+      if ('ValueColumn' in filters) {
+        $ctrl.caseTileClickedEventHandler();
+      }
+
+      if (accessor == tmpAccessor) {
+        return;
+      }
+
+      dataProvider
+        .setAccessor(accessor)
+        .setFilter('ValueColumn', function(d) {
+          return true;
+        }, accessor + $ctrl.mode);
+
+      $ctrl.accessor = accessor;
+      $ctrl.filters  = _.assign({}, dataProvider.getFilters());
+    }
+
+
+    /**
+     * @param {String} accessor
+     */
+    $ctrl.filterClickedEventHandler = function(accessor) {
+
+      if (accessor == 'ValueColumn') {
+        $ctrl.caseTileClickedEventHandler();
+      } else {
+        dataProvider.resetFilter(accessor);
+      }
+
+      $ctrl.filters = _.assign({}, dataProvider.getFilters());
+    }
+
+
+    /**
+     * @param {String} accessor
+     */
     $ctrl.chartClickedEventHandler = function(value, accessor) {
 
       dataProvider.setFilter(accessor, function(d) {
         return d == value;
-      }, undefined, value);
+      }, value);
 
       $ctrl.filters = _.assign({}, dataProvider.getFilters());
 

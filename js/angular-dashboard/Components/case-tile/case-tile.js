@@ -1,7 +1,9 @@
 dashboardApp.component('caseTile', {
   bindings: {
     config: '<',
-    data: '<'
+    data: '<',
+    currentAccessor: '<',
+    onClick: '&'
   },
   templateUrl: 'js/angular-dashboard/Components/case-tile/case-tile.html',
   controller: function() {
@@ -26,6 +28,12 @@ dashboardApp.component('caseTile', {
         this.sizeUnit = this.getUnit();
         this.countValue = Math.round(this.getCountValue());
       }
+    }
+
+
+    this.isDisabled = function() {
+
+      return this.currentAccessor != undefined;
     }
 
 

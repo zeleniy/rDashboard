@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12 column">
     <div id="filters-placeholder" class="filters">
-      <div class="filter reset-button clickable">Reset filters</div>
+      <div class="filter reset-button clickable" ng-click="$ctrl.resetAllFilters()">Reset filters</div>
       <div class="filter tiles-mode-filter">
         <label class="radio-inline">
           <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Case" ng-checked="$ctrl.mode == 'Case'">Cases
@@ -21,12 +21,12 @@
     </div>
     <div class="clear"></div>
     <div class="tiles">
-      <case-tile config="$ctrl.caseTileConfig" data="$ctrl.data"></case-tile>
-      <simple-tile config="$ctrl.identifiedTileConfig" data="$ctrl.data"></simple-tile>
-      <simple-tile config="$ctrl.collectedTileConfig" data="$ctrl.data"></simple-tile>
-      <simple-tile config="$ctrl.processedTileConfig" data="$ctrl.data"></simple-tile>
-      <simple-tile config="$ctrl.hostedTileConfig" data="$ctrl.data"></simple-tile>
-      <simple-tile config="$ctrl.producedTileConfig" data="$ctrl.data"></simple-tile>
+      <case-tile current-accessor="$ctrl.accessor" config="$ctrl.caseTileConfig" data="$ctrl.data" on-click="$ctrl.caseTileClickedEventHandler()"></case-tile>
+      <simple-tile current-accessor="$ctrl.accessor" config="$ctrl.identifiedTileConfig" data="$ctrl.data" on-click="$ctrl.valueTileClickedEventHandler(accessor)"></simple-tile>
+      <simple-tile current-accessor="$ctrl.accessor" config="$ctrl.collectedTileConfig" data="$ctrl.data" on-click="$ctrl.valueTileClickedEventHandler(accessor)"></simple-tile>
+      <simple-tile current-accessor="$ctrl.accessor" config="$ctrl.processedTileConfig" data="$ctrl.data" on-click="$ctrl.valueTileClickedEventHandler(accessor)"></simple-tile>
+      <simple-tile current-accessor="$ctrl.accessor" config="$ctrl.hostedTileConfig" data="$ctrl.data" on-click="$ctrl.valueTileClickedEventHandler(accessor)"></simple-tile>
+      <simple-tile current-accessor="$ctrl.accessor" config="$ctrl.producedTileConfig" data="$ctrl.data" on-click="$ctrl.valueTileClickedEventHandler(accessor)"></simple-tile>
     </div>
   </div>
 </div>

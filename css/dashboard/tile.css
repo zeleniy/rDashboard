@@ -12,6 +12,14 @@
   margin: 3px 0 0 3px;
 }
 
+.tiles .tile {
+  background-color: rgb(118, 172, 212);
+}
+
+.tiles .disabled {
+  opacity: 0.5;
+}
+
 .tiles .tile table {
   height: 60px;
 }

@@ -37,24 +37,17 @@ DataProvider.prototype.setData = function(data) {
 };
 
 
-DataProvider.prototype.setFilter = function(accessor, comparator, callback, value) {
+DataProvider.prototype.setFilter = function(accessor, comparator, value) {
 
   this._filters[accessor] = {
     accessor: accessor,
     comparator: comparator,
-    callback: callback,
     value: value
   };
 };
 
 
-DataProvider.prototype.resetFilter = function(accessor, applyCallback) {
-
-  applyCallback = applyCallback === undefined ? true : applyCallback;
-
-  if (applyCallback && this._filters[accessor] && this._filters[accessor].callback) {
-    this._filters[accessor].callback();
-  }
+DataProvider.prototype.resetFilter = function(accessor) {
 
   delete this._filters[accessor];
 };

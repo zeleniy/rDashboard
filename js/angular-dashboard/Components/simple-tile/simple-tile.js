@@ -1,7 +1,9 @@
 dashboardApp.component('simpleTile', {
   bindings: {
     config: '<',
-    data: '<'
+    data: '<',
+    currentAccessor: '<',
+    onClick: '&'
   },
   templateUrl: 'js/angular-dashboard/Components/simple-tile/simple-tile.html',
   controller: function() {
@@ -17,6 +19,7 @@ dashboardApp.component('simpleTile', {
       if ('config' in changesObj) {
         this._config = new Config(this.config);
         this.name = this._config.get('name');
+        this.accessor = this._config.get('accessor');
       }
       /*
        * Calculate tile stats.
@@ -28,6 +31,12 @@ dashboardApp.component('simpleTile', {
         this.countValue = Math.round(this.getCountValue());
         this.countPercent = this.getCountPercent();
       }
+    }
+
+
+    this.isDisabled = function() {
+
+      return this.currentAccessor != undefined && this.currentAccessor != this.accessor;
     }
 
 
