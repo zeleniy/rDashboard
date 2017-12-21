@@ -128,10 +128,7 @@ TreeMap.prototype.update = function(animate) {
     }).call(cc);
 
   cc.on('click', function(d) {
-    var value = d.data.name;
-    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
-      return d == value;
-    }, value);
+    self._clickHandler({value: d.data.name, accessor: self._config.get('accessor')})
   });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';

@@ -3,7 +3,7 @@ dashboardApp.component('pieChart', {
     config: '<',
     data: '<',
     mode: '<',
-    filters: '<',
+    trigger: '<',
     onClick: '&'
   },
   template: '<div class="chart"></div>',
@@ -42,34 +42,13 @@ dashboardApp.component('pieChart', {
       /*
        * Populate chart with data.
        */
-      if (this._chart && ('data' in changesObj || 'mode' in changesObj || 'filters' in changesObj)) {
+      dataProvider
+        .setMode(this.mode)
+        .setData(this.data);
 
-        dataProvider
-          .setMode(this.mode)
-          .setData(this.data);
-
-        this.filters.forEach(function(f) {
-          dataProvider.setFilter(f.accessor, function(d) {
-            return d == f.value;
-          });
-        })
-
-        this._chart
-          .setDataProvider(dataProvider)
-          .update(this._useAnimation());
-      }
-    }
-
-
-    this.clickEventHandler = function(value) {
-
-      console.log(value);
-
-//    var value = d.data.name;
-      dataProvider.setFilter(this._config.get('accessor'), function(d) {
-        return d == value;
-      }, value);
-
+      this._chart
+        .setDataProvider(dataProvider)
+        .update(this._useAnimation());
     }
   }
 });

@@ -1,7 +1,7 @@
 dashboardApp.component('dashboard', {
   templateUrl: 'js/angular-dashboard/Components/dashboard/dashboard.html',
   controllerAs: '$ctrl',
-  controller: function($scope, $http) {
+  controller: function($scope, $http, dataProvider) {
 
 
     const $ctrl = this;
@@ -10,6 +10,7 @@ dashboardApp.component('dashboard', {
     $ctrl.data = [];
     $ctrl.mode = 'Case';
     $ctrl.filters = [];
+    $ctrl.trigger = Math.random();
 
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
@@ -178,16 +179,13 @@ dashboardApp.component('dashboard', {
 
 
     $ctrl.chartClickedEventHandler = function(value, accessor) {
-//      console.log('$ctrl.chartClickedEventHandler', value, accessor)
-//      console.log('$ctrl.chartClickedEventHandler', $ctrl.filters)
-      $ctrl.filters.push({
-        value: value,
-        accessor: accessor
+
+      dataProvider.setFilter(accessor, function(d) {
+        return d == value;
       });
 
-      $ctrl.filters = $ctrl.filters.slice(0);
+      $ctrl.trigger = Math.random();
       $scope.$digest();
-//      console.log('$ctrl.chartClickedEventHandler', $ctrl.filters)
     }
   }
 });

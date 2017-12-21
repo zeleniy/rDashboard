@@ -2,7 +2,9 @@ dashboardApp.component('treeMap', {
   bindings: {
     config: '<',
     data: '<',
-    mode: '<'
+    mode: '<',
+    trigger: '<',
+    onClick: '&'
   },
   template: '<div class="chart"></div>',
   controller: function($element, dataProvider, tooltip) {
@@ -32,6 +34,7 @@ dashboardApp.component('treeMap', {
 
         this._chart = new TreeMap(this.config)
           .setTooltip(tooltip)
+          .onClick(this.onClick)
           .renderTo($element.find('div')[0]);
 
         this._config = this._chart.getConfig()
@@ -39,16 +42,13 @@ dashboardApp.component('treeMap', {
       /*
        * Populate chart with data.
        */
-      if (this._chart && ('data' in changesObj || 'mode' in changesObj)) {
+      dataProvider
+        .setMode(this.mode)
+        .setData(this.data);
 
-        dataProvider
-          .setMode(this.mode)
-          .setData(this.data);
-
-        this._chart
-          .setDataProvider(dataProvider)
-          .update(this._useAnimation());
-      }
+      this._chart
+        .setDataProvider(dataProvider)
+        .update(this._useAnimation());
     }
   }
 });
