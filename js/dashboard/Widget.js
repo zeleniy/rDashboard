@@ -33,6 +33,13 @@ function Widget(options) {
 }
 
 
+Widget.prototype.onClick = function(clickHandler) {
+
+  this._clickHandler = clickHandler;
+  return this;
+};
+
+
 Widget.prototype.getMode = function() {
 
   return this._mode;

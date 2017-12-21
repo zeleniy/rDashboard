@@ -159,10 +159,12 @@ PieChart.prototype.update = function(animate) {
       this._current = d;
     });
   cc.on('click', function(d) {
-    var value = d.data.name;
-    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
-      return d == value;
-    }, value);
+//    self._clickHandler.call(self._component, d.data.name)
+    self._clickHandler({value: d.data.name, accessor: self._config.get('accessor')})
+//    var value = d.data.name;
+//    self._dashboard.setDataFilter(self.getAccessor(), function(d) {
+//      return d == value;
+//    }, value);
   });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';

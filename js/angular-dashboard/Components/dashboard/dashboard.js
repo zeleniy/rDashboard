@@ -1,7 +1,7 @@
 dashboardApp.component('dashboard', {
   templateUrl: 'js/angular-dashboard/Components/dashboard/dashboard.html',
   controllerAs: '$ctrl',
-  controller: function($timeout, $http) {
+  controller: function($scope, $http) {
 
 
     const $ctrl = this;
@@ -9,6 +9,7 @@ dashboardApp.component('dashboard', {
 
     $ctrl.data = [];
     $ctrl.mode = 'Case';
+    $ctrl.filters = [];
 
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
@@ -133,6 +134,7 @@ dashboardApp.component('dashboard', {
       accessor: 'ProducedDocuments'
     }
 
+
     /**
      *
      */
@@ -172,6 +174,20 @@ dashboardApp.component('dashboard', {
             return d;
           });
       });
+    }
+
+
+    $ctrl.chartClickedEventHandler = function(value, accessor) {
+//      console.log('$ctrl.chartClickedEventHandler', value, accessor)
+//      console.log('$ctrl.chartClickedEventHandler', $ctrl.filters)
+      $ctrl.filters.push({
+        value: value,
+        accessor: accessor
+      });
+
+      $ctrl.filters = $ctrl.filters.slice(0);
+      $scope.$digest();
+//      console.log('$ctrl.chartClickedEventHandler', $ctrl.filters)
     }
   }
 });
