@@ -28,27 +28,20 @@ dashboardApp.component('pieChart', {
      */
     this.$onChanges = function(changesObj) {
       /*
-       * Render chart.
+       * Initialize and render chart.
        */
       if (! this._chart && 'config' in changesObj) {
 
         this._chart = new PieChart(this.config)
           .setTooltip(tooltip)
           .onClick(this.onClick)
+          .setDataProvider(dataProvider)
           .renderTo($element.find('div')[0]);
 
         this._config = this._chart.getConfig()
       }
-      /*
-       * Populate chart with data.
-       */
-      dataProvider
-        .setMode(this.mode)
-        .setData(this.data);
 
-      this._chart
-        .setDataProvider(dataProvider)
-        .update(this._useAnimation());
+      this._chart.update(this._useAnimation());
     }
   }
 });

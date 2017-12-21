@@ -4,13 +4,13 @@
       <div class="filter reset-button clickable" ng-click="$ctrl.resetAllFilters()">Reset filters</div>
       <div class="filter tiles-mode-filter">
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Case" ng-checked="$ctrl.mode == 'Case'">Cases
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Case" ng-change="$ctrl.modeChangedEventHandler()" ng-checked="$ctrl.mode == 'Case'">Cases
         </label>
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Count" ng-checked="$ctrl.mode == 'Count'">Data Sources Count
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Count" ng-change="$ctrl.modeChangedEventHandler()" ng-checked="$ctrl.mode == 'Count'">Data Sources Count
         </label>
         <label class="radio-inline">
-          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Size" ng-checked="$ctrl.mode == 'Size'">Data Sources Size
+          <input type="radio" name="tiles-mode" ng-model="$ctrl.mode" value="Size" ng-change="$ctrl.modeChangedEventHandler()" ng-checked="$ctrl.mode == 'Size'">Data Sources Size
         </label>
       </div>
     </div>

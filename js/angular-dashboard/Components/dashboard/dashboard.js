@@ -3,14 +3,14 @@ dashboardApp.component('dashboard', {
   controllerAs: '$ctrl',
   controller: function($scope, $http, dataProvider) {
 
-
     const $ctrl = this;
-
 
     $ctrl.data = [];
     $ctrl.mode = 'Case';
     $ctrl.accessor = undefined;
     $ctrl.filters = {};
+
+    dataProvider.setMode($ctrl.mode);
 
     $ctrl.pieChartConfig = {
       accessor: 'CaseType',
@@ -174,7 +174,15 @@ dashboardApp.component('dashboard', {
 
             return d;
           });
+
+        dataProvider.setData($ctrl.data);
       });
+    }
+
+
+    $ctrl.modeChangedEventHandler = function() {
+
+      dataProvider.setMode($ctrl.mode);
     }
 
 

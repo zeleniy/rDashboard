@@ -26,29 +26,19 @@ dashboardApp.component('scatterPlot', {
      */
     this.$onChanges = function(changesObj) {
       /*
-       * Render chart.
+       * Initialize and render chart.
        */
       if (! this._chart && 'config' in changesObj) {
 
         this._chart = new ScatterPlot(this.config)
           .setTooltip(tooltip)
+          .setDataProvider(dataProvider)
           .renderTo($element.find('div')[0]);
 
         this._config = this._chart.getConfig()
       }
-      /*
-       * Populate chart with data.
-       */
-      if (this._chart && ('data' in changesObj || 'mode' in changesObj)) {
 
-        dataProvider
-          .setMode(this.mode)
-          .setData(this.data);
-
-        this._chart
-          .setDataProvider(dataProvider)
-          .update(this._useAnimation());
-      }
+      this._chart.update(this._useAnimation());
     }
   }
 });

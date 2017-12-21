@@ -252,6 +252,10 @@ Widget.prototype.update = function(animate) {
 
   this._title.text(this.getTitle());
   this._subtitle.text(this.getSubtitle());
+
+  this._colorScale = d3.scaleOrdinal()
+    .domain(this.getColorDomain())
+    .range(this.getColorRange());
 };
 
 
@@ -282,10 +286,6 @@ Widget.prototype.getDataKey = function() {
 Widget.prototype.setDataProvider = function(dataProvider) {
 
   this._dataProvider = dataProvider;
-
-  this._colorScale = d3.scaleOrdinal()
-    .domain(this.getColorDomain())
-    .range(this.getColorRange());
 
   return this;
 };
