@@ -2,7 +2,8 @@ dashboardApp.component('scatterPlot', {
   bindings: {
     config: '<',
     data: '<',
-    mode: '<'
+    mode: '<',
+    filters: '<'
   },
   template: '<div class="chart"></div>',
   controller: function($element, dataProvider, tooltip) {
