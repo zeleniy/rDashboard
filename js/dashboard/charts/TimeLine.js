@@ -35,9 +35,9 @@ TimeLine.prototype = Object.create(Widget.prototype);
  * @inheritdoc
  * @override
  */
-TimeLine.prototype.render = function() {
+TimeLine.prototype.renderTo = function(element) {
 
-  this._container = d3.select(this._config.get('placeholder'));
+  this._container = d3.select(element);
 
   this._svg = this._container
     .append('svg')
@@ -62,7 +62,7 @@ TimeLine.prototype.render = function() {
     .append('path')
     .attr('class', 'custom-handle');
 
-  this.update();
+//  this.update();
 
   this.resize();
 
@@ -160,9 +160,20 @@ TimeLine.prototype._brushEndEventHandler = function() {
 
   var format = 'D/M/YYYY HH:mm:ss';
 
-  this._dashboard.setDataFilter(this.getAccessor(), function(d) {
-    return d >= min && d <= max;
-  }, moment(min).format(format) + ' - ' + moment(max).format(format));
+  this._changeHandler({
+    value: moment(min).format(format) + ' - ' + moment(max).format(format),
+    accessor: this.getAccessor(),
+    comparator: function(d) {
+      return d >= min && d <= max;
+    }
+  });
+};
+
+
+TimeLine.prototype.onChange = function(changeHandler) {
+
+  this._changeHandler = changeHandler;
+  return this;
 };
 
 
@@ -173,13 +184,17 @@ TimeLine.prototype._brushEndEventHandler = function() {
 TimeLine.prototype.update = function() {
 
   var accessor = this.getDataKey();
-  var dataProvider = this._dashboard.getDataProvider();
 
-  var defaultExtent = d3.extent(dataProvider.getData(), function(d) {
+  const dataSet = this._dataProvider.getData();
+  if (dataSet.length == 0) {
+    return;
+  }
+
+  var defaultExtent = d3.extent(dataSet, function(d) {
     return d[accessor];
   });
 
-  var currentExtent = d3.extent(dataProvider.getFilteredData(), function(d) {
+  var currentExtent = d3.extent(this._dataProvider.getFilteredData(), function(d) {
     return d[accessor];
   });
 
@@ -196,5 +211,5 @@ TimeLine.prototype.update = function() {
       .call(this._brush.move, [0, this.getInnerWidth()]);
   }
 
-  return this;
+  return this.resize();
 };

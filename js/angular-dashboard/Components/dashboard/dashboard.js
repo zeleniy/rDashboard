@@ -135,6 +135,10 @@ dashboardApp.component('dashboard', {
       accessor: 'ProducedDocuments'
     }
 
+    $ctrl.timelineConfig = {
+      accessor: 'CaseCreatedOn'
+    }
+
 
     /**
      *
@@ -267,13 +271,17 @@ dashboardApp.component('dashboard', {
 
 
     /**
+     * @param {String} value
      * @param {String} accessor
+     * @param {Function} [comparator]
      */
-    $ctrl.chartClickedEventHandler = function(value, accessor) {
+    $ctrl.chartClickedEventHandler = function(value, accessor, comparator) {
 
-      dataProvider.setFilter(accessor, function(d) {
+      comparator = comparator || function(d) {
         return d == value;
-      }, value);
+      };
+
+      dataProvider.setFilter(accessor, comparator, value);
 
       $ctrl.filters = _.assign({}, dataProvider.getFilters());
 
