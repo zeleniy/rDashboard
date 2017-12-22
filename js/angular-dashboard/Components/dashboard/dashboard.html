@@ -17,7 +17,7 @@
     <div class="clear"></div>
     <div class="filters-list">
       <div class="filter applied-filters">Applied Filters: </div>
-      <filter ng-repeat="filter in $ctrl.filters" accessor="filter.accessor" value="filter.value" on-click="$ctrl.filterClickedEventHandler(accessor)"></filter>
+      <filter ng-repeat="filter in $ctrl.filters" mode="$ctrl.mode" accessor="filter.accessor" value="filter.value" on-click="$ctrl.filterClickedEventHandler(accessor)"></filter>
     </div>
     <div class="clear"></div>
     <div class="tiles">
