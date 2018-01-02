@@ -82,8 +82,8 @@
                   <article class="col-md-6 column">
                       <div id="case-volume-placeholder" class="chart"></div>
                   </article>
-                  <article class="col-md-3 column">
-                      <div id="case-by-type-placeholder" class="chart"></div>
+                  <article class="col-md-3 column" ng-controller="PieChartCtrl">
+                      <div class="chart"></div>
                   </article>
               </div>
               <div class="row">
@@ -103,5 +103,6 @@
   <script src="js/angular-main-dashboard.js"></script>
   <script src="js/angular-dashboard/Controllers/dashboard/DashboardCtrl.js"></script>
   <script src="js/angular-dashboard/Controllers/dashboard/BarChartCtrl.js"></script>
+  <script src="js/angular-dashboard/Controllers/dashboard/PieChartCtrl.js"></script>
 </body>
 </html>

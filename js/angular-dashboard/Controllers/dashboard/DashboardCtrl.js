@@ -9,7 +9,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
   dataProvider.setMode($ctrl.mode);
 
-  $ctrl.pieChartConfig = {
+  $scope.pieChartConfig = {
     accessor: 'CaseType',
     title: 'Case Type Distribution',
     colorScheme: colorbrewer['Set2'][8],

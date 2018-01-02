@@ -1,8 +1,8 @@
-dashboardApp.controller('BarChartCtrl', function($scope, $element, dataProvider, tooltip) {
+dashboardApp.controller('PieChartCtrl', function($scope, $element, dataProvider, tooltip) {
 
 
   $scope._updateNumber = 0;
-  $scope._chart = new BarChart($scope.barChartConfig)
+  $scope._chart = new PieChart($scope.pieChartConfig)
     .setTooltip(tooltip)
     .onClick(this.onClick)
     .setDataProvider(dataProvider)
