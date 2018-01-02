@@ -5,7 +5,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   $ctrl.data = [];
   $scope.mode = 'Case';
   $ctrl.accessor = undefined;
-  $ctrl.filters = {};
+  $scope.filters = {};
 
   dataProvider.setMode($scope.mode);
 
@@ -195,9 +195,9 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
 
   /**
-   * 
+   * Reset all filters button click event handler.
    */
-  $ctrl.resetAllFilters = function() {
+  $scope.resetAllFilters = function() {
 
     for (var accessor in dataProvider.getFilters()) {
 
@@ -209,7 +209,8 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       }
     }
 
-    $ctrl.filters = {};
+    $scope.filters = {};
+    $scope.$broadcast('update');
   }
 
 
@@ -228,7 +229,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       .setAccessor(undefined)
       .resetFilter('ValueColumn');
 
-    $ctrl.filters = _.assign({}, dataProvider.getFilters());
+    $scope.filters = _.assign({}, dataProvider.getFilters());
   }
 
 
@@ -255,14 +256,14 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       }, accessor + $scope.mode);
 
     $ctrl.accessor = accessor;
-    $ctrl.filters  = _.assign({}, dataProvider.getFilters());
+    $scope.filters  = _.assign({}, dataProvider.getFilters());
   }
 
 
   /**
    * @param {String} accessor
    */
-  $ctrl.filterClickedEventHandler = function(accessor) {
+  $scope.filterClickedEventHandler = function(accessor) {
 
     if (accessor == 'ValueColumn') {
       $ctrl.caseTileClickedEventHandler();
@@ -270,7 +271,8 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       dataProvider.resetFilter(accessor);
     }
 
-    $ctrl.filters = _.assign({}, dataProvider.getFilters());
+    $scope.filters = dataProvider.getFilters();
+    $scope.$broadcast('update');
   }
 
 
@@ -286,6 +288,9 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     };
 
     dataProvider.setFilter(accessor, comparator, value);
+    $scope.filters = dataProvider.getFilters();
+
+    $scope.$apply();
     $scope.$broadcast('update');
   });
 });
