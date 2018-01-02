@@ -78,7 +78,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     ]
   }
 
-  $ctrl.scatterPlotConfig = {
+  $scope.scatterPlotConfig = {
     xAccessor: 'CaseCreatedOn',
     yAccessor: 'DataSourceCount',
     yScale: 'scaleLinear', // scaleLog, scaleLinear
