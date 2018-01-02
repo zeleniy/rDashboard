@@ -46,56 +46,48 @@
     <script src="js/dashboard/charts/Map.js"></script>
     <script src="js/dashboard/charts/TimeLine.js"></script>
 </head>
-<body>
-  <main class="container" ng-app="dashboardApp">
-      <div id="MainDashboard" class="dashboard" ng-controller="DashboardCtrl">
-          <section id="widget-grid" data-widget-grid>
-              <div class="row">
-                  <article class="col-md-12 column">
-                      <div id="filters-placeholder" class="filters">
-                          <button class="btn btn-primary filter reset-button clickable pull-right">Reset Filters</button>
-                          <div class="filter tiles-mode-filter">
-                              <input type="radio" name="tiles-mode" value="case" checked><i></i><label class="radio-inline">Cases</label>
-                              <input type="radio" name="tiles-mode" value="count"><i></i><label class="radio-inline">Data Sources Count</label>
-                              <input type="radio" name="tiles-mode" value="size"><i></i><label class="radio-inline">Data Sources Size</label>
-                          </div>
-                          <div class="filters-list filters-top">
-                              <div class="filter applied-filters">Applied Filters: </div>
-                          </div>
-                      </div>
-                  </article>
-              </div>
-              <div class="row">
-                  <article class="col-md-12 column">
-                      <div id="tiles-placeholder"></div>
-                  </article>
-              </div>
-              <div class="row">
-                  <article class="col-md-12 column">
-                      <div id="timeline-placeholder"></div>
-                  </article>
-              </div>
-              <div class="row">
-                  <article class="col-md-3 column" ng-controller="BarChartCtrl">
-                      <div class="chart"></div>
-                  </article>
-                  <article class="col-md-6 column" ng-controller="ScatterPlotCtrl">
-                      <div class="chart"></div>
-                  </article>
-                  <article class="col-md-3 column" ng-controller="PieChartCtrl">
-                      <div class="chart"></div>
-                  </article>
-              </div>
-              <div class="row">
-                  <article class="col-md-7 column" ng-controller="MapCtrl">
-                      <div class="chart"></div>
-                  </article>
-                  <artcile class="col-md-5 column" ng-controller="TreeMapCtrl">
-                      <div class="chart"></div>
-                  </artcile>
-              </div>
-          </section>
+<body ng-app="dashboardApp">
+  <main class="container" ng-controller="DashboardCtrl">
+    <div class="row">
+      <div class="col-md-12 column">
+        <div id="filters-placeholder" class="filters">
+          <div class="filter reset-button clickable">Reset filters</div>
+          <div class="filter tiles-mode-filter">
+            <label class="radio-inline"><input type="radio" name="tiles-mode" value="case" checked>Cases</label>
+            <label class="radio-inline"><input type="radio" name="tiles-mode" value="count">Data Sources Count</label>
+            <label class="radio-inline"><input type="radio" name="tiles-mode" value="size">Data Sources Size</label>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="filters-list"><div class="filter applied-filters">Applied Filters: </div></div>
+        <div class="clear"></div>
+        <div id="tiles-placeholder"></div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 column">
+        <div id="timeline-placeholder"></div>
+      </div>
+    </div>
+    <div class="row">
+      <article class="col-md-3 column" ng-controller="BarChartCtrl">
+        <div class="chart"></div>
+      </article>
+      <article class="col-md-6 column" ng-controller="ScatterPlotCtrl">
+        <div class="chart"></div>
+      </article>
+      <article class="col-md-3 column" ng-controller="PieChartCtrl">
+        <div class="chart"></div>
+      </article>
+    </div>
+    <div class="row">
+      <article class="col-md-7 column" ng-controller="MapCtrl">
+        <div class="chart"></div>
+      </article>
+      <article class="col-md-5 column" ng-controller="TreeMapCtrl">
+        <div class="chart"></div>
+      </article>
+    </div>
   </main>
   <script src="js/angular-main-dashboard.js"></script>
   <script src="js/angular-dashboard/Controllers/dashboard/DashboardCtrl.js"></script>
