@@ -38,7 +38,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     ]
    };
 
-  $ctrl.treeMapConfig = {
+  $scope.treeMapConfig = {
     accessor: 'MatterType',
     title: 'Matter Type Distribution',
     tooltip: [
