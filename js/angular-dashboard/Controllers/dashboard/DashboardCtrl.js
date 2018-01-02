@@ -132,7 +132,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     accessor: 'ProducedDocuments'
   }
 
-  $ctrl.timelineConfig = {
+  $scope.timelineConfig = {
     accessor: 'CaseCreatedOn'
   }
 
