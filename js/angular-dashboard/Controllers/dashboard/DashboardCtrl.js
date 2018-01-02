@@ -4,7 +4,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
   $ctrl.data = [];
   $scope.mode = 'Case';
-  $ctrl.accessor = undefined;
+  $scope.accessor = undefined;
   $scope.filters = {};
 
   dataProvider.setMode($scope.mode);
@@ -107,30 +107,22 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     accessor: 'CaseID'
   }
 
-  $ctrl.identifiedTileConfig = {
+  $scope.tiles = [{
     name: 'identified',
     accessor: 'IdentifiedDataSources'
-  }
-
-  $ctrl.collectedTileConfig = {
+  }, {
     name: 'collected',
     accessor: 'CollectionDataSources'
-  }
-
-  $ctrl.processedTileConfig = {
+  }, {
     name: 'processed',
     accessor: 'ProcessedVolumes'
-  }
-
-  $ctrl.hostedTileConfig = {
+  }, {
     name: 'hosted',
     accessor: 'HostedExportsets'
-  }
-
-  $ctrl.producedTileConfig = {
+  }, {
     name: 'produced',
     accessor: 'ProducedDocuments'
-  }
+  }];
 
   $scope.timelineConfig = {
     accessor: 'CaseCreatedOn'
@@ -182,6 +174,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
         $scope.mapConfig.world = world;
         $scope.$broadcast('update');
+        $scope.$apply();
       })
     });
   }
@@ -204,7 +197,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       dataProvider.resetFilter(accessor);
 
       if (accessor == 'ValueColumn') {
-        $ctrl.accessor = undefined;
+        $scope.accessor = undefined;
         dataProvider.setAccessor(undefined);
       }
     }
@@ -217,19 +210,19 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   /**
    * 
    */
-  $ctrl.caseTileClickedEventHandler = function() {
+  $scope.caseTileClickedEventHandler = function() {
 
     if (! ('ValueColumn' in dataProvider.getFilters())) {
       return;
     }
 
-    $ctrl.accessor = undefined;
+    $scope.accessor = undefined;
 
     dataProvider
       .setAccessor(undefined)
       .resetFilter('ValueColumn');
 
-    $scope.filters = _.assign({}, dataProvider.getFilters());
+    $scope.filters = dataProvider.getFilters();
   }
 
 
@@ -237,12 +230,12 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
    * @param {String} accessor
    */
   $ctrl.valueTileClickedEventHandler = function(accessor) {
-
-    const tmpAccessor = $ctrl.accessor;
+console.log('$ctrl.valueTileClickedEventHandler', accessor)
+    const tmpAccessor = $scope.accessor;
     const filters = dataProvider.getFilters();
 
     if ('ValueColumn' in filters) {
-      $ctrl.caseTileClickedEventHandler();
+      $scope.caseTileClickedEventHandler();
     }
 
     if (accessor == tmpAccessor) {
@@ -255,8 +248,9 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
         return true;
       }, accessor + $scope.mode);
 
-    $ctrl.accessor = accessor;
-    $scope.filters  = _.assign({}, dataProvider.getFilters());
+    $scope.accessor = accessor;
+    $scope.filters  = dataProvider.getFilters();
+    $scope.$broadcast('update');
   }
 
 
@@ -266,7 +260,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   $scope.filterClickedEventHandler = function(accessor) {
 
     if (accessor == 'ValueColumn') {
-      $ctrl.caseTileClickedEventHandler();
+      $scope.caseTileClickedEventHandler();
     } else {
       dataProvider.resetFilter(accessor);
     }
