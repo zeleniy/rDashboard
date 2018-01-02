@@ -3,11 +3,11 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   const $ctrl = this;
 
   $ctrl.data = [];
-  $ctrl.mode = 'Case';
+  $scope.mode = 'Case';
   $ctrl.accessor = undefined;
   $ctrl.filters = {};
 
-  dataProvider.setMode($ctrl.mode);
+  dataProvider.setMode($scope.mode);
 
   $scope.pieChartConfig = {
     accessor: 'CaseType',
@@ -55,14 +55,14 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     accessor: 'Country',
 //      world: world,
     title: function(chart) {
-      if ($ctrl.mode == 'Case') {
+      if ($scope.mode == 'Case') {
         return 'Locationwise Cases Distribution';
       } else {
         return 'Locationwise Data Sources Distribution';
       }
     },
     subtitle: function(chart) {
-      if ($ctrl.mode == 'Case') {
+      if ($scope.mode == 'Case') {
         return 'Geographic distribution of cases';
       } else {
         return 'Geographic distribution of data sources';
@@ -88,7 +88,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     yLabel: 'Data Source Count',
     title: 'Case Population',
     subtitle: function() {
-      if ($ctrl.mode == 'Count') {
+      if ($scope.mode == 'Count') {
         return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Count)';
       } else {
         return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Size)';
@@ -187,9 +187,10 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   }
 
 
-  $ctrl.modeChangedEventHandler = function() {
+  $scope.modeChangedEventHandler = function() {
 
-    dataProvider.setMode($ctrl.mode);
+    dataProvider.setMode($scope.mode);
+    $scope.$broadcast('update');
   }
 
 
@@ -251,7 +252,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       .setAccessor(accessor)
       .setFilter('ValueColumn', function(d) {
         return true;
-      }, accessor + $ctrl.mode);
+      }, accessor + $scope.mode);
 
     $ctrl.accessor = accessor;
     $ctrl.filters  = _.assign({}, dataProvider.getFilters());

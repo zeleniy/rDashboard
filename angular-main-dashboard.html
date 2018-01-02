@@ -53,9 +53,15 @@
         <div id="filters-placeholder" class="filters">
           <div class="filter reset-button clickable">Reset filters</div>
           <div class="filter tiles-mode-filter">
-            <label class="radio-inline"><input type="radio" name="tiles-mode" value="case" checked>Cases</label>
-            <label class="radio-inline"><input type="radio" name="tiles-mode" value="count">Data Sources Count</label>
-            <label class="radio-inline"><input type="radio" name="tiles-mode" value="size">Data Sources Size</label>
+            <label class="radio-inline">
+              <input type="radio" name="mode" value="Case" ng-model="mode" ng-change="modeChangedEventHandler()" ng-checked="mode == 'Case'">Cases
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="mode" value="Count" ng-model="mode" ng-change="modeChangedEventHandler()" ng-checked="mode == 'Count'">Data Sources Count
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="mode" value="Size" ng-model="mode" ng-change="modeChangedEventHandler()" ng-checked="mode == 'Size'">Data Sources Size
+            </label>
           </div>
         </div>
         <div class="clear"></div>
