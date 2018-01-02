@@ -48,18 +48,60 @@
 </head>
 <body>
   <main class="container" ng-app="dashboardApp">
-    <dashboard></dashboard>
+      <div id="MainDashboard" class="dashboard" ng-controller="DashboardCtrl">
+          <section id="widget-grid" data-widget-grid>
+              <div class="row">
+                  <article class="col-md-12 column">
+                      <div id="filters-placeholder" class="filters">
+                          <button class="btn btn-primary filter reset-button clickable pull-right">Reset Filters</button>
+                          <div class="filter tiles-mode-filter">
+                              <input type="radio" name="tiles-mode" value="case" checked><i></i><label class="radio-inline">Cases</label>
+                              <input type="radio" name="tiles-mode" value="count"><i></i><label class="radio-inline">Data Sources Count</label>
+                              <input type="radio" name="tiles-mode" value="size"><i></i><label class="radio-inline">Data Sources Size</label>
+                          </div>
+                          <div class="filters-list filters-top">
+                              <div class="filter applied-filters">Applied Filters: </div>
+                          </div>
+                      </div>
+                  </article>
+              </div>
+              <div class="row">
+                  <article class="col-md-12 column">
+                      <div id="tiles-placeholder"></div>
+                  </article>
+              </div>
+              <div class="row">
+                  <article class="col-md-12 column">
+                      <div id="timeline-placeholder"></div>
+                  </article>
+              </div>
+              <div class="row">
+                  <article class="col-md-3 column" ng-controller="BarChartCtrl">
+                      <div class="chart"></div>
+                  </article>
+                  <article class="col-md-6 column">
+                      <div id="case-volume-placeholder" class="chart"></div>
+                  </article>
+                  <article class="col-md-3 column">
+                      <div id="case-by-type-placeholder" class="chart"></div>
+                  </article>
+              </div>
+              <div class="row">
+                  <article class="col-md-4 column">
+                      <div id="map-placeholder" class="chart"></div>
+                  </article>
+                  <artcile class="col-md-5 column">
+                      <div id="matter-type-placeholder" class="chart"></div>
+                  </artcile>
+                  <artcile class="col-md-3 column">
+                      <div class="chart"></div>
+                  </artcile>
+              </div>
+          </section>
+      </div>
   </main>
   <script src="js/angular-main-dashboard.js"></script>
-  <script src="js/angular-dashboard/Components/dashboard/dashboard.js"></script>
-  <script src="js/angular-dashboard/Components/pie-chart/pie-chart.js"></script>
-  <script src="js/angular-dashboard/Components/bar-chart/bar-chart.js"></script>
-  <script src="js/angular-dashboard/Components/tree-map/tree-map.js"></script>
-  <script src="js/angular-dashboard/Components/map/map.js"></script>
-  <script src="js/angular-dashboard/Components/scatter-plot/scatter-plot.js"></script>
-  <script src="js/angular-dashboard/Components/case-tile/case-tile.js"></script>
-  <script src="js/angular-dashboard/Components/simple-tile/simple-tile.js"></script>
-  <script src="js/angular-dashboard/Components/filter/filter.js"></script>
-  <script src="js/angular-dashboard/Components/timeline/timeline.js"></script>
+  <script src="js/angular-dashboard/Controllers/dashboard/DashboardCtrl.js"></script>
+  <script src="js/angular-dashboard/Controllers/dashboard/BarChartCtrl.js"></script>
 </body>
 </html>
