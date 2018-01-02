@@ -1,0 +1,23 @@
+<table class="tile" ng-init="init(tile)" ng-controller="ValueTileCtrl" ng-class="{ disabled: isDisabled()}" ng-click="dashboard.valueTileClickedEventHandler(tile.accessor)">
+  <tbody>
+    <tr>
+      <td class="tile-right">
+        <table>
+          <tbody>
+            <tr>
+              <td class="tile-value">{{countValue}}</td>
+              <td class="data-source-text">data source(s)<div class="data-source">{{tile.name}}</div></td>
+            </tr>
+            <tr>
+              <td class="summary" colspan="2">{{countPercent}}% of Total</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td class="tile-left">
+        <div><span class="tile-value">{{sizeValue}}</span><span class="tile-unit">{{sizeUnit}}</span></div>
+        <div class="summary">{{sizePercent}}% of Total</div>
+      </td>
+    </tr>
+  </tbody>
+</table>

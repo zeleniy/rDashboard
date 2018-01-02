@@ -223,6 +223,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       .resetFilter('ValueColumn');
 
     $scope.filters = dataProvider.getFilters();
+    $scope.$broadcast('update');
   }
 
 
@@ -230,14 +231,14 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
    * @param {String} accessor
    */
   $ctrl.valueTileClickedEventHandler = function(accessor) {
-console.log('$ctrl.valueTileClickedEventHandler', accessor)
+
     const tmpAccessor = $scope.accessor;
     const filters = dataProvider.getFilters();
 
     if ('ValueColumn' in filters) {
       $scope.caseTileClickedEventHandler();
     }
-
+    console.log('$ctrl.valueTileClickedEventHandler', accessor == tmpAccessor)
     if (accessor == tmpAccessor) {
       return;
     }
