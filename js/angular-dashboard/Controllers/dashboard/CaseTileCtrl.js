@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 dashboardApp.controller('CaseTileCtrl', function($scope, dataProvider) {
 
 
@@ -23,7 +26,7 @@ dashboardApp.controller('CaseTileCtrl', function($scope, dataProvider) {
   $scope.isDisabled = function() {
 
     return $scope.accessor != undefined;
-  }
+  };
 
 
   /**

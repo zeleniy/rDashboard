@@ -84,12 +84,19 @@ svg.scatter-plot line {
   margin: 0 3px 3px 0;
 }
 
-.tiles .tile {
-  /*min-width: 210px;*/
+.tiles > * {
   flex: 1;
   cursor: pointer;
   display: block;
   margin: 3px 0 0 3px;
+}
+
+.tiles .tile {
+  background-color: rgb(118, 172, 212);
+}
+
+.tiles .disabled {
+  opacity: 0.5;
 }
 
 .tiles .tile table {

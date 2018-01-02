@@ -14,7 +14,6 @@ gulp.task('default', ['lint']);
 gulp.task('dist', [], function() {
   gulp.src('js/dashboard/**/*.js')
     .pipe(order([
-      'js/dashboard/Dashboard.js',
       'js/dashboard/DataProvider.js',
       'js/dashboard/tips/Tip.js',
       'js/dashboard/tips/TitleTip.js',
@@ -27,10 +26,6 @@ gulp.task('dist', [], function() {
       'js/dashboard/ticks/XTicks.js',
       'js/dashboard/ticks/YTicks.js',
       'js/dashboard/Widget.js',
-      'js/dashboard/charts/Tiles.js',
-      'js/dashboard/charts/tiles/Tile.js',
-      'js/dashboard/charts/tiles/SimpleTile.js',
-      'js/dashboard/charts/tiles/CaseTile.js',
       'js/dashboard/charts/PieChart.js',
       'js/dashboard/charts/BarChart.js',
       'js/dashboard/charts/ScatterPlot.js',

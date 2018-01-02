@@ -163,7 +163,7 @@ PieChart.prototype.update = function(animate) {
       this._current = d;
     });
   cc.on('click', function(d) {
-    self._clickHandler({value: d.data.name, accessor: self._config.get('accessor')})
+    self._clickHandler({value: d.data.name, accessor: self._config.get('accessor')});
   });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';

@@ -18,7 +18,7 @@ dashboardApp.controller('ScatterPlotCtrl', function($scope, $element, dataProvid
   $scope._useAnimation = function() {
 
     return Boolean($scope._updateNumber ++);
-  }
+  };
 
 
   /**
@@ -27,5 +27,5 @@ dashboardApp.controller('ScatterPlotCtrl', function($scope, $element, dataProvid
   $scope.$on('update', function() {
 
     $scope._chart.update($scope._useAnimation());
-  })
+  });
 });

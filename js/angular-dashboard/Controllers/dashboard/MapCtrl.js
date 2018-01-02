@@ -18,7 +18,7 @@ dashboardApp.controller('MapCtrl', function($scope, $element, dataProvider, tool
   $scope._useAnimation = function() {
 
     return Boolean($scope._updateNumber ++);
-  }
+  };
 
 
   /**
@@ -27,5 +27,5 @@ dashboardApp.controller('MapCtrl', function($scope, $element, dataProvider, tool
   $scope.$on('update', function() {
 
     $scope._chart.update($scope._useAnimation());
-  })
+  });
 });

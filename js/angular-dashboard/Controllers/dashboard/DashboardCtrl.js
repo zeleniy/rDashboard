@@ -1,6 +1,9 @@
+/*jshint sub:true*/
+
+
 dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
-  const $ctrl = this;
+  var $ctrl = this;
 
   $ctrl.data = [];
   $scope.mode = 'Case';
@@ -49,7 +52,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
       new SummationTip('Data Volume:', 'DataSourceSize', true, true)
     ]
-  }
+  };
 
   $scope.mapConfig = {
     accessor: 'Country',
@@ -76,7 +79,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       new SummationTip('Data Sources:', 'IdentifiedDataSourcesCount'),
       new SummationTip('Data Volume:', 'DataSourceSize', true, true)
     ]
-  }
+  };
 
   $scope.scatterPlotConfig = {
     xAccessor: 'CaseCreatedOn',
@@ -100,7 +103,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
       new SimpleTip('Data Source Count:', 'DataSourceCount'),
       new SimpleTip('Total Size:', 'DataSourceSize')
     ]
-  }
+  };
 
   $scope.tiles = [{
     name: 'identified',
@@ -121,7 +124,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
   $scope.timelineConfig = {
     accessor: 'CaseCreatedOn'
-  }
+  };
 
 
   /**
@@ -133,13 +136,13 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
       var data = d3.tsvParseRows(response.data);
 
-      const keys = data[0];
-      const values = data.slice(1);
+      var keys = data[0];
+      var values = data.slice(1);
 
       data = values
         .map(function(d, i) {
           return keys.reduce(function(row, key, j) {
-            row[key] = values[i][j]
+            row[key] = values[i][j];
             return row;
           }, {});
         }).map(function(d) {
@@ -170,9 +173,9 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
         $scope.mapConfig.world = world;
         $scope.$broadcast('update');
         $scope.$apply();
-      })
+      });
     });
-  }
+  };
 
 
   $scope.getFilterValue = function(filter) {
@@ -182,14 +185,14 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     } else {
       return filter.value;
     }
-  }
+  };
 
 
   $scope.modeChangedEventHandler = function() {
 
     dataProvider.setMode($scope.mode);
     $scope.$broadcast('update');
-  }
+  };
 
 
   /**
@@ -209,7 +212,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
     $scope.filters = {};
     $scope.$broadcast('update');
-  }
+  };
 
 
   /**
@@ -229,7 +232,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
     $scope.filters = dataProvider.getFilters();
     $scope.$broadcast('update');
-  }
+  };
 
 
   /**
@@ -237,8 +240,8 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
    */
   $scope.valueTileClickedEventHandler = function(accessor) {
 
-    const tmpAccessor = $scope.accessor;
-    const filters = dataProvider.getFilters();
+    var tmpAccessor = $scope.accessor;
+    var filters = dataProvider.getFilters();
 
     if ('ValueColumn' in filters) {
       $scope.caseTileClickedEventHandler();
@@ -257,7 +260,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     $scope.accessor = accessor;
     $scope.filters  = dataProvider.getFilters();
     $scope.$broadcast('update');
-  }
+  };
 
 
   /**
@@ -273,7 +276,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
     $scope.filters = dataProvider.getFilters();
     $scope.$broadcast('update');
-  }
+  };
 
 
   /**
@@ -281,9 +284,9 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
    */
   $scope.$on('filter', function(event, params) {
 
-    const value = params.value;
-    const accessor = params.accessor;
-    const comparator = params.comparator || function(d) {
+    var value = params.value;
+    var accessor = params.accessor;
+    var comparator = params.comparator || function(d) {
       return d == value;
     };
 

@@ -108,7 +108,7 @@ Map.prototype.resize = function(animate) {
  */
 Map.prototype.update = function(animate) {
 
-  const self = this;
+  var self = this;
 
 //    animate = animate === undefined ? true : false;
   Widget.prototype.update.call(this, animate);
@@ -148,7 +148,7 @@ Map.prototype.update = function(animate) {
     })
     .call(cc);
   cc.on('click', function(d) {
-    self._clickHandler({value: d.name, accessor: self._config.get('accessor')})
+    self._clickHandler({value: d.name, accessor: self._config.get('accessor')});
   });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';
@@ -170,5 +170,5 @@ Map.prototype.update = function(animate) {
       self.getTooltip().move();
     });
 
-  return this.resize(animate);;
+  return this.resize(animate);
 };

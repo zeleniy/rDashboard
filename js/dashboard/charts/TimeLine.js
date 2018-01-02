@@ -185,7 +185,7 @@ TimeLine.prototype.update = function() {
 
   var accessor = this.getDataKey();
 
-  const dataSet = this._dataProvider.getData();
+  var dataSet = this._dataProvider.getData();
   if (dataSet.length == 0) {
     return;
   }

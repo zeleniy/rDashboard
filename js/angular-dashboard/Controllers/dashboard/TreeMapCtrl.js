@@ -17,7 +17,7 @@ dashboardApp.controller('TreeMapCtrl', function($scope, $element, dataProvider, 
   $scope._useAnimation = function() {
 
     return Boolean($scope._updateNumber ++);
-  }
+  };
 
 
   /**

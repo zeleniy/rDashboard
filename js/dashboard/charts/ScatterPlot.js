@@ -247,7 +247,7 @@ ScatterPlot.prototype.update = function(animate) {
       return self._colorScale(d[color]);
     }).call(cc);
   cc.on('click', function(d) {
-    self._clickHandler({ value: d })
+    self._clickHandler({ value: d });
   });
   cc.on('dblclick', function(d) {
     location.href = 'https://www.google.com';

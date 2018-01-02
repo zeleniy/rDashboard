@@ -18,7 +18,7 @@ dashboardApp.controller('TimelineCtrl', function($scope, $element, dataProvider,
   $scope._useAnimation = function() {
 
     return Boolean($scope._updateNumber ++);
-  }
+  };
 
 
   /**
@@ -27,5 +27,5 @@ dashboardApp.controller('TimelineCtrl', function($scope, $element, dataProvider,
   $scope.$on('update', function() {
 
     $scope._chart.update($scope._useAnimation());
-  })
+  });
 });

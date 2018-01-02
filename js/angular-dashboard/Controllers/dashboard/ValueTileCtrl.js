@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+
+
 dashboardApp.controller('ValueTileCtrl', function($scope, dataProvider) {
 
 
@@ -11,7 +14,7 @@ dashboardApp.controller('ValueTileCtrl', function($scope, dataProvider) {
   $scope.init = function(config) {
 
     $scope.config = new Config(config);
-  }
+  };
 
 
   /**
@@ -32,7 +35,7 @@ dashboardApp.controller('ValueTileCtrl', function($scope, dataProvider) {
   $scope.isDisabled = function() {
 
     return $scope.accessor != undefined && $scope.accessor != $scope.config.get('accessor');
-  }
+  };
 
 
   /**
