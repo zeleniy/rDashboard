@@ -1,0 +1,25 @@
+<table class="tile" ng-controller="CaseTileCtrl" ng-class="{ disabled: isDisabled()}" ng-click="caseTileClickedEventHandler()">
+  <tbody>
+    <tr>
+      <td class="tile-right">
+        <table>
+          <tbody>
+            <tr>
+              <td class="tile-value">{{countValue}}</td>
+              <td class="data-source-text">Total<div class="data-source">cases</div></td>
+            </tr>
+            <tr>
+              <td class="summary" colspan="2">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td class="tile-left">
+        <div>
+          <span class="tile-value">{{sizeValue}}</span><span class="tile-unit">{{sizeUnit}}</span>
+        </div>
+        <div class="summary">&nbsp;</div>
+      </td>
+    </tr>
+  </tbody>
+</table>

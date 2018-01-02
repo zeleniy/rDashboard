@@ -102,11 +102,6 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     ]
   }
 
-  $ctrl.caseTileConfig = {
-    name: 'caces',
-    accessor: 'CaseID'
-  }
-
   $scope.tiles = [{
     name: 'identified',
     accessor: 'IdentifiedDataSources'
@@ -180,6 +175,16 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   }
 
 
+  $scope.getFilterValue = function(filter) {
+
+    if (filter.accessor == 'ValueColumn') {
+      return filter.value.replace(/(Case|Count|Size)$/, $scope.mode);
+    } else {
+      return filter.value;
+    }
+  }
+
+
   $scope.modeChangedEventHandler = function() {
 
     dataProvider.setMode($scope.mode);
@@ -230,7 +235,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
   /**
    * @param {String} accessor
    */
-  $ctrl.valueTileClickedEventHandler = function(accessor) {
+  $scope.valueTileClickedEventHandler = function(accessor) {
 
     const tmpAccessor = $scope.accessor;
     const filters = dataProvider.getFilters();
@@ -238,7 +243,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     if ('ValueColumn' in filters) {
       $scope.caseTileClickedEventHandler();
     }
-    console.log('$ctrl.valueTileClickedEventHandler', accessor == tmpAccessor)
+
     if (accessor == tmpAccessor) {
       return;
     }

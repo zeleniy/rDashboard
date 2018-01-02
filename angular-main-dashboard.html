@@ -68,12 +68,13 @@
         <div class="filters-list">
           <div class="filter applied-filters">Applied Filters: </div>
           <div class="filter" ng-repeat="filter in filters">
-            <span>{{filter.accessor}} = {{filter.value}}</span>
+            <span>{{filter.accessor}} = {{getFilterValue(filter)}}</span>
             <span class="filter-remove" ng-click="filterClickedEventHandler(filter.accessor)">x</span>
           </div>
         </div>
         <div class="clear"></div>
         <div class="tiles">
+          <div ng-include src="'js/angular-dashboard/Views/dashboard/CaseTile.html'"></div>
           <div ng-repeat="tile in tiles" ng-include src="'js/angular-dashboard/Views/dashboard/ValueTile.html'"></div>
         </div>
       </div>
@@ -112,5 +113,6 @@
   <script src="js/angular-dashboard/Controllers/dashboard/MapCtrl.js"></script>
   <script src="js/angular-dashboard/Controllers/dashboard/TimelineCtrl.js"></script>
   <script src="js/angular-dashboard/Controllers/dashboard/ValueTileCtrl.js"></script>
+  <script src="js/angular-dashboard/Controllers/dashboard/CaseTileCtrl.js"></script>
 </body>
 </html>
