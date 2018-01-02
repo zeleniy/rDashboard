@@ -108,76 +108,67 @@ Map.prototype.resize = function(animate) {
  */
 Map.prototype.update = function(animate) {
 
-  var self = this;
-
-  d3.json('data/world_countries.json', function(error, world) {
-
-    if (error) {
-      return console.error(error);
-    }
+  const self = this;
 
 //    animate = animate === undefined ? true : false;
-    Widget.prototype.update.call(self, animate);
+  Widget.prototype.update.call(this, animate);
 
-    self._mapData = world;
+  this._mapData = this._config.get('world');
 
-    self._mapData.features = _.filter(self._mapData.features, function(d) {
-      return d.id != 'ATA';
-    });
-
-    self._countries = self._countryLayer
-      .selectAll('path')
-      .data(self._mapData.features)
-      .enter()
-      .append('path')
-      .attr('class', 'country');
-
-    var data = self.getData();
-
-    var update = self._dataLayer
-      .selectAll('circle')
-      .data(data, function(d) {
-        return d.name;
-      });
-
-    update
-      .exit()
-      .remove();
-
-    var cc = clickcancel();
-    update
-      .enter()
-      .append('circle')
-      .attr('class', 'bubble clickable')
-      .attr('fill', function(d) {
-        return self._colorScale(d.name);
-      })
-      .call(cc);
-    cc.on('click', function(d) {
-      self._clickHandler({value: d.name, accessor: self._config.get('accessor')})
-    });
-    cc.on('dblclick', function(d) {
-      location.href = 'https://www.google.com';
-    });
-
-    self._bubbles = self._dataLayer
-      .selectAll('circle')
-      .data(data, function(d) {
-        return d.name;
-      }).on('mouseenter', function(d) {
-        self.getTooltip()
-          .setContent(self.getTooltipContent(self._config.get('accessor'), d.name, d))
-          .show();
-      })
-      .on('mouseout', function(d) {
-        self.getTooltip().hide();
-      })
-      .on('mousemove', function(d) {
-        self.getTooltip().move();
-      });
-
-    self.resize(animate);
+  this._mapData.features = _.filter(this._mapData.features, function(d) {
+    return d.id != 'ATA';
   });
 
-  return this;
+  this._countries = this._countryLayer
+    .selectAll('path')
+    .data(this._mapData.features)
+    .enter()
+    .append('path')
+    .attr('class', 'country');
+
+  var data = this.getData();
+
+  var update = this._dataLayer
+    .selectAll('circle')
+    .data(data, function(d) {
+      return d.name;
+    });
+
+  update
+    .exit()
+    .remove();
+
+  var cc = clickcancel();
+  update
+    .enter()
+    .append('circle')
+    .attr('class', 'bubble clickable')
+    .attr('fill', function(d) {
+      return self._colorScale(d.name);
+    })
+    .call(cc);
+  cc.on('click', function(d) {
+    self._clickHandler({value: d.name, accessor: self._config.get('accessor')})
+  });
+  cc.on('dblclick', function(d) {
+    location.href = 'https://www.google.com';
+  });
+
+  this._bubbles = this._dataLayer
+    .selectAll('circle')
+    .data(data, function(d) {
+      return d.name;
+    }).on('mouseenter', function(d) {
+      self.getTooltip()
+        .setContent(self.getTooltipContent(self._config.get('accessor'), d.name, d))
+        .show();
+    })
+    .on('mouseout', function(d) {
+      self.getTooltip().hide();
+    })
+    .on('mousemove', function(d) {
+      self.getTooltip().move();
+    });
+
+  return this.resize(animate);;
 };

@@ -51,7 +51,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     ]
   }
 
-  $ctrl.mapConfig = {
+  $scope.mapConfig = {
     accessor: 'Country',
 //      world: world,
     title: function(chart) {
@@ -177,7 +177,12 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
         });
 
       dataProvider.setData(data);
-      $scope.$broadcast('update');
+
+      d3.json('data/world_countries.json', function(error, world) {
+
+        $scope.mapConfig.world = world;
+        $scope.$broadcast('update');
+      })
     });
   }
 
