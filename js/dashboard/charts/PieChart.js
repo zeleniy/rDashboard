@@ -126,8 +126,12 @@ PieChart.prototype.update = function(animate) {
   var rows = update
     .enter()
     .append('g');
-  rows.append('rect')
-    .attr('width', this._legendBoxSize)
+  rows.append('rect');
+  this._legend
+    .selectAll('rect')
+    .data(data, function(d) {
+      return d.name;
+    }).attr('width', this._legendBoxSize)
     .attr('height', this._legendBoxSize)
     .attr('fill', function(d) {
       return self._colorScale(d.name);
@@ -185,8 +189,9 @@ PieChart.prototype.update = function(animate) {
 
   this._legend
     .selectAll('text')
-    .data(data)
-    .text(function(d) {
+    .data(data, function(d) {
+      return d.name;
+    }).text(function(d) {
       return d.name + ' ' + d.value + ' (' + (Math.round(d.value / total * 1000) / 10) + '%)';
     });
 
