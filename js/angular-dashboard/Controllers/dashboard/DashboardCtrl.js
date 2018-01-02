@@ -91,10 +91,10 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
     yLabel: 'Data Source Count',
     title: 'Case Population',
     subtitle: function() {
-      if ($scope.mode == 'Count') {
-        return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Count)';
-      } else {
+      if ($scope.mode == 'Size') {
         return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Size)';
+      } else {
+        return 'Cases vs Data Sources plotted on Case Created Date (Bubble size represents Data Sources Count)';
       }
     },
     tooltip: [
