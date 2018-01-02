@@ -35,9 +35,15 @@ function Widget(options) {
 
 Widget.prototype.onClick = function(clickHandler) {
 
-  this._clickHandler = clickHandler;
+  this._clickEventHandler = clickHandler;
   return this;
 };
+
+
+Widget.prototype._clickHandler = function(params) {
+
+  this._clickEventHandler(params);
+}
 
 
 Widget.prototype.getMode = function() {

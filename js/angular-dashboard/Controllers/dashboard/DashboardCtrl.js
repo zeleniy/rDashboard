@@ -177,7 +177,7 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
         });
 
       dataProvider.setData(data);
-      $scope.$broadcast('update', data)
+      $scope.$broadcast('update');
     });
   }
 
@@ -269,20 +269,17 @@ dashboardApp.controller('DashboardCtrl', function($scope, $http, dataProvider) {
 
 
   /**
-   * @param {String} value
-   * @param {String} accessor
-   * @param {Function} [comparator]
+   * Chart clicked event handler.
    */
-  $ctrl.chartClickedEventHandler = function(value, accessor, comparator) {
+  $scope.$on('filter', function(event, params) {
 
-    comparator = comparator || function(d) {
+    const value = params.value;
+    const accessor = params.accessor;
+    const comparator = params.comparator || function(d) {
       return d == value;
     };
 
     dataProvider.setFilter(accessor, comparator, value);
-
-    $ctrl.filters = _.assign({}, dataProvider.getFilters());
-
-    $scope.$digest();
-  }
+    $scope.$broadcast('update');
+  });
 });

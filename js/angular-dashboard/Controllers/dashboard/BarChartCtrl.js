@@ -4,7 +4,9 @@ dashboardApp.controller('BarChartCtrl', function($scope, $element, dataProvider,
   $scope._updateNumber = 0;
   $scope._chart = new BarChart($scope.barChartConfig)
     .setTooltip(tooltip)
-    .onClick(this.onClick)
+    .onClick(function(filter) {
+      $scope.$emit('filter', filter);
+    })
     .setDataProvider(dataProvider)
     .renderTo($element.find('div')[0]);
 

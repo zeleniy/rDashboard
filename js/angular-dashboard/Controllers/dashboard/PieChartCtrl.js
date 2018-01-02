@@ -4,8 +4,9 @@ dashboardApp.controller('PieChartCtrl', function($scope, $element, dataProvider,
   $scope._updateNumber = 0;
   $scope._chart = new PieChart($scope.pieChartConfig)
     .setTooltip(tooltip)
-    .onClick(this.onClick)
-    .setDataProvider(dataProvider)
+    .onClick(function(filter) {
+      $scope.$emit('filter', filter);
+    }).setDataProvider(dataProvider)
     .renderTo($element.find('div')[0]);
 
 
@@ -25,5 +26,5 @@ dashboardApp.controller('PieChartCtrl', function($scope, $element, dataProvider,
   $scope.$on('update', function() {
 
     $scope._chart.update($scope._useAnimation());
-  })
+  });
 });
